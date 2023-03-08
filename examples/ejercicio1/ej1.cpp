@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
 
     cout << "Image " << name << endl;
     cout << "La imagen tiene " << image.rows << " renglones." << endl;
-    cout << "La imagen tiene " << image.cols << " columnas." << endl;
+    cout << "La imagen tiene " << image.cols << " columnas." << endl
 
     Mat hist;
 
