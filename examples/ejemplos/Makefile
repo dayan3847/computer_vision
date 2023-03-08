@@ -1,5 +1,5 @@
 
-all:simple ejemplo2 ejemplo3
+all:simple ../../old/example2/ejemplo2 ejemplo3
 
 simple: simple.o
 	g++ -Wall -o simple simple.o `pkg-config opencv4 --libs`
@@ -7,10 +7,10 @@ simple: simple.o
 simple.o: simple.cpp
 	g++ -Wall `pkg-config opencv4 --cflags` -c simple.cpp
 
-ejemplo2: ejemplo2.o
+ejemplo2: ../../old/example2/ejemplo2.o
 	g++ -Wall -o ejemplo2 ejemplo2.o `pkg-config opencv4 --libs`
 
-ejemplo2.o: ejemplo2.cpp
+ejemplo2.o: ../../old/example2/ejemplo2.cpp
 	g++ -Wall `pkg-config opencv4 --cflags` -c ejemplo2.cpp
 	
 	

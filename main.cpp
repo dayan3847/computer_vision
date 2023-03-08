@@ -47,7 +47,30 @@ int main() {
     // Show the histogram
     histogram.show(matHistogram);
 
+    // example 2
+    int cont = 0;
+    int key;
+    int inc = 1;
+    do {
+        imshow("image", image);
+        image = image + inc;
+        cont = cont + inc;
+        if (cont > 50 || cont < -50)
+            inc = -inc;
+        key = waitKeyEx(1);
+    } while (toupper((char) key) != 'Q');
+    destroyWindow("image");
 
+//    // example 1
+//    Mat A;
+//    unsigned int i, j;
+//
+//    A = Mat::zeros(4, 4, CV_8UC1);
+//    for (i = 0; i < 4; ++i)
+//        for (j = 0; j < 4; ++j)
+//            A.at<unsigned char>(i,j) = 128+i*10+j*5;
+//
+//    cout << "A = " << A << endl;
 
     return 0;
 }
