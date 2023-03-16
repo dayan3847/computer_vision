@@ -1,6 +1,7 @@
 #include <iostream>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include "src/Thresholding.h"
 
 using namespace std;
 using namespace cv;
@@ -17,5 +18,8 @@ int main() {
     waitKey(0);
     destroyWindow(name);
 
+    Thresholding thresholding = Thresholding();
+    double optimalThreshold = thresholding.optimalThreshold(image);
+    cout << "Optimal threshold: " << optimalThreshold << endl;
     return 0;
 }
