@@ -221,6 +221,9 @@ CascadeClassificationKMeans_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 CascadeClassificationKMeans_SOURCE_DIR:STATIC=/home/dayan3847/CLionProjects/CascadeClassificationKMeans
 
+//The directory containing a CMake configuration file for OpenCV.
+OpenCV_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/opencv4
+
 
 ########################
 # INTERNAL cache entries
@@ -365,6 +368,8 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding OpenCV
+FIND_PACKAGE_MESSAGE_DETAILS_OpenCV:INTERNAL=[/usr][v4.5.4()]
 //linker supports push/pop state
 _CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 
