@@ -26,7 +26,7 @@ int main() {
     cout << "a = " << a << endl;
 
     // Image
-    string name = "img/Jaguarcito1.png";
+    string name = "./img/Jaguarcito1.png";
     Mat image = imread(name, IMREAD_GRAYSCALE);
 
     cout << "Image " << name << endl;
