@@ -5,21 +5,21 @@
 #include "Thresholding.h"
 
 double Thresholding::optimalThreshold(Mat &image, int limit) {
-    double um, umUp, umDown, umOld;
-    int cont = 0;
-    int contUp, contDown;
-    bool run = true;
     Scalar val = mean(image);
-    um = val[0];
+    double umCurrent = val[0];
+    double umPrevious;
     int imageRows = image.rows;
     int imageCols = image.cols;
+    int cont = 0;
     do {
-        umUp = umDown = 0;
-        contUp = contDown = 0;
+        double umUp = 0;
+        int contUp = 0;
+        double umDown = 0;
+        int contDown = 0;
         for (int i = 0; i < imageRows; i++) {
-            unsigned char *ptr = image.ptr<unsigned char>(i);
-            for (int j = 0; j < imageCols; j++, ++ptr)
-                if (*ptr > um) {
+            auto *ptr = image.ptr<unsigned char>(i);
+            for (int j = 0; j < imageCols; j++, ptr++)
+                if (*ptr > umCurrent) {
                     umUp += *ptr;
                     contUp++;
                 } else {
@@ -29,12 +29,10 @@ double Thresholding::optimalThreshold(Mat &image, int limit) {
         }
         umUp /= contUp;
         umDown /= contDown;
-        umOld = um;
-        um = (umUp + umDown) / 2;
+        umPrevious = umCurrent;
+        umCurrent = (umUp + umDown) / 2;
         cont++;
-        if (um == umOld || cont > limit)
-            run = false;
-    } while (run);
+    } while (umCurrent != umPrevious && cont <= limit);
 
-    return um;
+    return umCurrent;
 }
