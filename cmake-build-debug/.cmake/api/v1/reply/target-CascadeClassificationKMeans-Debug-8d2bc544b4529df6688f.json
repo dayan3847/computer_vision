@@ -382,7 +382,8 @@
 			"sourceIndexes" : 
 			[
 				1,
-				4
+				4,
+				5
 			]
 		}
 	],
@@ -414,6 +415,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "src/MatTools.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/ImageStats.h",
 			"sourceGroupIndex" : 1
 		}
 	],

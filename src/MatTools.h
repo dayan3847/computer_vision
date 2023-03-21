@@ -6,6 +6,7 @@
 #define CASCADECLASSIFICATIONKMEANS_MATTOOLS_H
 
 #include "opencv2/opencv.hpp"
+#include "ImageStats.h"
 
 using namespace cv;
 
@@ -39,13 +40,28 @@ son indeterminados. Si el número de elementos procesado es igual a 1, el parame
 elemento procesado, pero el parametro por referencia cov es indeterminado, y la funcion indica fallo regresando el valor -2.
 
 */
-    int meanCovariance(Mat &image, Mat &Mask, Mat &mean, Mat &cov);
+    int meanCovariance(Mat &image, Mat &Mask, Mat &mean, Mat &cov, int label = 1);
+
+    /**
+     * Mean Covariance
+     */
+    ImageStats meanCovariance(Mat &image, Mat &mask, int label = 1);
+
+
+    double distanceMahalanobisNormalized(double a, double b, double am, double bm, double s1, double s2, double s3);
 
     /**
      * Distance Mahalanobis Normalized
-     *
      */
-    double distanceMahalanobisNormalized(double a, double b, double am, double bm, double s1, double s2, double s3);
+    double distanceMahalanobisNormalized(float a, float b, ImageStats imageStats);
+
+    /**
+     * Dividir una clase
+     */
+    int divideClass(Mat &mask, int label = 1);
+
+private:
+    static int lastLabel;
 
 };
 

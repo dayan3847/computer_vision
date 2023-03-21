@@ -25,14 +25,43 @@ int main() {
     cvtColor(imageFloat, imageLab, COLOR_BGR2Lab);
     // Calculate mean and covariance.
     MatTools matTools = MatTools();
-    Mat mask = Mat::ones(imageFloat.size(), CV_8UC1);
-    Mat mean, covariance;
-    matTools.meanCovariance(imageLab, mask, mean, covariance);
+    Mat mask = Mat::ones(imageLab.size(), CV_8UC1);
 
-    cout << "Mean: " << mean << endl;
-    cout << "Covariance: " << covariance << endl;
+    cout << "imageLab.size()" << imageLab.size() << endl;
+
+    ImageStats imageStats = matTools.meanCovariance(imageLab, mask, 2);
+    cout << "Mean: "
+         << "a " << imageStats.mean.a
+         << " b " << imageStats.mean.b
+         << endl;
+    cout << "Covariance: "
+         << "s1 " << imageStats.covariance.s1
+         << " s2 " << imageStats.covariance.s2
+         << " s3 " << imageStats.covariance.s3
+         << endl;
 
     cout << "Image: \"" << name << "\" (" << image.rows << "x" << image.cols << ")" << endl;
+
+
+    int l = matTools.divideClass(mask, 1);
+
+    ImageStats imageStatsClassA = matTools.meanCovariance(imageLab, mask, l);
+    ImageStats imageStatsClassB = matTools.meanCovariance(imageLab, mask, l + 1);
+
+    int label = 0;
+    for (int i = 0; i < imageLab.rows; ++i) {
+        for (int j = 0; j < imageLab.cols; ++j) {
+            // Get pixel.
+            Vec3f pixel = imageLab.at<Vec3f>(i, j);
+            float a = pixel[1];
+            float b = pixel[2];
+            // Calculate distance.
+            double distance = matTools.distanceMahalanobisNormalized(a, b, imageStats);
+
+        }
+
+    }
+
 
     imshow(name, image);
     waitKey(0);
