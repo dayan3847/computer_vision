@@ -14,10 +14,14 @@ struct ImageStats {
     } mean;
     // matrix de covarianza
     struct {
-        float s1 = 0;
-        float s2 = 0;
+        float s1 = 1;
+        float s2 = 1;
         float s3 = 0;
     } covariance;
+    // cantidad de pixeles
+    int count = 0;
+    // label
+    int label = 0;
 };
 
 

@@ -1,16 +1,16 @@
 #include <iostream>
+#include <vector>
 #include "opencv2/opencv.hpp"
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include "src/Thresholding.h"
 #include "src/MatTools.h"
+#include "src/History.h"
 
 using namespace std;
 using namespace cv;
 
 int main() {
-    cout << "Hello, World!" << endl;
-
     // Image
     string name = "img/jaguarcito.png";
     // Read image.
@@ -25,11 +25,11 @@ int main() {
     cvtColor(imageFloat, imageLab, COLOR_BGR2Lab);
     // Calculate mean and covariance.
     MatTools matTools = MatTools();
-    Mat mask = Mat::ones(imageLab.size(), CV_8UC1);
+    Mat mask = Mat::zeros(imageLab.size(), CV_8UC1);
 
     cout << "imageLab.size()" << imageLab.size() << endl;
 
-    ImageStats imageStats = matTools.meanCovariance(imageLab, mask, 2);
+    ImageStats imageStats = matTools.meanCovariance(imageLab, mask, 1);
     cout << "Mean: "
          << "a " << imageStats.mean.a
          << " b " << imageStats.mean.b
@@ -42,33 +42,59 @@ int main() {
 
     cout << "Image: \"" << name << "\" (" << image.rows << "x" << image.cols << ")" << endl;
 
-
-    int l = matTools.divideClass(mask, 1);
-
-    ImageStats imageStatsClassA = matTools.meanCovariance(imageLab, mask, l);
-    ImageStats imageStatsClassB = matTools.meanCovariance(imageLab, mask, l + 1);
-
-    int label = 0;
-    for (int i = 0; i < imageLab.rows; ++i) {
-        for (int j = 0; j < imageLab.cols; ++j) {
-            // Get pixel.
-            Vec3f pixel = imageLab.at<Vec3f>(i, j);
-            float a = pixel[1];
-            float b = pixel[2];
-            // Calculate distance.
-            double distance = matTools.distanceMahalanobisNormalized(a, b, imageStats);
-
-        }
-
-    }
-
-
     imshow(name, image);
     waitKey(0);
     destroyWindow(name);
 
-//    Thresholding thresholding = Thresholding();
-//    double optimalThreshold = thresholding.optimalThreshold(image);
-//    cout << "Optimal threshold: " << optimalThreshold << endl;
+    Thresholding thresholding = Thresholding();
+
+    History::imageStatsMap[1] = imageStats;
+    vector<History> historyVector;
+    vector<int> labels = {0};
+    auto iHistory = History(mask, labels);
+    historyVector.push_back(iHistory);
+    for (int i = 0; i < 1; ++i) {
+        cout << "Level: " << i << endl;
+        labels = thresholding.propagate(imageLab, mask, labels);
+
+        if (labels.empty()) {
+            break;
+        }
+
+        // print labels
+        cout << "Labels: ";
+        for (const auto &itemLabels: labels) {
+            cout << itemLabels << " ";
+        }
+        cout << endl;
+
+        iHistory = History(mask, labels);
+        historyVector.push_back(iHistory);
+    }
+
+    for (const auto &itemHistoryVector: historyVector) {
+        Mat m = itemHistoryVector.mask;
+        Mat imageLabThr = imageLab.clone();
+        auto itImage = imageLabThr.begin<Vec3f>();
+        auto itMask = m.begin<uchar>();
+        auto itEnd = m.end<uchar>();
+        while (itMask != itEnd) {
+            auto imageStatsClassI = History::imageStatsMap[*itMask];
+            (*itImage)[0] = imageStatsClassI.mean.a;
+            (*itImage)[1] = imageStatsClassI.mean.b;
+            itImage++;
+            itMask++;
+        }
+
+        Mat imageThr;
+        cvtColor(imageLabThr, imageThr, COLOR_Lab2BGR);
+        imageThr *= 255.0;
+        imageThr.convertTo(imageThr, CV_8UC3);
+
+        imshow("Thresholding", imageThr);
+        waitKey(0);
+        destroyWindow("Thresholding");
+    }
+
     return 0;
 }

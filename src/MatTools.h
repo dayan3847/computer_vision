@@ -5,10 +5,12 @@
 #ifndef CASCADECLASSIFICATIONKMEANS_MATTOOLS_H
 #define CASCADECLASSIFICATIONKMEANS_MATTOOLS_H
 
+#include <vector>
 #include "opencv2/opencv.hpp"
 #include "ImageStats.h"
 
 using namespace cv;
+using namespace std;
 
 class MatTools {
 public:
@@ -42,6 +44,20 @@ elemento procesado, pero el parametro por referencia cov es indeterminado, y la 
 */
     int meanCovariance(Mat &image, Mat &Mask, Mat &mean, Mat &cov, int label = 1);
 
+    map<int, ImageStats> mean(Mat &image, Mat &mask);
+
+    /**
+     * Calcular la media y la matriz de covarianza de una imagen
+     *
+     * @param image imagen en formato BGR2Lab
+     * @param mask tiene los valores de las etiquetas
+     * @param covariance {true} calculate covariance matrix
+     *                   {false} calculate only mean (covariance matrix is identity)
+     *
+     * @return map<int, ImageStats> map of ImageStats {label, ImageStats} (la llave es el valor de la etiqueta)
+     */
+    map<int, ImageStats> meanCovariance(Mat &image, Mat &mask, bool covariance = true);
+
     /**
      * Mean Covariance
      */
@@ -54,14 +70,6 @@ elemento procesado, pero el parametro por referencia cov es indeterminado, y la 
      * Distance Mahalanobis Normalized
      */
     double distanceMahalanobisNormalized(float a, float b, ImageStats imageStats);
-
-    /**
-     * Dividir una clase
-     */
-    int divideClass(Mat &mask, int label = 1);
-
-private:
-    static int lastLabel;
 
 };
 
