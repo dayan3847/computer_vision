@@ -17,20 +17,13 @@ class Thresholding {
 public:
 
     /**
-     * Optimal Threshold
-     *
-     * @param image
-     * @param limit
-     * @return double
-     */
-    double optimalThreshold(Mat &image, int limit = 15);
-
-    /**
      * Dividir una clase
      */
-    int divideClass(Mat &mask, int label = 1);
+    static int divideClass(Mat &mask, int label = 1);
 
-    int toThreshold(
+    static void cOutImageStats(ImageStats &imageStats);
+
+    static int toThreshold(
             Mat &image,
             Mat &mask,
             int classA,
@@ -43,7 +36,7 @@ public:
             int iterationsLimitWithoutConvergence = 3
     );
 
-    vector<int> propagate(Mat &image, Mat &mask, vector<int> &labels);
+    static vector<int> propagate(Mat &image, Mat &mask, vector<int> &labels);
 
 private:
     static int lastLabel;
