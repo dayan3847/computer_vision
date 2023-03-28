@@ -70,7 +70,8 @@
 				0,
 				2,
 				3,
-				6
+				6,
+				8
 			]
 		}
 	],
@@ -376,7 +377,8 @@
 				0,
 				2,
 				3,
-				6
+				6,
+				8
 			]
 		},
 		{
@@ -386,7 +388,8 @@
 				1,
 				4,
 				5,
-				7
+				7,
+				9
 			]
 		}
 	],
@@ -434,6 +437,17 @@
 		{
 			"backtrace" : 1,
 			"path" : "src/History.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/ImageRepo.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/ImageRepo.h",
 			"sourceGroupIndex" : 1
 		}
 	],

@@ -9,6 +9,7 @@
 struct ImageStats {
     // vector promedio
     struct {
+        float l = 0;
         float a = 0;
         float b = 0;
     } mean;

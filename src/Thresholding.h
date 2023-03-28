@@ -15,6 +15,8 @@ using namespace std;
 class Thresholding {
 public:
 
+    int countClass(Mat &mask, int label);
+
     /**
      * Dividir una clase
      */

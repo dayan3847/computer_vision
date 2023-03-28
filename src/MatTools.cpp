@@ -27,6 +27,7 @@ int MatTools::mean(Mat &image, Mat &mask, map<int, ImageStats> &stats, vector<in
             continue;
         }
         auto &imageStats = stats[label];
+        imageStats.mean.l += (*itImage)[0];
         imageStats.mean.a += (*itImage)[1];
         imageStats.mean.b += (*itImage)[2];
         imageStats.count++;
@@ -34,9 +35,9 @@ int MatTools::mean(Mat &image, Mat &mask, map<int, ImageStats> &stats, vector<in
         itImage++;
     }
 
-    for (auto &item: stats) {
-        auto &imageStats = item.second;
-        auto &count = imageStats.count;
+    for (auto label: labels) {
+        auto &imageStats = stats[label];
+        const auto &count = imageStats.count;
         if (0 < count) {
             imageStats.mean.a /= (float) count;
             imageStats.mean.b /= (float) count;

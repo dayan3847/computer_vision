@@ -9,18 +9,28 @@
 
 int Thresholding::lastLabel = 1;
 
+int Thresholding::countClass(Mat &mask, int label) {
+    auto it = mask.begin<uchar>();
+    auto itEnd = mask.end<uchar>();
+    int count = 0;
+    for (; it != itEnd; ++it) {
+        if ((*it) == label) {
+            count++;
+        }
+    }
+    return count;
+}
+
 vector<int> Thresholding::divideClass(Mat &mask, int label) {
     int newLabelA = Thresholding::lastLabel++;
     int newLabelB = Thresholding::lastLabel++;
+    int changesCount = 0;
     auto it = mask.begin<uchar>();
     auto itEnd = mask.end<uchar>();
     for (; it != itEnd; ++it) {
         if (*it == label) {
-            if (rand() % 2) {
-                *it = newLabelA;
-            } else {
-                *it = newLabelB;
-            }
+            *it = (0 == (changesCount % 2)) ? newLabelA : newLabelB;
+            changesCount++;
         }
     }
     return vector<int>({newLabelA, newLabelB});
@@ -71,6 +81,7 @@ int Thresholding::toThreshold(
             cout << "El algoritmo convergió en " << i << " iteraciones." << endl;
             return 0;
         } else {
+            cout << "Hubo: " << changesCount << " cambios." << endl;
             MatTools::meanCovariance(this->image, mask, stats, labels, covariance);
         }
     }
@@ -96,6 +107,12 @@ int Thresholding::reorderPixels(
     auto itEnd = mask.end<uchar>();
     int changesCount = 0;
     while (itMask != itEnd) {
+        auto &label = *itMask;
+        if (classA != label && classB != label) {
+            itImage++;
+            itMask++;
+            continue;
+        }
         Vec3f pixel = *itImage;
         float a = pixel[1];
         float b = pixel[2];
@@ -104,14 +121,14 @@ int Thresholding::reorderPixels(
         double distanceB = MatTools::distanceMahalanobisNormalized(a, b, imageStatsClassB);
         if (distanceA < distanceB) {
             hasClassA = true;
-            if (classA != *itMask) {
-                *itMask = classA;
+            if (classA != label) {
+                label = classA;
                 changesCount++;
             }
         } else {
             hasClassB = true;
-            if (classB != *itMask) {
-                *itMask = classB;
+            if (classB != label) {
+                label = classB;
                 changesCount++;
             }
         }
@@ -129,6 +146,10 @@ vector<int> Thresholding::propagate(Mat &mask, vector<int> &labels) {
 
     auto &stats = History::imageStatsMap;
     for (int label: labels) {
+        auto count = this->countClass(mask, label);
+        if (count < 2) {
+            continue;
+        }
         vector<int> newLabels = this->divideClass(mask, label);
 
         MatTools::meanCovariance(this->image, mask, stats, newLabels, false);
@@ -169,6 +190,6 @@ vector<int> Thresholding::propagate(Mat &mask, vector<int> &labels) {
 
 Thresholding::Thresholding(Mat &image) {
     this->image = image;
-    this->iterationsLimitWithConvergence = 10;
+    this->iterationsLimitWithConvergence = 20;
     this->iterationsLimitWithoutConvergence = 5;
 }
