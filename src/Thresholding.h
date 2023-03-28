@@ -9,7 +9,6 @@
 #include <opencv2/highgui/highgui.hpp>
 #include "ImageStats.h"
 
-
 using namespace cv;
 using namespace std;
 
@@ -19,27 +18,34 @@ public:
     /**
      * Dividir una clase
      */
-    static int divideClass(Mat &mask, int label = 1);
+    static vector<int> divideClass(Mat &mask, int label = 0);
 
     static void cOutImageStats(ImageStats &imageStats);
 
-    static int toThreshold(
-            Mat &image,
+    int toThreshold(
             Mat &mask,
-            int classA,
-            int classB,
-            ImageStats &imageStatsClassA,
-            ImageStats &imageStatsClassB,
+            vector<int> &labels,
             bool &hasClassA,
             bool &hasClassB,
-            int iterationsLimit = 100,
-            int iterationsLimitWithoutConvergence = 3
+            bool covariance = true
     );
 
-    static vector<int> propagate(Mat &image, Mat &mask, vector<int> &labels);
+    int reorderPixels(
+            Mat &mask,
+            vector<int> &labels,
+            bool &hasClassA,
+            bool &hasClassB
+    );
+
+    vector<int> propagate(Mat &mask, vector<int> &labels);
+
+    Thresholding(Mat &image);
 
 private:
     static int lastLabel;
+    Mat image;
+    int iterationsLimitWithConvergence;
+    int iterationsLimitWithoutConvergence;
 };
 
 

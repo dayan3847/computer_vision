@@ -27,8 +27,8 @@ int MatTools::mean(Mat &image, Mat &mask, map<int, ImageStats> &stats, vector<in
             continue;
         }
         auto &imageStats = stats[label];
-        imageStats.mean.a += (*itImage)[0];
-        imageStats.mean.b += (*itImage)[1];
+        imageStats.mean.a += (*itImage)[1];
+        imageStats.mean.b += (*itImage)[2];
         imageStats.count++;
         itMask++;
         itImage++;
@@ -37,8 +37,13 @@ int MatTools::mean(Mat &image, Mat &mask, map<int, ImageStats> &stats, vector<in
     for (auto &item: stats) {
         auto &imageStats = item.second;
         auto &count = imageStats.count;
-        imageStats.mean.a /= (float) count;
-        imageStats.mean.b /= (float) count;
+        if (0 < count) {
+            imageStats.mean.a /= (float) count;
+            imageStats.mean.b /= (float) count;
+        } else {
+            imageStats.mean.a = 0;
+            imageStats.mean.b = 0;
+        }
     }
 
     return 0;
@@ -58,8 +63,8 @@ int MatTools::meanCovariance(Mat &image, Mat &mask, map<int, ImageStats> &stats,
         while (itMask != itMaskEnd) {
             auto label = *itMask;
             auto &imageStats = stats[label];
-            auto a = (*itImage)[0];
-            auto b = (*itImage)[1];
+            auto a = (*itImage)[1];
+            auto b = (*itImage)[2];
             auto ad = a - imageStats.mean.a;
             auto bd = b - imageStats.mean.b;
             imageStats.covariance.s1 += ad * ad;
@@ -86,15 +91,17 @@ int MatTools::meanCovariance(Mat &image, Mat &mask, map<int, ImageStats> &stats,
 }
 
 double MatTools::distanceMahalanobisNormalized(double a, double b, ImageStats imageStats) {
-    auto am = imageStats.mean.a;
-    auto bm = imageStats.mean.b;
-    auto s1 = imageStats.covariance.s1;
-    auto s2 = imageStats.covariance.s2;
-    auto s3 = imageStats.covariance.s3;
-    auto det = s1 * s2 - s3 * s3;
-    auto da = a - am;
-    auto db = b - bm;
-    auto distance = log(det) + (da * (da * s2 - db * s3) + db * (db * s1 - da * s3)) / det;
+    auto &mean = imageStats.mean;
+    auto &covariance = imageStats.covariance;
+    auto ad = a - mean.a;
+    auto bd = b - mean.b;
+    auto s1 = covariance.s1;
+    auto s2 = covariance.s2;
+    auto s3 = covariance.s3;
+    auto d = (ad * ad) / s1 + (bd * bd) / s2 - 2 * (ad * bd) / s3;
 
-    return distance;
+//    auto det = s1 * s2 - s3 * s3;
+//    auto d = log(det) + (da * (da * s2 - db * s3) + db * (db * s1 - da * s3)) / det;
+//    return d;
+    return ad * ad + bd * bd;
 }
