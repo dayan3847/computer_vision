@@ -1,0 +1,172 @@
+This is LuaHBTeX, Version 1.16.0 (MiKTeX 23.1) (format=lualatex 2023.3.28)  28 MAR 2023 16:19
+ restricted system commands enabled.
+ file:line:error style messages enabled.
+**report.tex
+(./report.tex
+LaTeX2e <2022-11-01> patch level 1
+Lua module: luaotfload 2022-10-03 3.23 Lua based OpenType font support
+Lua module: lualibs 2022-10-04 2.75 ConTeXt Lua standard libraries.
+Lua module: lualibs-extended 2022-10-04 2.75 ConTeXt Lua libraries -- extended c
+ollection.
+luaotfload | conf : Root cache directory is "/home/dayan3847/.miktex/texmfs/data
+/luatex-cache/generic/names".
+luaotfload | init : Loading fontloader "fontloader-2022-10-03.lua" from kpse-res
+olved path "/home/dayan3847/.miktex/texmfs/install/tex/luatex/luaotfload/fontloa
+der-2022-10-03.lua".
+Lua-only attribute luaotfload@noligature = 1
+luaotfload | init : Context OpenType loader version 3.120
+Inserting `luaotfload.node_processor' in `pre_linebreak_filter'.
+Inserting `luaotfload.node_processor' in `hpack_filter'.
+Inserting `luaotfload.glyph_stream' in `glyph_stream_provider'.
+Inserting `luaotfload.define_font' in `define_font'.
+Lua-only attribute luaotfload_color_attribute = 2
+luaotfload | conf : Root cache directory is "/home/dayan3847/.miktex/texmfs/data
+/luatex-cache/generic/names".
+Inserting `luaotfload.harf.strip_prefix' in `find_opentype_file'.
+Inserting `luaotfload.harf.strip_prefix' in `find_truetype_file'.
+Removing  `luaotfload.glyph_stream' from `glyph_stream_provider'.
+Inserting `luaotfload.harf.glyphstream' in `glyph_stream_provider'.
+Inserting `luaotfload.harf.finalize_vlist' in `post_linebreak_filter'.
+Inserting `luaotfload.harf.finalize_hlist' in `hpack_filter'.
+Inserting `luaotfload.cleanup_files' in `wrapup_run'.
+Inserting `luaotfload.harf.finalize_unicode' in `finish_pdffile'.
+Inserting `luaotfload.glyphinfo' in `glyph_info'.
+Lua-only attribute luaotfload.letterspace_done = 3
+Inserting `luaotfload.aux.set_sscale_dimens' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.set_font_index' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.patch_cambria_domh' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.fixup_fontdata' in `luaotfload.patch_font_unsafe'.
+Inserting `luaotfload.aux.set_capheight' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.set_xheight' in `luaotfload.patch_font'.
+Inserting `luaotfload.rewrite_fontname' in `luaotfload.patch_font'. L3 programm
+ing layer <2023-02-07>
+Inserting `tracingstacklevels' in `input_level_string'.
+(/home/dayan3847/.miktex/texmfs/install/tex/latex/base/article.cls
+Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
+(/home/dayan3847/.miktex/texmfs/install/tex/latex/base/size10.clo
+File: size10.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
+luaotfload | db : Font names database not found, generating new one.
+luaotfload | db : This can take several minutes; please be patient.)
+\c@part=\count183
+\c@section=\count184
+\c@subsection=\count185
+\c@subsubsection=\count186
+\c@paragraph=\count187
+\c@subparagraph=\count188
+\c@figure=\count189
+\c@table=\count190
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen139
+)
+(/home/dayan3847/.miktex/texmfs/install/tex/latex/l3backend/l3backend-luatex.de
+f
+File: l3backend-luatex.def 2023-01-16 L3 backend support: PDF output (LuaTeX)
+\l__color_backend_stack_int=\count191
+\l__pdf_internal_box=\box51
+)
+
+LaTeX Warning: Unused global option(s):
+    [24pt].
+
+No file report.aux.
+
+\openout1 = report.aux
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 3.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 3
+.
+(/home/dayan3847/.miktex/texmfs/install/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 3.
+LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 7.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 7.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 7.
+
+(./latex/1_abstract.tex
+Overfull \hbox (0.7903pt too wide) in paragraph at lines 2--18
+[]\TU/lmr/m/n/9 Instrucciones formales del primer proyecto. El objetivo de este proyecto
+ []
+
+) (./latex/procedure.tex
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 5.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 5.
+) (./latex/proof.tex
+
+./latex/proof.tex:1: LaTeX Error: Environment proof undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 \begin{proof}
+               
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./latex/proof.tex:3: LaTeX Error: \begin{document} ended by \end{proof}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.3 \end{proof}
+             
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [1
+
+{/home/dayan3847/.miktex/texmfs/data/fonts/map/pdftex/pdftex.map}]
+(/home/dayan3847/CLionProjects/CascadeClassificationKMeans/out/report.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+)
+
+Here is how much of LuaTeX's memory you used:
+ 525 strings out of 478305
+ 100000,1977958 words of node,token memory allocated
+ 411 words of node memory still in use:
+   3 hlist, 1 vlist, 1 rule, 2 glue, 3 kern, 1 glyph, 4 attribute, 49 glue_spec,
+ 4 attribute_list, 1 write nodes
+   avail lists: 2:171,3:78,4:9,5:132,6:20,7:4014,8:3,9:126,10:7,11:12
+ 20772 multiletter control sequences out of 65536+600000
+ 40 fonts using 2695375 bytes
+ 33i,6n,37p,189b,202s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</home/dayan3847/.miktex/texmfs/install/fonts/opentype/public/lm/lmroman10-regul
+ar.otf></home/dayan3847/.miktex/texmfs/install/fonts/opentype/public/lm/lmroman1
+2-bold.otf></home/dayan3847/.miktex/texmfs/install/fonts/opentype/public/lm/lmro
+man9-regular.otf></home/dayan3847/.miktex/texmfs/install/fonts/opentype/public/l
+m/lmroman9-bold.otf></home/dayan3847/.miktex/texmfs/install/fonts/opentype/publi
+c/lm/lmroman12-regular.otf></home/dayan3847/.miktex/texmfs/install/fonts/opentyp
+e/public/lm/lmroman17-regular.otf></home/dayan3847/.miktex/texmfs/install/fonts/
+type1/public/amsfonts/cm/cmr10.pfb>
+Output written on report.pdf (1 page, 38414 bytes).
+
+PDF statistics: 52 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 131072)
+ 1 words of extra memory for PDF output out of 10000 (max. 100000000)
+

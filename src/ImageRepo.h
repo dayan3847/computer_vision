@@ -17,6 +17,8 @@ public:
 
     void arcoiris_3x3(Mat &image,Mat &imageOriginal);
 
+    void arcoirisLab_3x3(Mat &image,Mat &imageOriginal);
+
     void corazon_3x3(Mat &image,Mat &imageOriginal);
 
     void corazon_10x10(Mat &image,Mat &imageOriginal);

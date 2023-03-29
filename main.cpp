@@ -30,7 +30,7 @@ void printMask(const Mat &mask) {
 void showImage(Mat &image, const string &name, bool destroy = true) {
     Mat &imageToPrint = image;
     // resize without interpolation
-//    resize(image, imageToPrint, Size(600, 600), 0, 0, INTER_NEAREST);
+    resize(image, imageToPrint, Size(600, 600), 0, 0, INTER_NEAREST);
     imshow(name, imageToPrint);
     waitKey(0);
     if (destroy)
@@ -48,8 +48,9 @@ void printImageByMask(const Mat &mask, const Mat &originalImage) {
         auto label = *itMask;
         auto &pixel = *itImage;
         auto imageStatsClassI = History::imageStatsMap[label];
-        pixel[0] = (*itImageOriginal)[0];
+//        pixel[0] = (*itImageOriginal)[0];
 //        pixel[0] = imageStatsClassI.mean.l;
+        pixel[0] = 0;
         pixel[1] = imageStatsClassI.mean.a;
         pixel[2] = imageStatsClassI.mean.b;
         itImageOriginal++;
@@ -106,8 +107,9 @@ int main() {
     ImageRepo repo = ImageRepo();
     Mat image;
     Mat imageOriginal;
-//    repo.arcoiris_3x3(image, imageOriginal);
-    repo.jaguarcito(image, imageOriginal);
+//    repo.arcoirisLab_3x3(image, imageOriginal);
+    repo.arcoiris_3x3(image, imageOriginal);
+//    repo.jaguarcito(image, imageOriginal);
     // init mask with zeros.
     Mat mask = Mat::zeros(image.size(), CV_8UC1);
 
