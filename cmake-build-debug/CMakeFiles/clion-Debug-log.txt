@@ -1,4 +1,0 @@
-/home/dayan3847/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/dayan3847/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/bin/ninja/linux/x64/ninja -G Ninja -S /home/dayan3847/CLionProjects/CascadeClassificationKMeans -B /home/dayan3847/CLionProjects/CascadeClassificationKMeans/cmake-build-debug
--- Configuring done
--- Generating done
--- Build files have been written to: /home/dayan3847/CLionProjects/CascadeClassificationKMeans/cmake-build-debug

@@ -1,3 +1,0 @@
-/home/dayan3847/CLionProjects/CascadeClassificationKMeans/cmake-build-debug/CMakeFiles/CascadeClassificationKMeans.dir
-/home/dayan3847/CLionProjects/CascadeClassificationKMeans/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/dayan3847/CLionProjects/CascadeClassificationKMeans/cmake-build-debug/CMakeFiles/rebuild_cache.dir
