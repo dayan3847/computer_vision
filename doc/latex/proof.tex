@@ -5,85 +5,94 @@
 
 Realizaremos una pequeña prueba con una imagen de 3x3, para ver que el algoritmo funciona correctamente.
 
-La imagen que se va a utilizar para probar el algoritmo es la siguiente:
+La Figura~\ref{fig:test_img_3x3} se va a utilizar para probar el algoritmo.
 
-\includegraphics[width=0.25\textwidth]{./latex/img/original}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.3\textwidth]{./latex/img/original}
+    \caption{\label{fig:test_img_3x3}Imagen de prueba de 3x3.}
+\end{figure}
 
 Al inicializar la máscara, todos los píxeles pertenecen a la misma clase, por lo que la máscara se inicializa con todos los píxeles con el valor 0.
 La máscara es la siguiente matriz:
 
-    \begin{equation*}
-        \begin{bmatrix}
-            0 & 0 & 0 \\
-            0 & 0 & 0 \\
-            0 & 0 & 0 \\
-        \end{bmatrix}
-    \end{equation*}
+\begin{equation*}
+    \begin{bmatrix}
+        0 & 0 & 0 \\
+        0 & 0 & 0 \\
+        0 & 0 & 0 \\
+    \end{bmatrix}
+\end{equation*}
 
 Si graficamos la imagen con los valores promedio de todos los píxeles (de esa clase), obtenemos la siguiente imagen:
 
 En una tabla lo podemos ver de la siguiente forma:
 
-\begin{tabular}{|c|c|}
-    \hline
-    Mask & Image (L=0) \\
-    \hline
-    \begin{equation*}
-        \begin{bmatrix}
-            0 & 0 & 0 \\
-            0 & 0 & 0 \\
-            0 & 0 & 0 \\
-        \end{bmatrix}
-    \end{equation*}
-    &
-    \includegraphics[width=0.25\textwidth]{./latex/img/m0}
-    \\
-    \hline
-    \begin{equation*}
-        \begin{bmatrix}
-            2 & 2 & 1 \\
-            2 & 1 & 2 \\
-            2 & 2 & 1 \\
-        \end{bmatrix}
-    \end{equation*}
-    &
-    \includegraphics[width=0.25\textwidth]{./latex/img/m1}
-    \\
-    \hline
-    \begin{equation*}
-        \begin{bmatrix}
-            5 & 6 & 3 \\
-            6 & 4 & 6 \\
-            5 & 5 & 3 \\
-        \end{bmatrix}
-    \end{equation*}
-    &
-    \includegraphics[width=0.25\textwidth]{./latex/img/m2}
-    \\
-    \hline
-    \begin{equation*}
-        \begin{bmatrix}
-            9  & 11 & 7  \\
-            12 & 4  & 11 \\
-            10 & 9  & 8  \\
-        \end{bmatrix}
-    \end{equation*}
-    &
-    \includegraphics[width=0.25\textwidth]{./latex/img/m3}
-    \\
-    \hline
-    \begin{equation*}
-        \begin{bmatrix}
-            13 & 15 & 7  \\
-            12 & 4  & 16 \\
-            10 & 14 & 8  \\
-        \end{bmatrix}
-    \end{equation*}
-    &
-    \includegraphics[width=0.25\textwidth]{./latex/img/m4}
-    \\
-    \hline
-\end{tabular}
+
+\begin{table}
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        Mask & Image (L=0) \\
+        \hline
+        \begin{equation*}
+            \begin{bmatrix}
+                0 & 0 & 0 \\
+                0 & 0 & 0 \\
+                0 & 0 & 0 \\
+            \end{bmatrix}
+        \end{equation*}
+        &
+        \includegraphics[width=0.25\textwidth]{./latex/img/m0}
+        \\
+        \hline
+        \begin{equation*}
+            \begin{bmatrix}
+                2 & 2 & 1 \\
+                2 & 1 & 2 \\
+                2 & 2 & 1 \\
+            \end{bmatrix}
+        \end{equation*}
+        &
+        \includegraphics[width=0.25\textwidth]{./latex/img/m1}
+        \\
+        \hline
+        \begin{equation*}
+            \begin{bmatrix}
+                5 & 6 & 3 \\
+                6 & 4 & 6 \\
+                5 & 5 & 3 \\
+            \end{bmatrix}
+        \end{equation*}
+        &
+        \includegraphics[width=0.25\textwidth]{./latex/img/m2}
+        \\
+        \hline
+        \begin{equation*}
+            \begin{bmatrix}
+                9  & 11 & 7  \\
+                12 & 4  & 11 \\
+                10 & 9  & 8  \\
+            \end{bmatrix}
+        \end{equation*}
+        &
+        \includegraphics[width=0.25\textwidth]{./latex/img/m3}
+        \\
+        \hline
+        \begin{equation*}
+            \begin{bmatrix}
+                13 & 15 & 7  \\
+                12 & 4  & 16 \\
+                10 & 14 & 8  \\
+            \end{bmatrix}
+        \end{equation*}
+        &
+        \includegraphics[width=0.25\textwidth]{./latex/img/m4}
+        \\
+        \hline
+    \end{tabular}
+    \caption{\label{tab:widgets}An example table.}
+\end{table}
 
 \newpage
 
