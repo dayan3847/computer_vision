@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.3.16)  31 MAR 2023 04:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.3.16)  31 MAR 2023 10:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -200,17 +200,11 @@ G,.JBIG2,.JB2,.eps]
 (/home/dayan3847/.miktex/texmfs/install/tex/latex/00miktex/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-(latex/abstract.tex
-Overfull \hbox (1.40399pt too wide) in paragraph at lines 2--18
-[]\OT1/cmr/m/n/9 Instrucciones formales del primer proyecto. El objetivo de est
-e proyecto
- []
-
-) [1
+(latex/project_instructions.tex) (latex/procedure.tex) (latex/proof.tex
+[1
 
 {/home/dayan3847/.miktex/texmfs/data/fonts/map/pdftex/pdftex.map}]
-(latex/procedure.tex) [2] (latex/proof.tex
-<./latex/img/original.png, id=14, 549.55313pt x 571.38469pt>
+<./latex/img/original.png, id=9, 549.55313pt x 571.38469pt>
 File: ./latex/img/original.png Graphic file (type png)
 <use ./latex/img/original.png>
 Package pdftex.def Info: ./latex/img/original.png  used on input line 10.
@@ -248,7 +242,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-<./latex/img/m0.png, id=16, 549.55313pt x 571.38469pt>
+<./latex/img/m0.png, id=11, 549.55313pt x 571.38469pt>
 File: ./latex/img/m0.png Graphic file (type png)
 <use ./latex/img/m0.png>
 Package pdftex.def Info: ./latex/img/m0.png  used on input line 39.
@@ -285,7 +279,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-<./latex/img/m1.png, id=17, 549.55313pt x 571.38469pt>
+<./latex/img/m1.png, id=12, 549.55313pt x 571.38469pt>
 File: ./latex/img/m1.png Graphic file (type png)
 <use ./latex/img/m1.png>
 Package pdftex.def Info: ./latex/img/m1.png  used on input line 50.
@@ -322,7 +316,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-<./latex/img/m2.png, id=18, 549.55313pt x 571.38469pt>
+<./latex/img/m2.png, id=13, 549.55313pt x 571.38469pt>
 File: ./latex/img/m2.png Graphic file (type png)
 <use ./latex/img/m2.png>
 Package pdftex.def Info: ./latex/img/m2.png  used on input line 61.
@@ -359,7 +353,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-<./latex/img/m3.png, id=19, 549.55313pt x 571.38469pt>
+<./latex/img/m3.png, id=14, 549.55313pt x 571.38469pt>
 File: ./latex/img/m3.png Graphic file (type png)
 <use ./latex/img/m3.png>
 Package pdftex.def Info: ./latex/img/m3.png  used on input line 72.
@@ -396,35 +390,33 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-<./latex/img/m4.png, id=20, 549.55313pt x 571.38469pt>
+<./latex/img/m4.png, id=15, 549.55313pt x 571.38469pt>
 File: ./latex/img/m4.png Graphic file (type png)
 <use ./latex/img/m4.png>
 Package pdftex.def Info: ./latex/img/m4.png  used on input line 83.
 (pdftex.def)             Requested size: 86.25pt x 89.67097pt.
-[3 <./latex/img/original.png>] [4 <./latex/img/m0.png> <./latex/img/m1.png> <./
-latex/img/m2.png> <./latex/img/m3.png> <./latex/img/m4.png>]) [5]
+[2 <./latex/img/original.png>] [3 <./latex/img/m0.png> <./latex/img/m1.png> <./
+latex/img/m2.png> <./latex/img/m3.png> <./latex/img/m4.png>]) [4]
 (/home/dayan3847/CLionProjects/CascadeClassificationKMeans/out/report.aux) ) 
 Here is how much of TeX's memory you used:
- 2718 strings out of 478274
- 46172 string characters out of 5839549
+ 2713 strings out of 478274
+ 46200 string characters out of 5839549
  1859346 words of memory out of 5000000
- 22867 multiletter control sequences out of 15000+600000
- 517969 words of font info for 52 fonts, out of 8000000 for 9000
+ 22863 multiletter control sequences out of 15000+600000
+ 517362 words of font info for 50 fonts, out of 8000000 for 9000
  0 hyphenation exceptions out of 8191
- 62i,14n,67p,233b,220s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 62i,14n,67p,260b,220s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </h
 ome/dayan3847/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</home/dayan3847/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmbx9.pf
-b></home/dayan3847/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmex10
+</home/dayan3847/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmex10.p
+fb></home/dayan3847/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10
 .pfb></home/dayan3847/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr
-10.pfb></home/dayan3847/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/c
-mr12.pfb></home/dayan3847/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm
-/cmr17.pfb></home/dayan3847/.miktex/texmfs/install/fonts/type1/public/amsfonts/
-cm/cmr9.pfb>
+12.pfb></home/dayan3847/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/c
+mr17.pfb>
 Output written on /home/dayan3847/CLionProjects/CascadeClassificationKMeans/out
-/report.pdf (5 pages, 211321 bytes).
+/report.pdf (4 pages, 184998 bytes).
 PDF statistics:
- 66 PDF objects out of 1000 (max. 8388607)
+ 53 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
