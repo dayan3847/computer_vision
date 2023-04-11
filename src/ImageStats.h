@@ -7,21 +7,21 @@
 
 
 struct ImageStats {
-    // vector promedio
+    // vector of Lab averages
     struct {
         float l = 0;
         float a = 0;
         float b = 0;
     } mean;
-    // matrix de covarianza
+    // covariance matrix
     struct {
         float s1 = 1;
         float s2 = 1;
         float s3 = 0;
     } covariance;
-    // cantidad de pixeles
+    // number of pixels
     int count = 0;
-    // label
+    // class label
     int label = 0;
 };
 

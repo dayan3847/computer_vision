@@ -11,7 +11,18 @@ set(
         main.cpp
         src/Thresholding.h
         src/Thresholding.cpp
-        src/MatTools.cpp src/MatTools.h src/ImageStats.h src/History.cpp src/History.h src/ImageRepo.cpp src/ImageRepo.h)
+        src/MatTools.cpp
+        src/MatTools.h
+        src/ImageStats.h
+        src/ImageRepo.cpp
+        src/ImageRepo.h
+        src/ImageTools.cpp
+        src/ImageTools.h
+        src/Main.cpp
+        src/Main.h
+        src/ConsolePrinter.cpp
+        src/ConsolePrinter.h
+)
 add_executable(CascadeClassificationKMeans ${SOURCE_FILES})
 
 target_link_libraries(CascadeClassificationKMeans ${OpenCV_LIBS})

@@ -7,6 +7,7 @@
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <map>
 #include "ImageStats.h"
 
 using namespace cv;
@@ -14,8 +15,15 @@ using namespace std;
 
 class Thresholding {
 public:
+    /**
+     * Constructor
+     *
+     * @param image
+     * @param stats
+     */
+    explicit Thresholding(Mat &image);
 
-    int countClass(Mat &mask, int label);
+    static int countClass(Mat &mask, int label);
 
     /**
      * Dividir una clase
@@ -27,21 +35,22 @@ public:
     int toThreshold(
             Mat &mask,
             vector<int> &labels,
+            map<int, ImageStats> &stats,
             bool &hasClassA,
             bool &hasClassB,
             bool covariance = true
     );
 
+    // reorder the pixels
     int reorderPixels(
             Mat &mask,
             vector<int> &labels,
+            map<int, ImageStats> &stats,
             bool &hasClassA,
             bool &hasClassB
     );
 
-    vector<int> propagate(Mat &mask, vector<int> &labels);
-
-    Thresholding(Mat &image);
+    vector<int> propagate(Mat &mask, vector<int> &labels, map<int, ImageStats> &stats);
 
 private:
     static int lastLabel;
