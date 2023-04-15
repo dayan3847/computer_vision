@@ -1,15 +1,19 @@
 \section{Procedure}\label{sec:procedure}
 \begin{enumerate}
-    \item Se importa la imagen a color en formato CIE-Lab.
+    \item Importar imagen a color en formato CIE-Lab.
 
-    Ejemplo de código en C++:
-
+    Para esto se utiliza la siguiente función:
     \begin{lstlisting}
-#include <iostream>
-
-int main() {
-    std::cout << "Hola mundo!" << std::endl;
-    return 0;
+void ImageRepo::byName(Mat &image, Mat &imageOriginal, const string &name) {
+    // Read image.
+    imageOriginal = imread(name);
+    // Convert to float values.
+    Mat imageFloat;
+    imageOriginal.convertTo(imageFloat, CV_32FC3);
+    // Normalize.
+    imageFloat /= 255.0;
+    // Convert to BGR2Lab.
+    cvtColor(imageFloat, image, COLOR_BGR2Lab);
 }
     \end{lstlisting}
 
