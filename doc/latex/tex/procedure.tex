@@ -1,6 +1,18 @@
 \section{Procedure}\label{sec:procedure}
 \begin{enumerate}
     \item Se importa la imagen a color en formato CIE-Lab.
+
+    Ejemplo de código en C++:
+
+    \begin{lstlisting}
+#include <iostream>
+
+int main() {
+    std::cout << "Hola mundo!" << std::endl;
+    return 0;
+}
+    \end{lstlisting}
+
     \item Se genera una máscara de la misma dimensión que la imagen, que contiene las clases a las que pertenece cada pixel.
     (Inicialmente, todos los píxeles pertenecen a la misma clase \("0"\) ).
     \item Luego de dividir mascarada en dos clases, se procede a dividir cada una de las clases en dos clases más.

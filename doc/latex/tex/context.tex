@@ -1,0 +1,44 @@
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\definecolor{dark_background}{rgb}{0.1, 0.1, 0.1}
+\definecolor{light_background}{rgb}{0.2, 0.2, 0.2}
+\definecolor{comment_green}{rgb}{0.3, 0.6, 0.3}
+\definecolor{string_orange}{rgb}{0.8, 0.6, 0.0}
+\definecolor{keyword_blue}{rgb}{0.2, 0.4, 0.8}
+
+\lstdefinestyle{jetbrains_dark}{
+    language=C++,
+    backgroundcolor=\color{dark_background},
+    basicstyle=\color{white}\ttfamily,
+    keywordstyle=\color{keyword_blue}\ttfamily,
+    stringstyle=\color{string_orange}\ttfamily,
+    commentstyle=\color{comment_green}\ttfamily\itshape,
+    numbers=left,
+    numberstyle=\tiny\color{white},
+    stepnumber=1,
+    breaklines=true,
+    tabsize=4,
+    showspaces=false,
+    showstringspaces=false,
+    frame=single,
+    framexleftmargin=5pt,
+    framexrightmargin=5pt,
+    framextopmargin=2pt,
+    framexbottommargin=2pt,
+    rulecolor=\color{white}
+}
+
+\lstset{style=jetbrains_dark}
