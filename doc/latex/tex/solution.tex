@@ -1,0 +1,72 @@
+\section{Solution}\label{sec:solution}
+
+En esta sección se describe el algoritmo utilizado para resolver el problema planteado.
+Al mismo tiempo, se explican los pasos que se deben seguir para poder ejecutar el programa.
+Así como un ejemplo de ejecución del programa utilizando una imagen de prueba.
+
+% Preparación del ambiente
+\subsection{Preparación del ambiente}\label{subsec:environment-preparation}
+
+Para poder ejecutar el programa, se debe tener instalado el compilador de C++ \texttt{g++} y la herramienta \texttt{make}.
+Además, se debe tener instalado el paquete \texttt{libopencv-dev} para poder utilizar la librería \texttt{OpenCV}.
+
+Para instalar \texttt{libopencv-dev} se debe ejecutar el siguiente comando:
+\begin{lstlisting}[label={lst:install-opencv}]
+sudo apt-get install libopencv-dev
+\end{lstlisting}
+
+% Compilación
+\subsubsection{Compilación}\label{subsubsec:compilation}
+
+Para compilar el programa, se debe ejecutar el siguiente comando:
+\begin{lstlisting}[label={lst:compile}]
+make
+\end{lstlisting}
+
+% Ejecución
+\subsubsection{Ejecución}\label{subsubsec:execution}
+
+El programa tiene una parameter opcional, que es el nombre de la imagen a utilizar.
+Si no se especifica el nombre de la imagen, se utilizará la imagen por defecto.
+Que es una imagen de prueba de 3x3.
+
+Para ejecutar el programa, se debe ejecutar el siguiente comando:
+\begin{lstlisting}[label={lst:run}]
+./main
+\end{lstlisting}
+
+% Algoritmo
+\subsection{Algoritmo}\label{subsec:algorithm}
+
+\begin{enumerate}
+    \item Importar imagen a color en formato CIE-Lab.
+
+    Para esto se utiliza la siguiente función:
+    \begin{lstlisting}[label={lst:load-image}]
+void ImageRepo::byName(
+    Mat &image,
+    Mat &imageOriginal,
+    const string &name
+    ) {
+    // Read image.
+    imageOriginal = imread(name);
+    // Convert to float values.
+    Mat imageFloat;
+    imageOriginal.convertTo(imageFloat, CV_32FC3);
+    // Normalize.
+    imageFloat /= 255.0;
+    // Convert to BGR2Lab.
+    cvtColor(imageFloat, image, COLOR_BGR2Lab);
+}
+    \end{lstlisting}
+
+    \item Se genera una máscara de la misma dimensión que la imagen, que contiene las clases a las que pertenece cada pixel.
+    (Inicialmente, todos los píxeles pertenecen a la misma clase \("0"\) ).
+
+    \begin{lstlisting}[label={lst:init-mask}]
+// init mask with zeros.
+mask = Mat::zeros(image.size(), CV_8UC1);
+    \end{lstlisting}
+
+    \item Luego de dividir máscara en dos clases, se procede a dividir cada una de las clases en dos clases más.
+\end{enumerate}
