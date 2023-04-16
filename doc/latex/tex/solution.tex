@@ -438,3 +438,75 @@ vector<int> Thresholding::propagate(Mat &mask, vector<int> &labels, map<int, Ima
 \end{lstlisting}
 
 La función recibe por parámetro la máscara, los labels de las clases a propagar, las estadísticas de las clases y devuelve los labels de las clases que se deben propagar en la siguiente iteración.
+
+\subsubsection{Resultados}\label{subsubsec:results}
+
+A continuación, se muestra la secuencia de las iteraciones.
+
+%enumerate
+
+\begin{enumerate}
+    \item Class [0]:
+    \begin{multicols}{2}
+        \begin{equation*}
+            \begin{bmatrix}
+                0 & 0 & 0 \\
+                0 & 0 & 0 \\
+                0 & 0 & 0
+            \end{bmatrix}
+        \end{equation*}
+        \columnbreak
+        \includegraphics[width=0.25\textwidth]{./latex/img/m0}
+    \end{multicols}
+    \item Class [1,2]:
+    \begin{multicols}{2}
+        \begin{equation*}
+            \begin{bmatrix}
+                2 & 2 & 1 \\
+                2 & 1 & 2 \\
+                2 & 2 & 1
+            \end{bmatrix}
+        \end{equation*}
+        \columnbreak
+        \includegraphics[width=0.25\textwidth]{./latex/img/m1}
+    \end{multicols}
+    \item Class [3,4,5,6]:
+    \begin{multicols}{2}
+        \begin{equation*}
+            \begin{bmatrix}
+                5 & 6 & 3 \\
+                6 & 4 & 6 \\
+                5 & 5 & 3
+            \end{bmatrix}
+        \end{equation*}
+        \columnbreak
+        \includegraphics[width=0.25\textwidth]{./latex/img/m2}
+    \end{multicols}
+    \item Class [7,8,9,10,11,12]:
+    \begin{multicols}{2}
+        \begin{equation*}
+            \begin{bmatrix}
+                9  & 11 & 7  \\
+                12 & 4  & 11 \\
+                10 & 9  & 8
+            \end{bmatrix}
+        \end{equation*}
+        \columnbreak
+        \includegraphics[width=0.25\textwidth]{./latex/img/m3}
+    \end{multicols}
+    \item Class [13,14,15,16]:
+    \begin{multicols}{2}
+        \begin{equation*}
+            \begin{bmatrix}
+                13 & 15 & 7  \\
+                12 & 4  & 16 \\
+                10 & 14 & 8
+            \end{bmatrix}
+        \end{equation*}
+        \columnbreak
+        \includegraphics[width=0.25\textwidth]{./latex/img/m4}
+    \end{multicols}
+\end{enumerate}
+
+Como podemos observar, el algoritmo converge en la cuarta iteración.
+Debemos tener en cuenta que en una imagen de solo 9 píxeles (3x3), por lo que a lo sumo tendrá 9 clases diferentes, las cuales deben ser obtenidas en la cuarta iteración.
