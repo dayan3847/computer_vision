@@ -4,10 +4,15 @@
 
 #include "Thresholding.h"
 #include "MatTools.h"
-#include "History.h"
 #include <iostream>
 
 int Thresholding::lastLabel = 1;
+
+Thresholding::Thresholding(Mat &image) {
+    this->image = image;
+    this->iterationsLimitWithConvergence = 20;
+    this->iterationsLimitWithoutConvergence = 5;
+}
 
 int Thresholding::countClass(Mat &mask, int label) {
     auto it = mask.begin<uchar>();
@@ -52,12 +57,12 @@ void Thresholding::cOutImageStats(ImageStats &imageStats) {
 int Thresholding::toThreshold(
         Mat &mask,
         vector<int> &labels,
+        map<int, ImageStats> &stats,
         bool &hasClassA,
         bool &hasClassB,
         bool covariance
 ) {
     int limit = covariance ? iterationsLimitWithConvergence : iterationsLimitWithoutConvergence;
-    auto &stats = History::imageStatsMap;
     for (int i = 0; i < limit; i++) {
         cout << "Iteration: " << i << endl;
 
@@ -73,6 +78,7 @@ int Thresholding::toThreshold(
         auto changesCount = this->reorderPixels(
                 mask,
                 labels,
+                stats,
                 hasClassA,
                 hasClassB
         );
@@ -89,14 +95,13 @@ int Thresholding::toThreshold(
     return 1;
 }
 
-// reordenar los pixels
 int Thresholding::reorderPixels(
         Mat &mask,
         vector<int> &labels,
+        map<int, ImageStats> &stats,
         bool &hasClassA,
         bool &hasClassB
 ) {
-    auto &stats = History::imageStatsMap;
     int classA = labels[0];
     int classB = labels[1];
     ImageStats imageStatsClassA = stats[classA];
@@ -140,11 +145,10 @@ int Thresholding::reorderPixels(
 }
 
 
-vector<int> Thresholding::propagate(Mat &mask, vector<int> &labels) {
+vector<int> Thresholding::propagate(Mat &mask, vector<int> &labels, map<int, ImageStats> &stats) {
     // labels que de deben propagar en la siguiente iteracion
     vector<int> nextLabels = {};
 
-    auto &stats = History::imageStatsMap;
     for (int label: labels) {
         auto count = this->countClass(mask, label);
         if (count < 2) {
@@ -158,6 +162,7 @@ vector<int> Thresholding::propagate(Mat &mask, vector<int> &labels) {
         this->toThreshold(
                 mask,
                 newLabels,
+                stats,
                 hasClassA,
                 hasClassB,
                 false
@@ -167,6 +172,7 @@ vector<int> Thresholding::propagate(Mat &mask, vector<int> &labels) {
             this->toThreshold(
                     mask,
                     newLabels,
+                    stats,
                     hasClassA,
                     hasClassB,
                     true
@@ -186,10 +192,4 @@ vector<int> Thresholding::propagate(Mat &mask, vector<int> &labels) {
         }
     }
     return nextLabels;
-}
-
-Thresholding::Thresholding(Mat &image) {
-    this->image = image;
-    this->iterationsLimitWithConvergence = 20;
-    this->iterationsLimitWithoutConvergence = 5;
 }

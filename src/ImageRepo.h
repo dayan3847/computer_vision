@@ -13,19 +13,17 @@ using namespace std;
 class ImageRepo {
 public:
 
-    void byName(Mat &image, Mat &imageOriginal,const string &name);
+    static void byName(Mat &image, Mat &imageOriginal, const string &name);
 
-    void arcoiris_3x3(Mat &image,Mat &imageOriginal);
+    static void defaultImage(Mat &image, Mat &imageOriginal);
 
-    void arcoirisLab_3x3(Mat &image,Mat &imageOriginal);
+    static void arcoirisLab_3x3(Mat &image, Mat &imageOriginal);
 
-    void corazon_3x3(Mat &image,Mat &imageOriginal);
+    static void corazon_3x3(Mat &image, Mat &imageOriginal);
 
-    void corazon_10x10(Mat &image,Mat &imageOriginal);
+    static void corazon_10x10(Mat &image, Mat &imageOriginal);
 
-    void jaguarcito(Mat &image,Mat &imageOriginal);
-
-
+    static void jaguarcito(Mat &image, Mat &imageOriginal);
 };
 
 
