@@ -1,0 +1,288 @@
+
+\documentclass[24pt]{article}
+
+
+\usepackage{cancel}
+
+% =================================
+% IDIOMA
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, mexico]{babel}
+% =================================
+
+
+% ===========================
+% GRÁFICOS
+\usepackage{geometry}
+\geometry{top=1.6cm, bottom=1.8cm, left=2.8cm, right=2.5cm}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\tcbuselibrary{theorems}
+% ===========================
+
+
+% ====================
+% MATEMÁTICAS
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[rflt]{floatflt}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathrsfs}
+% ====================
+
+
+% ===================
+% MACROS ÚTILES
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+% ===================
+
+
+% =======================================
+% FUENTE
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\renewcommand{\familydefault}{\sfdefault}
+% =======================================
+
+
+% ==========================================================
+% CONTADORES
+\newcounter{ejercicio}
+\newcommand{\numej}{\refstepcounter{ejercicio}\theejercicio}
+
+\newcounter{lema}
+\newcommand{\numek}{\refstepcounter{lema}\thelema}
+% ==========================================================
+
+
+% ======================================================================================
+% TCOLORBOX
+\newtcolorbox{ejer}[1][\numej]{title={Ejercicio #1}, colback=blue!5, colframe=blue!35!black, fonttitle=\bfseries, breakable, parbox=false, before skip= \bigskipamount, after skip = \medskipamount}
+
+\newtcolorbox{ejercont}{colback=blue!5, colframe=blue!50!black, breakable, parbox=false}
+
+\newtcolorbox{lema}[1][\numek]{title={Lema #1.}, colback=green!5, colframe=green!35!black, fonttitle=\bfseries, breakable, parbox=false, before skip= \bigskipamount, after skip = \medskipamount}
+
+\newtcolorbox{lemacont}{colback=green!5, colframe=green!50!black, breakable, parbox=false}
+% ======================================================================================
+
+
+% ==============================================
+% DISEÑO
+\renewcommand{\labelenumi}{\emph{\alph{enumi}})}
+% ==============================================
+
+
+% =====================================================
+% MATH MACROS
+\newenvironment{answer}{\begin{proof}[Solución.]\let\qed\relax}{\end{proof}}
+% =====================================================
+
+
+% ==================================
+% SÍMBOLOS
+\renewcommand{\epsilon}{\varepsilon}
+% ==================================
+
+
+% ===================================================
+% NUEVOS COMANDOS
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\U}{\text{U}(2, 1)}
+\newcommand{\pu}{\text{PU}(2, 1)}
+\newcommand{\pc}{\mathbb{P}^2_\mathbb{C}}
+\newcommand{\hc}{\mathbb{H}^2_\mathbb{C}}
+\newcommand{\gl}{\text{GL}(3, \mathbb{C})}
+\newcommand{\pgl}{\text{PGL}(3, \mathbb{C})}
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\paren}[1]{\left( #1 \right)}
+\newcommand{\corch}[1]{\left[ #1 \right]}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\newcommand{\vcord}[1]{\left\langle #1 \right\rangle}
+\newcommand{\gen}[1]{\mathrm{gen}\left(#1\right)}
+% ===================================================
+
+
+% ===============================================================================
+% MATRICES
+\newenvironment{apmatrix}[1]{\left(\begin{array}{@{ }#1@{ }}}{\end{array}\right)}
+\newcolumntype{M}{>{$} l <{$}}
+% ===============================================================================
+
+
+% =================================================================
+% NUMERACIÓN DE ECUACIONES
+\newcommand{\tagthis}{\refstepcounter{equation} \tag{\theequation}}
+\newcommand{\eqand}{\qquad\text{y}\qquad}
+
+\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand{\labelenumi}{\theenumi ).}
+% =================================================================
+
+\begin{document}
+
+	Dayan Bravo Fraga
+
+	Función:
+	\[
+		f(x,\mu,\sigma)
+		= \frac{
+			e^{ -\frac{(x-\mu)^2}{2\sigma^2}}
+		}{
+			\sigma\sqrt{2\pi}
+		}
+	\]
+
+	Ingualando las dos funciones
+	\[
+		f(x,\mu_1,\sigma_1) = f(x,\mu_2,\sigma_2)
+	\]
+
+	Sustituir:
+	\[
+		\frac{
+			e^{ -\frac{(x-\mu_1)^2}{2\sigma_1^2}}
+		}{
+			\sigma_1\sqrt{2\pi}
+		}
+		=
+		\frac{
+			e^{ -\frac{(x-\mu_2)^2}{2\sigma_2^2}}
+		}{
+			\sigma_2\sqrt{2\pi}
+		}
+	\]
+
+	Simplificar valores constantes en los dos miembros:
+	\[
+		\frac{
+			e^{ -\frac{(x-\mu_1)^2}{2\sigma_1^2}}
+		}{
+			\sigma_1\cancel{\sqrt{2\pi}}
+		}
+		=
+		\frac{
+			e^{ -\frac{(x-\mu_2)^2}{2\sigma_2^2}}
+		}{
+			\sigma_2\cancel{\sqrt{2\pi}}
+		}
+	\]
+
+	Eliminar valores simplificados:
+	\[
+		\frac{
+			e^{ -\frac{(x-\mu_1)^2}{2\sigma_1^2}}
+		}{
+			\sigma_1
+		}
+		=
+		\frac{
+			e^{ -\frac{(x-\mu_2)^2}{2\sigma_2^2}}
+		}{
+			\sigma_2
+		}
+	\]
+
+	Reorganizar:
+	\[
+		\frac{
+			e^{ -\frac{(x-\mu_1)^2}{2\sigma_1^2}}
+		}{
+			e^{ -\frac{(x-\mu_2)^2}{2\sigma_2^2}}
+		}
+		=
+		\frac{\sigma_2}{\sigma_1}
+	\]
+
+	Aplicar propiedades de las potencias:
+	\[
+		e^{ -\frac{(x-\mu_1)^2}{2\sigma_1^2}+\frac{(x-\mu_2)^2}{2\sigma_2^2}}
+		=
+		\frac{\sigma_2}{\sigma_1}
+	\]
+
+	Aplicar logaritmo natural a ambos miembros:
+	\[
+		-\frac{(x-\mu_1)^2}{2\sigma_1^2}+\frac{(x-\mu_2)^2}{2\sigma_2^2}
+		=
+		\ln\frac{\sigma_2}{\sigma_1}
+	\]
+
+	Multiplicar ambos miembros por $2\sigma_1^2\sigma_2^2$:
+	\[
+		2\sigma_1^2\sigma_2^2\paren{-\frac{(x-\mu_1)^2}{2\sigma_1^2}+\frac{(x-\mu_2)^2}{2\sigma_2^2}}
+		=
+		2\sigma_1^2\sigma_2^2\ln\frac{\sigma_2}{\sigma_1}
+	\]
+
+	Efectuar la multiplicación paso 1:
+	\[
+		-\sigma_2^2(x-\mu_1)^2 + \sigma_1^2(x-\mu_2)^2
+		=
+		2\sigma_1^2\sigma_2^2\ln\frac{\sigma_2}{\sigma_1}
+	\]
+
+	Efectuar la multiplicación paso 2:
+	\[
+		-\sigma_2^2 \paren{ x^2 -2\mu_1x +\mu_1^2} + \sigma_1^2  \paren{ x^2 -2\mu_2x +\mu_2^2}
+		=
+		2\sigma_1^2\sigma_2^2\ln\frac{\sigma_2}{\sigma_1}
+	\]
+
+	Efectuar la multiplicación paso 3:
+	\[
+		-  \sigma_2^2 x^2  +2\mu_1\sigma_2^2 x  -\mu_1^2\sigma_2^2
+		+ \sigma_1^2 x^2  -2\mu_2 \sigma_1^2 x +\mu_2^2 \sigma_1^2
+		=
+		2\sigma_1^2\sigma_2^2\ln\frac{\sigma_2}{\sigma_1}
+	\]
+
+	Pasar todo para un miembro y ordenar:
+	\[
+		\sigma_1^2 x^2
+		-  \sigma_2^2 x^2
+		+2\mu_1\sigma_2^2 x
+		-2\mu_2 \sigma_1^2 x
+		+\mu_2^2 \sigma_1^2
+		-\mu_1^2\sigma_2^2
+		-2\sigma_1^2\sigma_2^2\ln\frac{\sigma_2}{\sigma_1}
+		=0
+	\]
+
+	Agrupar términos semejantes:
+	\[
+		(\sigma_1^2-  \sigma_2^2) x^2
+		+
+		(2\mu_1\sigma_2^2-2\mu_2 \sigma_1^2 )x
+		+
+		\paren{
+			\mu_2^2 \sigma_1^2
+			-\mu_1^2\sigma_2^2
+			-2\sigma_1^2\sigma_2^2\ln\frac{\sigma_2}{\sigma_1}
+		}
+		=0
+	\]
+
+	Extraemos $a$, $b$ y $c$ de la forma $ax^2+bx+c=0$:
+
+	$a=\sigma_1^2-  \sigma_2^2$
+
+	$b=2\mu_1\sigma_2^2-2\mu_2 \sigma_1^2$
+
+	$c=\mu_2^2 \sigma_1^2 -\mu_1^2\sigma_2^2-2\sigma_1^2\sigma_2^2\ln\frac{\sigma_2}{\sigma_1}$
+
+
+\end{document}
