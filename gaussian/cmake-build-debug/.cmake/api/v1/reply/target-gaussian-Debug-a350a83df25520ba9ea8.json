@@ -5,35 +5,27 @@
 			"path" : "gaussian"
 		}
 	],
-	"backtrace" : 2,
+	"backtrace" : 1,
 	"backtraceGraph" : 
 	{
 		"commands" : 
 		[
-			"_add_executable",
 			"add_executable"
 		],
 		"files" : 
 		[
-			"/home/dayan3847/.clion-vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake",
 			"CMakeLists.txt"
 		],
 		"nodes" : 
 		[
 			{
-				"file" : 1
-			},
-			{
-				"command" : 1,
-				"file" : 1,
-				"line" : 6,
-				"parent" : 0
+				"file" : 0
 			},
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 591,
-				"parent" : 1
+				"line" : 6,
+				"parent" : 0
 			}
 		]
 	},
@@ -51,7 +43,7 @@
 			{
 				"backtraces" : 
 				[
-					2
+					1
 				],
 				"standard" : "17"
 			},
@@ -97,7 +89,7 @@
 	"sources" : 
 	[
 		{
-			"backtrace" : 2,
+			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "main.cpp",
 			"sourceGroupIndex" : 0
