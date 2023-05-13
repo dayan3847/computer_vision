@@ -1,0 +1,6 @@
+{
+  "name" : "gaussian",
+  "version-string" : "1.0.0",
+  "builtin-baseline" : "fbec0d7bc4c1c2663dce1eff3331427cf42134fb",
+  "dependencies" : [ ]
+}
