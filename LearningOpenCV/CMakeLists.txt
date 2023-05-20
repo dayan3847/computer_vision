@@ -13,6 +13,7 @@ set(
         src/Thresholding/Thresholding.h
         src/GeometricTransformation/GeometricTransformation.cpp
         src/GeometricTransformation/GeometricTransformation.h
-        src/Histogram/Histogram.cpp src/Histogram/Histogram.h)
+        src/Histogram/Histogram.cpp src/Histogram/Histogram.h
+)
 add_executable(LearningOpenCV ${SOURCE_FILES})
 target_link_libraries(LearningOpenCV ${OpenCV_LIBS})
