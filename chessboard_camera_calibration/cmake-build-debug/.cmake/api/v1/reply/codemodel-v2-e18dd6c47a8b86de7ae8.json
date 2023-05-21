@@ -15,7 +15,10 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1,
+						2,
+						3
 					]
 				}
 			],
@@ -30,7 +33,10 @@
 					"name" : "chessboard_camera_calibration",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1,
+						2,
+						3
 					]
 				}
 			],
@@ -39,8 +45,29 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "chessboard_camera_calibration::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-chessboard_camera_calibration-Debug-db91e3243c9bd8d70d26.json",
+					"jsonFile" : "target-chessboard_camera_calibration-Debug-e5814834814873b752ce.json",
 					"name" : "chessboard_camera_calibration",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "main_test::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-main_test-Debug-e3e64fa025d0ce44457e.json",
+					"name" : "main_test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "main_test2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-main_test2-Debug-a07d0f76d68a8696a5ee.json",
+					"name" : "main_test2",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "main_test3::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-main_test3-Debug-27fe4d2ee51a164bb6d0.json",
+					"name" : "main_test3",
 					"projectIndex" : 0
 				}
 			]

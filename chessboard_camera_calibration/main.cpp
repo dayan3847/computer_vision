@@ -1,6 +1,19 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
+//#include <Eigen/Dense>
 
+
+void getOriginalCorners(cv::Size &size, double squareSize, std::vector<cv::Point2f> &outCorners) {
+    double initHeight = (size.height - 1.) / 2 * squareSize * -1;
+    double initWidth = (size.width - 1.) / 2 * squareSize * -1;
+    for (int i = 0; i < size.height; ++i) {
+        double y = initHeight + i * squareSize;
+        for (int j = 0; j < size.width; ++j) {
+            double x = initWidth + j * squareSize;
+            outCorners.emplace_back(x, y);
+        }
+    }
+}
 
 int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
     if (!videoCapture.isOpened()) {
@@ -16,9 +29,11 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
 
     std::string winName = "Chessboard";
     cv::namedWindow(winName, cv::WINDOW_AUTOSIZE);
-    cv::Size patternSize = cv::Size(9, 6);
+    cv::Size patternSize = cv::Size(8, 6);
+    std::vector<cv::Point2f> originalCorners;
+    getOriginalCorners(patternSize, 28.45, originalCorners);
     cv::Mat frame;
-    cv::Mat corners;
+    std::vector<cv::Point2f> corners;
     do {
         // print current time
         std::cout << "current time is: "
@@ -37,44 +52,38 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
 //            break;
 //        }
 
-//        if (scaleX != 1. || scaleY != 1.) {
-//            resize(frame, frame, cv::Size(), scaleX, scaleY, cv::INTER_AREA);
-//        }
+        if (scaleX != 1. || scaleY != 1.) {
+            resize(frame, frame, cv::Size(), scaleX, scaleY, cv::INTER_AREA);
+        }
 
+        // Find Chessboard Corners
         bool patternWasFound = cv::findChessboardCorners(frame, patternSize, corners);
 //        bool patternWasFound = cv::findChessboardCorners(frame, patternSize, corners, cv::CALIB_CB_ADAPTIVE_THRESH);
+        // Draw Chessboard Corners
+        drawChessboardCorners(frame, patternSize, corners, patternWasFound);
         if (patternWasFound) {
             std::cout << corners.size() << std::endl;
-            drawChessboardCorners(frame, patternSize, corners, true);
+
+            // Calculate Homography (H matrix)
+            cv::Mat H = cv::findHomography(originalCorners, corners);
+
+            // norma de la primera columna de H (r1)
+            double norm = cv::norm(H.col(0));
+
+            // normalizar la primera columna de H (r1) para toda la matriz
+            H /= norm;
+            // Print H matrix
+            std::cout << "H: " << H << std::endl;
+
+            // T Matrix is 3rd columns of H matrix
+            cv::Mat T = H.col(2);
+            // Print T matrix
+            std::cout << "T: " << T << std::endl;
+
+            // Gram-Schmidt Orthogonalization Method
         }
 
         imshow(winName, frame);
-
-        // calcular la homografia
-        // 1. encontrar las esquinas en el mundo real
-
-//        std::vector<cv::Point2f> realCorners;
-//        realCorners.emplace_back(0, 0);
-//        realCorners.emplace_back(0, 1);
-//        realCorners.emplace_back(1, 1);
-//        realCorners.emplace_back(1, 0);
-//
-//        // 2. encontrar las esquinas en la imagen
-//        std::vector<cv::Point2f> imCorners;
-//        imCorners.emplace_back(0, 0);
-//        imCorners.emplace_back(0, 1);
-//        imCorners.emplace_back(1, 1);
-//        imCorners.emplace_back(1, 0);
-
-
-        // 3. calcular la homografia
-
-
-
-
-        //         H, status = findHomography(realCorners, imCorners)
-
-
 
         if (cv::waitKey(1) == 27) break;
     } while (true);

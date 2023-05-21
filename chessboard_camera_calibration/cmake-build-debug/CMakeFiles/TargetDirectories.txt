@@ -1,3 +1,6 @@
 /home/dayan3847/CLionProjects/computer_vision/chessboard_camera_calibration/cmake-build-debug/CMakeFiles/chessboard_camera_calibration.dir
+/home/dayan3847/CLionProjects/computer_vision/chessboard_camera_calibration/cmake-build-debug/CMakeFiles/main_test.dir
+/home/dayan3847/CLionProjects/computer_vision/chessboard_camera_calibration/cmake-build-debug/CMakeFiles/main_test2.dir
+/home/dayan3847/CLionProjects/computer_vision/chessboard_camera_calibration/cmake-build-debug/CMakeFiles/main_test3.dir
 /home/dayan3847/CLionProjects/computer_vision/chessboard_camera_calibration/cmake-build-debug/CMakeFiles/edit_cache.dir
 /home/dayan3847/CLionProjects/computer_vision/chessboard_camera_calibration/cmake-build-debug/CMakeFiles/rebuild_cache.dir
