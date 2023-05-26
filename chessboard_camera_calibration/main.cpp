@@ -2,15 +2,12 @@
 #include <opencv2/opencv.hpp>
 #include <Eigen/Dense>
 
-std::string matToString(const cv::Mat &mat) {
-    // string variable to store matrix data
-    std::string m;
+void printMat(const cv::Mat &mat) {
     for (int i = 0; i < mat.rows; i++) {
         for (int j = 0; j < mat.cols; j++)
-            m + std::to_string(mat.at<double>(i, j)) + "\t";
-        m += "\n";
+            std::cout << mat.at<double>(i, j) << "\t";
+        std::cout << std::endl;
     }
-    return m;
 }
 
 void buildTransformationMatrix(const cv::Mat &R, const cv::Mat &T, cv::Mat &G) {
