@@ -187,42 +187,6 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
         if (patternWasFound) {
             drawChessboardCorners(frame, patternSize, corners, patternWasFound);
 
-            //distCoeffs zeros
-            cv::Mat distCoeffs = cv::Mat::zeros(4, 1, CV_64F);
-
-            cv::Mat rvec, tvec;
-            // Resolver PnP
-            cv::solvePnP(originalCorners, corners, K, distCoeffs, rvec, tvec);
-            printMat(rvec, "rvec");
-            printMat(tvec, "tvec");
-
-            // matrix de rotacion de 3x3
-            cv::Mat rMat;
-            cv::Rodrigues(rvec, rMat);
-            printMat(rMat, "rMat");
-
-            cv::Mat g_(4, 4, CV_64F, cv::Scalar(0));
-            buildTransformationMatrix(rMat, tvec, g_);
-            printMat(g_, "g_");
-
-
-            cv::Mat_<double> object = I0 * g_ * rObject;
-//            object.
-            printMat(object, "object");
-
-
-            cv::Mat_<double> objectK = KI0 * g_ * rObject;
-            printMat(objectK, "objectK");
-
-
-            cv::Mat_<double> object_col1 = object.col(1);
-            object_col1 /= object_col1.at<double>(2, 0);
-            object_col1.pop_back(1);
-            printMat(object_col1, "object_col1");
-            cv::Point2f object_col1p(object_col1);
-            // Draw point in green
-            cv::circle(frame, object_col1p, 5, cv::Scalar(0, 255, 0), 2);
-
             // Draw point in red
             cv::circle(frame, cv::Point2f(500, 500), 5, cv::Scalar(0, 0, 255), 2);
 
@@ -231,8 +195,6 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
             // Applying K matrix
             cv::Mat cornersMat(corners);
             cv::Mat cornersMatT = cornersMat.t();
-
-
 
 
 
