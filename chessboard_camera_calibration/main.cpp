@@ -2,7 +2,8 @@
 #include <opencv2/opencv.hpp>
 #include <Eigen/Dense>
 
-void printMat(const cv::Mat &mat) {
+void printMat(const cv::Mat &mat, const std::string &name = "Mat") {
+    std::cout << name << std::endl;
     for (int i = 0; i < mat.rows; i++) {
         for (int j = 0; j < mat.cols; j++)
             std::cout << mat.at<double>(i, j) << "\t";
@@ -16,6 +17,8 @@ void buildTransformationMatrix(const cv::Mat &R, const cv::Mat &T, cv::Mat &G) {
     R.copyTo(G(cv::Rect(0, 0, 3, 3)));
     T.copyTo(G(cv::Rect(3, 0, 1, 3)));
     G.at<double>(0, 3) = 0.;
+    G.at<double>(1, 3) = 0.;
+    G.at<double>(2, 3) = 0.;
     G.at<double>(3, 3) = 1.;
 }
 
@@ -68,6 +71,18 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
             0., 7.6808743880079578e+02, 3.0855623821214846e+02,
             0., 0., 1.
     );
+
+    // I_3x3_0_3X1 matrix
+    cv::Mat I0 = (cv::Mat_<double>(3, 4)
+            <<
+            1., 0., 0., 0.,
+            0., 1., 0., 0.,
+            0., 0., 1., 0.
+    );
+
+    // K IO matrix
+    cv::Mat KI0 = K * I0;
+
     // delta t 30 fps
     double dt = 1. / 30;
     std::string winName = "Chessboard";
@@ -75,6 +90,28 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
     cv::Size patternSize = cv::Size(8, 6);
     std::vector<cv::Point2f> originalCorners;
     getOriginalCorners(patternSize, 28.45e-3, originalCorners);
+
+
+    cv::Mat rObject = (cv::Mat_<double>(4, 4)
+            <<
+            0., 1., 0., 0., // x
+            0., 0., 1., 0., // y
+            0., 0., 0., 1., // z
+            1., 1., 1., 1. // 1
+    );
+
+    printMat(rObject, "rObject");
+
+    // get the first row of rObject remove the last row
+    cv::Mat objectRow = rObject.col(0);
+    // remove the last row
+    objectRow.pop_back(1);
+
+    printMat(objectRow, "objectRow");
+
+    cv::Point3f objectPoint(objectRow);
+
+
     cv::Mat frame;
     std::vector<cv::Point2f> corners;
     do {
@@ -107,7 +144,7 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
         // bool patternWasFound = cv::findChessboardCorners(frame, patternSize, corners, cv::CALIB_CB_ADAPTIVE_THRESH);
         // Draw Chessboard Corners
         if (patternWasFound) {
-            drawChessboardCorners(frame, patternSize, corners, patternWasFound);
+//            drawChessboardCorners(frame, patternSize, corners, patternWasFound);
             std::cout << corners.size() << std::endl;
             // Applying K matrix
             cv::Mat cornersMat(corners);
@@ -116,6 +153,7 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
             // Step 4: Calculate Homography (H matrix)
             std::cout << "Step 4: Calculate Homography (H matrix)" << std::endl;
             cv::Mat H = cv::findHomography(originalCorners, corners);
+//            cv::Mat H = cv::findHomography(corners, originalCorners);
             std::cout << "H: " << H << std::endl;
 
             // Step 5: Normalize H matrix
@@ -157,6 +195,20 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
             // Step 8: Calculate G matrix
             cv::Mat G(4, 4, CV_64F, cv::Scalar(0));
             buildTransformationMatrix(R, T, G);
+
+            printMat(G, "G");
+
+            cv::Mat_<double> object = I0 * G * rObject;
+//            object.
+            printMat(object, "object");
+            cv::Mat_<double> object_col1 = object.col(1);
+            object_col1 /= object_col1.at<double>(2, 0);
+            object_col1.pop_back(1);
+            printMat(object_col1, "object_col1");
+            cv::Point2f object_col1p(object_col1);
+            // Draw point in green
+            cv::circle(frame, object_col1p, 5, cv::Scalar(0, 255, 0), 2);
+
 
         }
 
