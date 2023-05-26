@@ -12,17 +12,19 @@ find_package(OpenCV REQUIRED)
 find_package(Eigen3 CONFIG REQUIRED)
 
 
+set(
+        SOURCE_FILES
+        src/MyClass.cpp
+        src/MyClass.h
+)
+add_executable(chessboard_camera_calibration main.cpp ${SOURCE_FILES})
+add_executable(main_test main_test.cpp ${SOURCE_FILES})
+add_executable(main_test2 main_test2.cpp ${SOURCE_FILES})
+add_executable(main_test3 main_test3.cpp ${SOURCE_FILES})
 
-add_executable(chessboard_camera_calibration main.cpp tools.h)
-# main_test
-add_executable(main_test main_test.cpp)
-add_executable(main_test2 main_test2.cpp tools.h)
-add_executable(main_test3 test_gram_schmidt_orthogonalization.cpp)
 
-
-target_link_libraries(main_test ${OpenCV_LIBS})
-target_link_libraries(main_test3 PRIVATE Eigen3::Eigen)
-
-#target_link_libraries(chessboard_camera_calibration ${OpenCV_LIBS})
-#target_link_libraries(chessboard_camera_calibration PRIVATE Eigen3::Eigen)
+#target_link_libraries(main_test3 PRIVATE Eigen3::Eigen)
 target_link_libraries(chessboard_camera_calibration ${OpenCV_LIBS} Eigen3::Eigen)
+target_link_libraries(main_test ${OpenCV_LIBS} Eigen3::Eigen)
+target_link_libraries(main_test2 ${OpenCV_LIBS} Eigen3::Eigen)
+target_link_libraries(main_test3 ${OpenCV_LIBS} Eigen3::Eigen)

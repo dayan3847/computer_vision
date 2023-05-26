@@ -40,19 +40,47 @@ void gramSchmidtOrthogonalizationMethod(cv::Mat &H) {
             H.at<double>(row, col) = R12_orthogonal(row, col);
 }
 
-void getOriginalCorners(cv::Size &size, double squareSize, std::vector<cv::Point2f> &outCorners) {
-    double initHeight = (size.height - 1.) / 2 * squareSize * -1;
-    double initWidth = (size.width - 1.) / 2 * squareSize * -1;
+void getOriginalCorners(cv::Size &size, double squareSize, std::vector<cv::Point3f> &outCorners, bool center = true) {
+    double initHeight = 0;
+    double initWidth = 0;
+    if (center) {
+        initHeight = (size.height - 1.) / 2 * squareSize * -1;
+        initWidth = (size.width - 1.) / 2 * squareSize * -1;
+    }
     for (int i = 0; i < size.height; ++i) {
-        double y = initHeight + i * squareSize;
+        double x = initWidth + i * squareSize;
         for (int j = 0; j < size.width; ++j) {
-            double x = initWidth + j * squareSize;
-            outCorners.emplace_back(x, y);
+            double y = initHeight + j * squareSize;
+            outCorners.emplace_back(x, y, 0.);
         }
     }
 }
 
+void convertVecPointToMat(const std::vector<cv::Point3f> &vecPoint, cv::Mat &matPoint) {
+    int count = int(vecPoint.size());
+    matPoint = cv::Mat(4, count, CV_64FC1);
+    for (int i = 0; i < count; ++i) {
+        matPoint.at<double>(0, i) = vecPoint[i].x;
+        matPoint.at<double>(1, i) = vecPoint[i].y;
+        matPoint.at<double>(2, i) = vecPoint[i].z;
+        matPoint.at<double>(3, i) = 1.;
+    }
+}
+
+void convertVecPointToMat(const std::vector<cv::Point2f> &vecPoint, cv::Mat &matPoint) {
+    int count = int(vecPoint.size());
+    matPoint = cv::Mat(3, count, CV_64FC1);
+    for (int i = 0; i < count; ++i) {
+        matPoint.at<double>(0, i) = vecPoint[i].x;
+        matPoint.at<double>(1, i) = vecPoint[i].y;
+        matPoint.at<double>(2, i) = 1.;
+    }
+}
+
+
 int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
+
+
     if (!videoCapture.isOpened()) {
         std::cout << "Error al abrir la camara o el video" << std::endl;
         return -1;
@@ -79,17 +107,30 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
             0., 1., 0., 0.,
             0., 0., 1., 0.
     );
+    printMat(I0, "I0");
 
     // K IO matrix
     cv::Mat KI0 = K * I0;
+    printMat(KI0, "KI0");
 
     // delta t 30 fps
     double dt = 1. / 30;
     std::string winName = "Chessboard";
     cv::namedWindow(winName, cv::WINDOW_AUTOSIZE);
     cv::Size patternSize = cv::Size(8, 6);
-    std::vector<cv::Point2f> originalCorners;
+    std::vector<cv::Point3f> originalCorners;
     getOriginalCorners(patternSize, 28.45e-3, originalCorners);
+    // getOriginalCorners Mat
+    cv::Mat originalCornersMat(originalCorners);
+    printMat(originalCornersMat, "originalCornersMat");
+
+
+    std::vector<cv::Point3f> testCorners;
+    auto s = cv::Size(3, 2);
+    getOriginalCorners(s, 1, testCorners, false);
+    cv::Mat testCornersMat;
+    convertVecPointToMat(testCorners, testCornersMat);
+    printMat(testCornersMat, "testCornersMat");
 
 
     cv::Mat rObject = (cv::Mat_<double>(4, 4)
@@ -97,7 +138,7 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
             0., 1., 0., 0., // x
             0., 0., 1., 0., // y
             0., 0., 0., 1., // z
-            1., 1., 1., 1. // 1
+            1., 1., 1., 1.  // 1
     );
 
     printMat(rObject, "rObject");
@@ -144,11 +185,56 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
         // bool patternWasFound = cv::findChessboardCorners(frame, patternSize, corners, cv::CALIB_CB_ADAPTIVE_THRESH);
         // Draw Chessboard Corners
         if (patternWasFound) {
-//            drawChessboardCorners(frame, patternSize, corners, patternWasFound);
+            drawChessboardCorners(frame, patternSize, corners, patternWasFound);
+
+            //distCoeffs zeros
+            cv::Mat distCoeffs = cv::Mat::zeros(4, 1, CV_64F);
+
+            cv::Mat rvec, tvec;
+            // Resolver PnP
+            cv::solvePnP(originalCorners, corners, K, distCoeffs, rvec, tvec);
+            printMat(rvec, "rvec");
+            printMat(tvec, "tvec");
+
+            // matrix de rotacion de 3x3
+            cv::Mat rMat;
+            cv::Rodrigues(rvec, rMat);
+            printMat(rMat, "rMat");
+
+            cv::Mat g_(4, 4, CV_64F, cv::Scalar(0));
+            buildTransformationMatrix(rMat, tvec, g_);
+            printMat(g_, "g_");
+
+
+            cv::Mat_<double> object = I0 * g_ * rObject;
+//            object.
+            printMat(object, "object");
+
+
+            cv::Mat_<double> objectK = KI0 * g_ * rObject;
+            printMat(objectK, "objectK");
+
+
+            cv::Mat_<double> object_col1 = object.col(1);
+            object_col1 /= object_col1.at<double>(2, 0);
+            object_col1.pop_back(1);
+            printMat(object_col1, "object_col1");
+            cv::Point2f object_col1p(object_col1);
+            // Draw point in green
+            cv::circle(frame, object_col1p, 5, cv::Scalar(0, 255, 0), 2);
+
+            // Draw point in red
+            cv::circle(frame, cv::Point2f(500, 500), 5, cv::Scalar(0, 0, 255), 2);
+
+
             std::cout << corners.size() << std::endl;
             // Applying K matrix
             cv::Mat cornersMat(corners);
             cv::Mat cornersMatT = cornersMat.t();
+
+
+
+
 
             // Step 4: Calculate Homography (H matrix)
             std::cout << "Step 4: Calculate Homography (H matrix)" << std::endl;
@@ -197,17 +283,6 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
             buildTransformationMatrix(R, T, G);
 
             printMat(G, "G");
-
-            cv::Mat_<double> object = I0 * G * rObject;
-//            object.
-            printMat(object, "object");
-            cv::Mat_<double> object_col1 = object.col(1);
-            object_col1 /= object_col1.at<double>(2, 0);
-            object_col1.pop_back(1);
-            printMat(object_col1, "object_col1");
-            cv::Point2f object_col1p(object_col1);
-            // Draw point in green
-            cv::circle(frame, object_col1p, 5, cv::Scalar(0, 255, 0), 2);
 
 
         }

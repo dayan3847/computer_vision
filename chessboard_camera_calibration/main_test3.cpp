@@ -1,9 +1,12 @@
 #include <iostream>
+#include "src/MyClass.h"
+
 
 int main() {
+    std::cout << "Hello, World!";
 
-    // print hello world
-    std::cout << 28.45e-3 << std::endl;
+    auto r = dayan3847::MyClass::hello();
+    std::cout << r;
 
     return 0;
 }
