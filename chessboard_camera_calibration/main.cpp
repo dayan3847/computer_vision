@@ -2,6 +2,23 @@
 #include <opencv2/opencv.hpp>
 #include <Eigen/Dense>
 
+void gramSchmidtOrthogonalizationMethod(cv::Mat &H) {
+    Eigen::MatrixXd eigenR12(3, 2);
+    eigenR12
+            <<
+            H.at<double>(0, 0), H.at<double>(0, 1),
+            H.at<double>(1, 0), H.at<double>(1, 1),
+            H.at<double>(2, 0), H.at<double>(2, 1);
+    // std::cout << "eigenR12: " << eigenR12 << std::endl;
+    // Orthogonalization
+    Eigen::MatrixXd R12_orthogonal = eigenR12.householderQr().householderQ();
+    // Print R12_orthogonal
+    // std::cout << "R12_orthogonal: " << R12_orthogonal << std::endl;
+    // actualizar los valores de r1 y r2
+    for (int col = 0; col < 2; ++col)
+        for (int row = 0; row < 3; ++row)
+            H.at<double>(row, col) = R12_orthogonal(row, col);
+}
 
 void getOriginalCorners(cv::Size &size, double squareSize, std::vector<cv::Point2f> &outCorners) {
     double initHeight = (size.height - 1.) / 2 * squareSize * -1;
@@ -27,11 +44,20 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
     double scaleX = IM_WIDTH / frmWidth;
     double scaleY = IM_HEIGHT / frmHeight;
 
+    // K matrix
+    cv::Mat K = (cv::Mat_<double>(3, 3)
+            <<
+            7.6808743880079578e+02, 0., 4.2089026071365419e+02,
+            0., 7.6808743880079578e+02, 3.0855623821214846e+02,
+            0., 0., 1.
+    );
+    // delta t 30 fps
+    double dt = 1. / 30;
     std::string winName = "Chessboard";
     cv::namedWindow(winName, cv::WINDOW_AUTOSIZE);
     cv::Size patternSize = cv::Size(8, 6);
     std::vector<cv::Point2f> originalCorners;
-    getOriginalCorners(patternSize, 28.45, originalCorners);
+    getOriginalCorners(patternSize, 28.45e-3, originalCorners);
     cv::Mat frame;
     std::vector<cv::Point2f> corners;
     do {
@@ -63,9 +89,12 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
         bool patternWasFound = cv::findChessboardCorners(frame, patternSize, corners);
         // bool patternWasFound = cv::findChessboardCorners(frame, patternSize, corners, cv::CALIB_CB_ADAPTIVE_THRESH);
         // Draw Chessboard Corners
-        drawChessboardCorners(frame, patternSize, corners, patternWasFound);
         if (patternWasFound) {
+            drawChessboardCorners(frame, patternSize, corners, patternWasFound);
             std::cout << corners.size() << std::endl;
+            // Applying K matrix
+            cv::Mat cornersMat(corners);
+            cv::Mat cornersMatT = cornersMat.t();
 
             // Step 4: Calculate Homography (H matrix)
             std::cout << "Step 4: Calculate Homography (H matrix)" << std::endl;
@@ -83,24 +112,10 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
             // Print T matrix
             std::cout << "T: " << T << std::endl;
 
-
             // Step 6: Gram-Schmidt Orthogonalization Method
             std::cout << "Step 6: Gram-Schmidt Orthogonalization Method" << std::endl;
-            Eigen::MatrixXd eigenR12(3, 2);
-            eigenR12
-                    <<
-                    H.at<double>(0, 0), H.at<double>(0, 1),
-                    H.at<double>(1, 0), H.at<double>(1, 1),
-                    H.at<double>(2, 0), H.at<double>(2, 1);
-            // std::cout << "eigenR12: " << eigenR12 << std::endl;
-            // Orthogonalization
-            Eigen::MatrixXd R12_orthogonal = eigenR12.householderQr().householderQ();
-            // Print R12_orthogonal
-            // std::cout << "R12_orthogonal: " << R12_orthogonal << std::endl;
-            // actualizar los valores de r1 y r2
-            for (int col = 0; col < 2; ++col)
-                for (int row = 0; row < 3; ++row)
-                    H.at<double>(row, col) = R12_orthogonal(row, col);
+            gramSchmidtOrthogonalizationMethod(H);
+
             // Print H matrix
             std::cout << "H: " << H << std::endl;
 
