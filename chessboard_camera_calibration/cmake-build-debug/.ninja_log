@@ -1,21 +1,9 @@
 # ninja log v5
 1	1225	1684650237626205725	CMakeFiles/main_test.dir/main_test.cpp.o	8e303a64a057ad
-0	38	1684691934887399964	build.ninja	db98ef64d84efd66
-5987	6468	1684689427414748884	chessboard_camera_calibration	9091f3927c7d70f2
-0	5987	1684689426934753931	CMakeFiles/chessboard_camera_calibration.dir/main.cpp.o	81ecd44ecd22fe9f
-1	4926	1684690199845341300	CMakeFiles/main_test3.dir/main_test3.cpp.o	db546d7860220b21
-4926	5114	1684690200037340367	main_test3	ca00a81ff8304204
-1225	1307	1684650237706205544	main_test	bb9c20172c247fd0
-0	23	1684691934887399964	build.ninja	db98ef64d84efd66
 0	4917	1684691939803365960	CMakeFiles/main_test3.dir/test_gram_schmidt_orthogonalization.cpp.o	4f774da9c98aed8e
+0	23	1685070970275501344	build.ninja	db98ef64d84efd66
+6034	6513	1684696576576865912	chessboard_camera_calibration	9091f3927c7d70f2
+1	6033	1684696576096868151	CMakeFiles/chessboard_camera_calibration.dir/main.cpp.o	81ecd44ecd22fe9f
+1	4926	1684690199845341300	CMakeFiles/main_test3.dir/main_test3.cpp.o	db546d7860220b21
 4917	5105	1684691939995364634	main_test3	599b8cf35ee8ecdb
-0	6136	1684692699779066764	CMakeFiles/chessboard_camera_calibration.dir/main.cpp.o	81ecd44ecd22fe9f
-6136	6599	1684692700247064476	chessboard_camera_calibration	9091f3927c7d70f2
-0	5887	1684693547883074041	CMakeFiles/chessboard_camera_calibration.dir/main.cpp.o	81ecd44ecd22fe9f
-5887	6352	1684693548351071714	chessboard_camera_calibration	9091f3927c7d70f2
-1	6093	1684694239427814623	CMakeFiles/chessboard_camera_calibration.dir/main.cpp.o	81ecd44ecd22fe9f
-6093	6567	1684694239903812459	chessboard_camera_calibration	9091f3927c7d70f2
-1	5907	1684694710237697927	CMakeFiles/chessboard_camera_calibration.dir/main.cpp.o	81ecd44ecd22fe9f
-5907	6384	1684694710717695787	chessboard_camera_calibration	9091f3927c7d70f2
-1	5885	1684694718925659200	CMakeFiles/chessboard_camera_calibration.dir/main.cpp.o	81ecd44ecd22fe9f
-5885	6355	1684694719397657096	chessboard_camera_calibration	9091f3927c7d70f2
+1225	1307	1684650237706205544	main_test	bb9c20172c247fd0
