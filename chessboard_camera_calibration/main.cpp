@@ -2,6 +2,26 @@
 #include <opencv2/opencv.hpp>
 #include <Eigen/Dense>
 
+std::string matToString(const cv::Mat &mat) {
+    // string variable to store matrix data
+    std::string m;
+    for (int i = 0; i < mat.rows; i++) {
+        for (int j = 0; j < mat.cols; j++)
+            m + std::to_string(mat.at<double>(i, j)) + "\t";
+        m += "\n";
+    }
+    return m;
+}
+
+void buildTransformationMatrix(const cv::Mat &R, const cv::Mat &T, cv::Mat &G) {
+    CV_Assert(R.rows == 3 && R.cols == 3 && T.rows == 3 && T.cols == 1);
+
+    R.copyTo(G(cv::Rect(0, 0, 3, 3)));
+    T.copyTo(G(cv::Rect(3, 0, 1, 3)));
+    G.at<double>(0, 3) = 0.;
+    G.at<double>(3, 3) = 1.;
+}
+
 void gramSchmidtOrthogonalizationMethod(cv::Mat &H) {
     Eigen::MatrixXd eigenR12(3, 2);
     eigenR12
@@ -136,6 +156,11 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
             r3.copyTo(R.col(2));
             // Print R matrix
             std::cout << "R: " << R << std::endl;
+
+            // Step 8: Calculate G matrix
+            cv::Mat G(4, 4, CV_64F, cv::Scalar(0));
+            buildTransformationMatrix(R, T, G);
+
         }
 
         imshow(winName, frame);
