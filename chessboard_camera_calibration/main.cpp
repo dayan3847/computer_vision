@@ -1,6 +1,6 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
-#include <Eigen/Dense>
+
 
 void printMat(const cv::Mat &mat, const std::string &name = "Mat") {
     std::cout << name << std::endl;
@@ -16,28 +16,35 @@ void buildTransformationMatrix(const cv::Mat &R, const cv::Mat &T, cv::Mat &G) {
 
     R.copyTo(G(cv::Rect(0, 0, 3, 3)));
     T.copyTo(G(cv::Rect(3, 0, 1, 3)));
-    G.at<double>(0, 3) = 0.;
-    G.at<double>(1, 3) = 0.;
-    G.at<double>(2, 3) = 0.;
+    G.at<double>(3, 0) = 0.;
+    G.at<double>(3, 1) = 0.;
+    G.at<double>(3, 2) = 0.;
     G.at<double>(3, 3) = 1.;
 }
 
-void gramSchmidtOrthogonalizationMethod(cv::Mat &H) {
-    Eigen::MatrixXd eigenR12(3, 2);
-    eigenR12
-            <<
-            H.at<double>(0, 0), H.at<double>(0, 1),
-            H.at<double>(1, 0), H.at<double>(1, 1),
-            H.at<double>(2, 0), H.at<double>(2, 1);
-    // std::cout << "eigenR12: " << eigenR12 << std::endl;
-    // Orthogonalization
-    Eigen::MatrixXd R12_orthogonal = eigenR12.householderQr().householderQ();
-    // Print R12_orthogonal
-    // std::cout << "R12_orthogonal: " << R12_orthogonal << std::endl;
-    // actualizar los valores de r1 y r2
-    for (int col = 0; col < 2; ++col)
-        for (int row = 0; row < 3; ++row)
-            H.at<double>(row, col) = R12_orthogonal(row, col);
+void proj(cv::Mat &u, cv::Mat &v, cv::Mat &pv)
+{
+  pv = u.dot(v)*u/u.dot(u);
+}
+
+void gramSchmidtOrthogonalizationMethod(cv::Mat &H)
+{
+    cv::Mat v1, v2, v3, u[3];
+
+    v1 = H(cv::Rect(0,0,1,3));
+    v2 = H(cv::Rect(1,0,1,3));
+    v3 = H(cv::Rect(2,0,1,3));
+    u[0] = v1;
+    proj(u[0], v2, u[1]);
+    u[1] = v2 - u[1];
+    proj(u[0], v3, v1);
+    proj(u[1], v3, v2);
+    u[2] = v3 - v1 - v2;
+
+    u[0] = u[0] / sqrt(u[0].dot(u[0]));
+    u[1] = u[1] / sqrt(u[1].dot(u[1]));
+    u[2] = u[2] / sqrt(u[2].dot(u[2]));
+    cv::hconcat(u, 3, H);
 }
 
 void getOriginalCorners(cv::Size &size, double squareSize, std::vector<cv::Point3f> &outCorners, bool center = true) {
@@ -67,25 +74,48 @@ void convertVecPointToMat(const std::vector<cv::Point3f> &vecPoint, cv::Mat &mat
     }
 }
 
-void convertVecPointToMat(const std::vector<cv::Point2f> &vecPoint, cv::Mat &matPoint) {
+void convertVecPointToMat(const std::vector<cv::Point2f> &vecPoint, cv::Mat &matPoint)
+{
     int count = int(vecPoint.size());
+
     matPoint = cv::Mat(3, count, CV_64FC1);
-    for (int i = 0; i < count; ++i) {
+    for (int i = 0; i < count; ++i)
+    {
         matPoint.at<double>(0, i) = vecPoint[i].x;
         matPoint.at<double>(1, i) = vecPoint[i].y;
         matPoint.at<double>(2, i) = 1.;
     }
 }
 
+void convertMatToVecPoint(const cv::Mat &matPoint, std::vector<cv::Point2f> &vecPoint)
+{
+  int i;
+
+  vecPoint.clear();
+  for (i=0;i<matPoint.cols;++i)
+    vecPoint.push_back(cv::Point2f(matPoint.at<double>(0, i),matPoint.at<double>(1, i)));
+}
+
+void homogenous2Cartesian(cv::Mat &matPoint)
+{
+  int i;
+  double val;
+  for (i=0;i<matPoint.cols;++i)
+  {
+    val = matPoint.at<double>(2, i);
+    matPoint.at<double>(0, i) /= val;
+    matPoint.at<double>(1, i) /= val;
+  }
+}
 
 int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
 
 
     if (!videoCapture.isOpened()) {
-        std::cout << "Error al abrir la camara o el video" << std::endl;
+        std::cout << "Error al abrir lconvertVecPointToMata camara o el video" << std::endl;
         return -1;
     }
-//    int IM_WIDTH = 1920, IM_HEIGHT = 1080;
+//    int IM_WIDTH = 1920, IM_HEIGHT = convertVecPointToMat1080;
     int IM_WIDTH = 800, IM_HEIGHT = 600;
     double frmWidth = videoCapture.get(cv::CAP_PROP_FRAME_WIDTH);
     double frmHeight = videoCapture.get(cv::CAP_PROP_FRAME_HEIGHT);
@@ -99,6 +129,12 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
             0., 7.6808743880079578e+02, 3.0855623821214846e+02,
             0., 0., 1.
     );
+
+    cv::Mat iK = (cv::Mat_<double>(3, 3)
+            << 1./7.6808743880079578e+02, 0., -4.2089026071365419e+02/7.6808743880079578e+02,\
+               0., 1./7.6808743880079578e+02, -3.0855623821214846e+02/7.6808743880079578e+02,\
+               0., 0., 1.);
+
 
     // I_3x3_0_3X1 matrix
     cv::Mat I0 = (cv::Mat_<double>(3, 4)
@@ -115,7 +151,7 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
 
     // delta t 30 fps
     double dt = 1. / 30;
-    std::string winName = "Chessboard";
+    std::string winName = "Chessboard";;
     cv::namedWindow(winName, cv::WINDOW_AUTOSIZE);
     cv::Size patternSize = cv::Size(8, 6);
     std::vector<cv::Point3f> originalCorners;
@@ -155,7 +191,8 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
 
     cv::Mat frame;
     std::vector<cv::Point2f> corners;
-    do {
+    do
+    {
         // print current time
         std::cout << "current time is: "
                   << std::chrono::system_clock::to_time_t(std::chrono::system_clock::now())
@@ -182,7 +219,7 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
         // Step 3: Find Chessboard Corners
         std::cout << "Step 3: Find Chessboard Corners" << std::endl;
         bool patternWasFound = cv::findChessboardCorners(frame, patternSize, corners);
-        // bool patternWasFound = cv::findChessboardCorners(frame, patternSize, corners, cv::CALIB_CB_ADAPTIVE_THRESH);
+        // bool patternWasFound = cv::finhomogenous2CartesiandChessboardCorners(frame, patternSize, corners, cv::CALIB_CB_ADAPTIVE_THRESH);
         // Draw Chessboard Corners
         if (patternWasFound) {
             drawChessboardCorners(frame, patternSize, corners, patternWasFound);
@@ -193,10 +230,24 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture) {
 
             std::cout << corners.size() << std::endl;
             // Applying K matrix
-            cv::Mat cornersMat(corners);
-            cv::Mat cornersMatT = cornersMat.t();
+            cv::Mat cornersMat, canonicalCorners;
 
+            std::cout << "Corners Antes:" << corners << std::endl;
 
+            convertVecPointToMat(corners, cornersMat);
+
+            std::cout << "Corners Mat:" << cornersMat << std::endl;
+
+            canonicalCorners = iK * cornersMat;
+
+            std::cout << "canonicalCorners:" << canonicalCorners << std::endl;
+
+            homogenous2Cartesian(canonicalCorners);
+
+            std::cout << "homogeneous canonicalCorners:" << canonicalCorners << std::endl;
+
+            convertMatToVecPoint(canonicalCorners, corners);
+            std::cout << "Corners Despues:" << corners << std::endl;
 
             // Step 4: Calculate Homography (H matrix)
             std::cout << "Step 4: Calculate Homography (H matrix)" << std::endl;
