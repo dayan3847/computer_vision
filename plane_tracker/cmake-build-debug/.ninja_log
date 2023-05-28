@@ -68,3 +68,5 @@
 1570	1640	1685297239402132818	test_get_original_corners	af47f790bffab40a
 0	1635	1685297905795697432	CMakeFiles/test_get_original_corners.dir/tests/test_get_original_corners.cpp.o	ea8f6c72331c8c56
 1635	1714	1685297905875697170	test_get_original_corners	af47f790bffab40a
+1	1442	1685299915314158806	CMakeFiles/test_print_matriz.dir/tests/test_print_matriz.cpp.o	a13da2546a0e47c8
+1442	1521	1685299915394158386	test_print_matriz	9c46cf53c0a85c04
