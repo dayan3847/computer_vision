@@ -1,7 +1,5 @@
 /home/dayan3847/CLionProjects/computer_vision/plane_tracker/cmake-build-debug/CMakeFiles/chessboard_camera_calibration.dir
-/home/dayan3847/CLionProjects/computer_vision/plane_tracker/cmake-build-debug/CMakeFiles/main_test.dir
-/home/dayan3847/CLionProjects/computer_vision/plane_tracker/cmake-build-debug/CMakeFiles/main_test2.dir
-/home/dayan3847/CLionProjects/computer_vision/plane_tracker/cmake-build-debug/CMakeFiles/main_test3.dir
 /home/dayan3847/CLionProjects/computer_vision/plane_tracker/cmake-build-debug/CMakeFiles/test_print_matriz.dir
+/home/dayan3847/CLionProjects/computer_vision/plane_tracker/cmake-build-debug/CMakeFiles/test_get_original_corners.dir
 /home/dayan3847/CLionProjects/computer_vision/plane_tracker/cmake-build-debug/CMakeFiles/edit_cache.dir
 /home/dayan3847/CLionProjects/computer_vision/plane_tracker/cmake-build-debug/CMakeFiles/rebuild_cache.dir

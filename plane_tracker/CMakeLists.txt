@@ -12,8 +12,8 @@ find_package(OpenCV REQUIRED)
 
 set(
         SOURCE_FILES
-        functions.h
         tools.h
+        functions.h
         config.h
 )
 
@@ -22,3 +22,6 @@ target_link_libraries(chessboard_camera_calibration ${OpenCV_LIBS})
 
 add_executable(test_print_matriz tests/test_print_matriz.cpp ${SOURCE_FILES})
 target_link_libraries(test_print_matriz ${OpenCV_LIBS})
+
+add_executable(test_get_original_corners tests/test_get_original_corners.cpp ${SOURCE_FILES})
+target_link_libraries(test_get_original_corners ${OpenCV_LIBS})

@@ -18,18 +18,18 @@ int myFindChessboardCorners(cv::VideoCapture &videoCapture)
 	double scaleX = IM_WIDTH / frmWidth;
 	double scaleY = IM_HEIGHT / frmHeight;
 
+	// delta t 30 fps
+	double dt = 1. / 30;
 	cv::Size patternSize = cv::Size(8, 6);
 	cv::Mat K = my_config::K();
 	cv::Mat iK = my_config::iK();
 	cv::Mat I0 = my_config::I0();
 	my_tools::printMat(I0, "I0");
 
-	// delta t 30 fps
-	double dt = 1. / 30;
 	std::string winName = "Chessboard";;
 	cv::namedWindow(winName, cv::WINDOW_AUTOSIZE);
-	std::vector<cv::Point3f> originalCorners;
 
+	std::vector<cv::Point3f> originalCorners;
 	my_functions::getOriginalCorners(patternSize, 28.45e-3, originalCorners);
 
 	cv::Mat originalCornersMat(originalCorners);
