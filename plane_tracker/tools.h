@@ -7,11 +7,47 @@
 
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include <fstream>
 
 namespace my_tools
 {
 
-	void printMat(const cv::Mat &mat, const std::string &name = "Mat")
+	std::string matToString(const cv::Mat &mat, bool tab = false)
+	{
+		char s = tab ? '\t' : ' ';
+		std::ostringstream stream;
+		std::string matString;
+		for (int i = 0; i < mat.rows; i++)
+		{
+			for (int j = 0; j < mat.cols; j++)
+			{
+				stream << mat.at<double>(i, j);
+				matString += stream.str();
+				if (j < mat.cols - 1)
+					matString += s;
+				stream.str("");
+			}
+			matString += "\n";
+		}
+		return matString;
+	}
+
+	void saveMatInTxt(const cv::Mat &mat, const std::string &name, const std::string &folder = "./../tests/data/")
+	{
+		std::string matString = matToString(mat, false);
+		std::ofstream originalCornersMatFile(folder + name + ".txt");
+		originalCornersMatFile << matString;
+		originalCornersMatFile.close();
+	}
+
+	void printMat(const cv::Mat &mat, const std::string &name = "Mat:")
+	{
+		std::cout << name << std::endl;
+		std::string matString = matToString(mat, true);
+		std::cout << matString << std::endl;
+	}
+
+	void printMat2(const cv::Mat &mat, const std::string &name = "Mat:")
 	{
 		std::cout << name << std::endl;
 		for (int i = 0; i < mat.rows; i++)

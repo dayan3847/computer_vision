@@ -8,17 +8,23 @@ int main()
 
 	// Original Corners Points
 	std::vector<cv::Point3f> originalCornersPoints;
-	my_functions::getOriginalCorners(patternSize, 28.45e-3, originalCornersPoints);
+	my_functions::getOriginalCorners(patternSize, 28.45e-3, originalCornersPoints, false);
 	// Original Corners Mat
 	cv::Mat originalCornersMat;
 	my_tools::convertVecPointToMat(originalCornersPoints, originalCornersMat);
-	// Print Original Corners Mat
+	// save original corners mat
+	my_tools::saveMatInTxt(originalCornersMat.t(), "originalCornersMat");
+	// print original corners mat
 	my_tools::printMat(originalCornersMat.t(), "originalCornersMat");
 
 	cv::Mat iK = my_config::iK();
-	// remove last row
+	my_tools::printMat(iK, "iK");
+
 	originalCornersMat.pop_back();
 	cv::Mat iK_originalCornersMat = iK * originalCornersMat;
+	// save iK_originalCornersMat
+	my_tools::saveMatInTxt(iK_originalCornersMat.t(), "iK_originalCornersMat");
+	// print iK_originalCornersMat
 	my_tools::printMat(iK_originalCornersMat.t(), "iK_originalCornersMat");
 
 	return 0;
