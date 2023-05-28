@@ -1,0 +1,14 @@
+# ninja log v5
+0	26	1685258939247464753	build.ninja	c07f2b44875f8393
+1543	1848	1685258871832077254	chessboard_camera_calibration	66d8272726b31f31
+1	1542	1685256230081059018	CMakeFiles/chessboard_camera_calibration.dir/main.cpp.o	12b0c0ef14b53da5
+0	1543	1685258871532079971	CMakeFiles/chessboard_camera_calibration.dir/plane_tracker_main.cpp.o	933c284973dc69da
+1	2008	1685255908914049825	CMakeFiles/chessboard_camera_calibration.dir/src/MyClass.cpp.o	5e0cf5629ac5519
+174	266	1685122319205952022	main_test3	920c3958b4c961a0
+1225	1307	1684650237706205544	main_test	bb9c20172c247fd0
+0	1326	1685258944467417177	CMakeFiles/test_print_matriz.dir/tests/test_print_matriz.cpp.o	a13da2546a0e47c8
+1326	1396	1685258944535416556	test_print_matriz	9c46cf53c0a85c04
+1	1329	1685258977991111143	CMakeFiles/test_print_matriz.dir/tests/test_print_matriz.cpp.o	a13da2546a0e47c8
+1329	1401	1685258978063110484	test_print_matriz	9c46cf53c0a85c04
+1	1320	1685259090594077645	CMakeFiles/test_print_matriz.dir/tests/test_print_matriz.cpp.o	a13da2546a0e47c8
+1320	1391	1685259090662077019	test_print_matriz	9c46cf53c0a85c04

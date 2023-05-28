@@ -1,0 +1,96 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.25"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "chessboard_camera_calibration",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "chessboard_camera_calibration::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-chessboard_camera_calibration-Debug-99c9b5717a1e8387f586.json",
+					"name" : "chessboard_camera_calibration",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "main_test::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-main_test-Debug-f284bb7e28beb0082497.json",
+					"name" : "main_test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "main_test2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-main_test2-Debug-e5bb976a4c3667f2240b.json",
+					"name" : "main_test2",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "main_test3::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-main_test3-Debug-e200d8259d7611819c9e.json",
+					"name" : "main_test3",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_print_matriz::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_print_matriz-Debug-10e82c26adeb0f49ad4a.json",
+					"name" : "test_print_matriz",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/dayan3847/CLionProjects/computer_vision/plane_tracker/cmake-build-debug",
+		"source" : "/home/dayan3847/CLionProjects/computer_vision/plane_tracker"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

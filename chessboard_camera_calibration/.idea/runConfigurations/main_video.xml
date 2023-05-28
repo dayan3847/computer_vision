@@ -1,7 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="main_video" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="&quot;/media/dayan3847/3TB/photos/clases VC/20230517/profe/Chessboard.mp4&quot;" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="chessboard_camera_calibration" TARGET_NAME="chessboard_camera_calibration" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="chessboard_camera_calibration" RUN_TARGET_NAME="chessboard_camera_calibration">
-    <method v="2">
-      <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-    </method>
-  </configuration>
-</component>
