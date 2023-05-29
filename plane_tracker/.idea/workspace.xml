@@ -23,10 +23,19 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="731b1b4a-116d-4570-b3ac-dcf97878827a" name="Changes" comment="unidad de medida">
-      <change afterPath="$PROJECT_DIR$/tests/5_plot_corners_fame_meter.py" afterDir="false" />
+    <list default="true" id="731b1b4a-116d-4570-b3ac-dcf97878827a" name="Changes" comment="plot corners in pixeles">
+      <change beforePath="$PROJECT_DIR$/../chessboard_camera_calibration/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chessboard_camera_calibration/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chessboard_camera_calibration/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chessboard_camera_calibration/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/5_plot_corners_fame.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/4_plot_corners_fame_pixel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.h" beforeDir="false" afterPath="$PROJECT_DIR$/config.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plane_tracker.h" beforeDir="false" afterPath="$PROJECT_DIR$/plane_tracker.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/4_plot_corners_fame_pixel.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/4_plot_corners_fame_pixel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/5_plot_corners_fame_meter.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/5_plot_corners_fame_meter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/data/f/X2d.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/data/f/iFrameCornersM.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/data/f/iFrame_iK_cornersM.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +79,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Python.4_plot_corners_fame_pixel">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tests" />
+    </key>
+  </component>
+  <component name="RunManager" selected="CMake Application.plane_tracker">
     <configuration default="true" type="BIBTEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
       <texify-bibtex>
         <compiler />
@@ -87,7 +101,7 @@
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration name="plane_tracker" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="plane_tracker" TARGET_NAME="plane_tracker" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="plane_tracker" RUN_TARGET_NAME="plane_tracker">
+    <configuration name="plane_tracker" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="&quot;./media/Chessboard.mp4&quot;" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" WORKING_DIR="file://$PROJECT_DIR$" PASS_PARENT_ENVS_2="true" PROJECT_NAME="plane_tracker" TARGET_NAME="plane_tracker" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="plane_tracker" RUN_TARGET_NAME="plane_tracker">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -198,8 +212,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.4_plot_corners_fame_pixel" />
         <item itemvalue="Python.5_plot_corners_fame_meter" />
+        <item itemvalue="Python.4_plot_corners_fame_pixel" />
         <item itemvalue="Python.2_plot_corners_original" />
       </list>
     </recent_temporary>
@@ -212,7 +226,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1681226005858</updated>
-      <workItem from="1685382703054" duration="1266000" />
+      <workItem from="1685382703054" duration="6841000" />
     </task>
     <task id="LOCAL-00001" summary="rename project">
       <created>1685382918698</created>
@@ -242,7 +256,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685383798192</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="plot corners in pixeles">
+      <created>1685383992819</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1685383992819</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,6 +280,18 @@
     <MESSAGE value="remove debug folder" />
     <MESSAGE value="ignore debug folder" />
     <MESSAGE value="unidad de medida" />
-    <option name="LAST_COMMIT_MESSAGE" value="unidad de medida" />
+    <MESSAGE value="plot corners in pixeles" />
+    <option name="LAST_COMMIT_MESSAGE" value="plot corners in pixeles" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/plane_tracker_main.cpp</url>
+          <line>41</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

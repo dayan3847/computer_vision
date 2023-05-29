@@ -34,7 +34,7 @@ namespace my_config
 
 	cv::Mat K_I0 = K * I0;
 
-	cv::Mat axis = (cv::Mat_<double>(4, 4)
+	cv::Mat axisMeter = (cv::Mat_<double>(4, 4)
 		<<
 		0., 1., 0., 0., // x
 		0., 0., 1., 0., // y
@@ -44,6 +44,10 @@ namespace my_config
 
 	// delta t 30 fps
 	double deltaT = 1. / 30;
+
+	cv::Size patternSize(8, 6);
+
+	double squareSize = 28.45e-3;
 
 }
 

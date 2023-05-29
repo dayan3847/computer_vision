@@ -10,7 +10,7 @@ def plot_mat(mat: np.ndarray, label: str, *color: str):
 
 
 if __name__ == '__main__':
-    i_frame_corners_m = np.loadtxt('./data/f/iFrameCornersM.txt', delimiter=' ')
+    i_frame_corners_m = np.loadtxt('./data/f/corners_fount_pixel.txt', delimiter=' ')
 
     plt.figure()
 

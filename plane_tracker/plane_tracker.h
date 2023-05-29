@@ -14,57 +14,86 @@ namespace my_plane_tracker
 {
 
 	void analiceFrame(cv::Mat &frame,
-		std::vector<cv::Point3f> &originalCornersVP,
-		const cv::Size &patternSize,
+		std::vector<cv::Point3f> &cornersOriginalMeterVP,
 		const std::string &winName,
 		const bool &saveData = false)
 	{
-		// Draw point (tests)
-		cv::circle(frame, cv::Point2f(100, 200), 5, cv::Scalar(0, 255, 0), 2);
-		cv::circle(frame, cv::Point2f(200, 400), 5, cv::Scalar(0, 0, 255), 2);
+		cv::Size patternSize = my_config::patternSize;
 		// Step 3: Find Chessboard Corners
 		std::cout << "Step 3: Find Chessboard Corners" << std::endl;
 		// Corners found in the image
-		std::vector<cv::Point2f> cornersFoundVP;
-		bool patternWasFound = cv::findChessboardCorners(frame, patternSize, cornersFoundVP);
-		// bool patternWasFound = cv::findChessboardCorners(frame, patternSize, cornersFoundVP, cv::CALIB_CB_ADAPTIVE_THRESH);
+		std::vector<cv::Point2f> cornersFoundPixelVP;
+		bool patternWasFound = cv::findChessboardCorners(frame, patternSize, cornersFoundPixelVP);
+		// bool patternWasFound = cv::findChessboardCorners(frame, patternSize, cornersFoundPixelVP, cv::CALIB_CB_ADAPTIVE_THRESH);
 		if (patternWasFound)
 		{
 			// Draw Chessboard Corners
-			drawChessboardCorners(frame, patternSize, cornersFoundVP, true);
+			drawChessboardCorners(frame, patternSize, cornersFoundPixelVP, true);
 
-			cv::Mat cornersM;
-			my_tools::convertVecPointToMat(cornersFoundVP, cornersM);
+			cv::Mat cornersFountPixelM;
+			my_tools::convertVecPointToMat(cornersFoundPixelVP, cornersFountPixelM);
 
 			if (saveData)
 			{
-				my_tools::saveMatInTxt(cornersM.t(), "f/iFrameCornersM");
+				my_tools::saveMatInTxt(cornersFountPixelM.t(), "f/corners_fount_pixel");
 			}
 
 			cv::Mat iK = my_config::iK;
-			cv::Mat iK_cornersM = iK * cornersM;
+			cv::Mat cornersFountMeterM = iK * cornersFountPixelM;
 
 			if (saveData)
 			{
-				my_tools::saveMatInTxt(iK_cornersM.t(), "f/iFrame_iK_cornersM");
+				my_tools::saveMatInTxt(cornersFountMeterM.t(), "f/corners_fount_meter");
 			}
+
+			std::vector<cv::Point2f> cornersFountMeterVP;
+			my_tools::convertMatToVecPoint(cornersFountMeterM, cornersFountMeterVP);
+
 
 			// Step 4: Calculate Homography (H matrix)
 			std::cout << "Step 4: Calculate Homography (H matrix)" << std::endl;
-			cv::Mat H = cv::findHomography(originalCornersVP, cornersFoundVP);
+			cv::Mat H = cv::findHomography(cornersOriginalMeterVP, cornersFountMeterVP);
+
+			// Experimento
+			{
+				std::cout << "puntoR 0,0" << cornersOriginalMeterVP[0].x << " ; " << cornersOriginalMeterVP[0].y
+						  << std::endl;
+				std::cout << "puntoM 0,0" << cornersFoundPixelVP[0].x << " ; " << cornersFoundPixelVP[0].y << std::endl;
+				cv::Mat zero_zero = (cv::Mat_<double>(3, 1)
+					<<
+					0., // x
+					0., // y
+					1.  // 1
+				);
+				cv::Mat zero_zero_transformed = H * zero_zero;
+				my_tools::printMat(zero_zero_transformed, "zero_zero_transformed");
+			}
 
 			my_tools::printMat(H, "H");
+			if (saveData)
+			{
+				my_tools::saveMatInTxt(H, "f/H_0_initial");
+			}
 
 			// Step 5: Normalize H matrix
 			std::cout << "Step 5: Normalize H matrix" << std::endl;
 			H /= cv::norm(H.col(0));
 			my_tools::printMat(H, "H (normalized)");
+			if (saveData)
+			{
+				my_tools::saveMatInTxt(H, "f/H_1_normalized");
+			}
 
 			// Step 5.5: Calculate the translation vector T
 			std::cout << "Step 5.5: Calculate the translation vector T" << std::endl;
 			cv::Mat T = H.col(2);
 			// Print T matrix
 			my_tools::printMat(T, "T");
+			if (saveData)
+			{
+				my_tools::saveMatInTxt(T, "f/T");
+			}
+
 
 			// Step 6: Gram-Schmidt Orthogonalization Method
 			std::cout << "Step 6: Gram-Schmidt Orthogonalization Method" << std::endl;
@@ -72,6 +101,10 @@ namespace my_plane_tracker
 
 			// Print H matrix
 			my_tools::printMat(H, "H (normalized and orthogonalized)");
+			if (saveData)
+			{
+				my_tools::saveMatInTxt(H, "f/H_2_orthogonalized");
+			}
 
 			// Step 6.5: Normalize r1 and r2
 			// r1
@@ -90,20 +123,37 @@ namespace my_plane_tracker
 			r3.copyTo(R.col(2));
 			// Print R matrix
 			my_tools::printMat(R, "R");
+			if (saveData)
+			{
+				my_tools::saveMatInTxt(R, "f/R");
+			}
 
 			// Step 8: Calculate G matrix
 			cv::Mat G;
 			my_functions::buildTransformationMatrix(R, T, G);
 			// Print G matrix
 			my_tools::printMat(G, "G");
+			if (saveData)
+			{
+				my_tools::saveMatInTxt(G, "f/G");
+			}
 
 			cv::Mat K_I0 = my_config::K_I0;
 			cv::Mat K_I0_G = K_I0 * G;
 
-			cv::Mat X3d = my_config::axis;
+			cv::Mat axis3dMeterM = my_config::axisMeter;
+			cv::Mat axis2dPixelM = K_I0_G * axis3dMeterM;
+			if (saveData)
+			{
+				my_tools::saveMatInTxt(axis2dPixelM, "f/axis2dPixelM");
+			}
+			std::vector<cv::Point2f> axis2dPixelVP;
+			my_tools::convertMatToVecPoint(axis2dPixelM, axis2dPixelVP);
 
-			cv::Mat X2d = K_I0_G * X3d;
-			my_tools::saveMatInTxt(X2d.t(), "f/X2d");
+			cv::circle(frame, cornersFoundPixelVP[0], 10, cv::Scalar(0, 255, 0), 2);
+			cv::circle(frame, axis2dPixelVP[0], 10, cv::Scalar(0, 0, 255), 2);
+//			cv::circle(frame, cv::Point2f(100, 200), 5, cv::Scalar(0, 255, 0), 2);
+//			cv::circle(frame, cv::Point2f(200, 400), 5, cv::Scalar(0, 0, 255), 2);
 		}
 
 		imshow(winName, frame);
@@ -116,19 +166,17 @@ namespace my_plane_tracker
 			std::cerr << "Failed to open camera or video" << std::endl;
 			return -1;
 		}
-		int IM_WIDTH = 800, IM_HEIGHT = 600;
-		double frmWidth = videoCapture.get(cv::CAP_PROP_FRAME_WIDTH);
-		double frmHeight = videoCapture.get(cv::CAP_PROP_FRAME_HEIGHT);
-		double scaleX = IM_WIDTH / frmWidth;
-		double scaleY = IM_HEIGHT / frmHeight;
-
-		cv::Size patternSize = cv::Size(8, 6);
+//		int IM_WIDTH = 800, IM_HEIGHT = 600;
+//		double frmWidth = videoCapture.get(cv::CAP_PROP_FRAME_WIDTH);
+//		double frmHeight = videoCapture.get(cv::CAP_PROP_FRAME_HEIGHT);
+//		double scaleX = IM_WIDTH / frmWidth;
+//		double scaleY = IM_HEIGHT / frmHeight;
 
 		std::string winName = "Chessboard";
 		cv::namedWindow(winName, cv::WINDOW_AUTOSIZE);
 
-		std::vector<cv::Point3f> iK_originalCornersVP;
-//		my_functions::get_iK_OriginalCorners(patternSize, 28.45e-3, iK_originalCornersVP);
+		std::vector<cv::Point3f> originalCornersVP;
+		my_functions::getOriginalCorners(my_config::patternSize, my_config::squareSize, originalCornersVP, false);
 
 		cv::Mat frame;
 		unsigned int frameNumber = 0;
@@ -149,11 +197,11 @@ namespace my_plane_tracker
 				std::cerr << "Error capturing the frame" << std::endl;
 				break;
 			}
-			// resize frame
-			if (scaleX != 1. || scaleY != 1.)
-			{
-				resize(frame, frame, cv::Size(), scaleX, scaleY, cv::INTER_AREA);
-			}
+//			// resize frame
+//			if (scaleX != 1. || scaleY != 1.)
+//			{
+//				resize(frame, frame, cv::Size(), scaleX, scaleY, cv::INTER_AREA);
+//			}
 			// Save frame to file (test)
 			if (frameNumber == 50 || frameNumber == 347)
 			{
@@ -162,7 +210,7 @@ namespace my_plane_tracker
 				cv::imwrite(filename, frame);
 			}
 
-			analiceFrame(frame, iK_originalCornersVP, patternSize, winName);
+			analiceFrame(frame, originalCornersVP, winName);
 
 			if (cv::waitKey(1) == 27) break;
 		} while (true);
