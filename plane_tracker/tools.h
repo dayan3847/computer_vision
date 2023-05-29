@@ -6,8 +6,8 @@
 #define CHESSBOARD_CAMERA_CALIBRATION_TOOLS_H
 
 #include <iostream>
-#include <opencv2/opencv.hpp>
 #include <fstream>
+#include <opencv2/opencv.hpp>
 
 namespace my_tools
 {
@@ -47,6 +47,12 @@ namespace my_tools
 		std::cout << matString << std::endl;
 	}
 
+	/**
+	 * @param mat
+	 * @param name
+	 *
+	 * @deprecated
+	 */
 	void printMat2(const cv::Mat &mat, const std::string &name = "Mat:")
 	{
 		std::cout << name << std::endl;
@@ -90,7 +96,43 @@ namespace my_tools
 
 		vecPoint.clear();
 		for (i = 0; i < matPoint.cols; ++i)
-			vecPoint.emplace_back(matPoint.at<double>(0, i), matPoint.at<double>(1, i));
+		{
+			double w = matPoint.at<double>(2, i);
+			vecPoint.emplace_back(
+				matPoint.at<double>(0, i) / w,
+				matPoint.at<double>(1, i) / w
+			);
+
+		}
+	}
+
+	void convertMatToVecPoint(const cv::Mat &matPoint, std::vector<cv::Point3f> &vecPoint)
+	{
+		int i;
+
+		vecPoint.clear();
+		for (i = 0; i < matPoint.cols; ++i)
+		{
+			double w = matPoint.at<double>(3, i);
+			vecPoint.emplace_back(
+				matPoint.at<double>(0, i) / w,
+				matPoint.at<double>(1, i) / w,
+				matPoint.at<double>(2, i) / w
+			);
+		}
+	}
+
+	bool isInteger(const std::string &s)
+	{
+		try
+		{
+			std::stoi(s);
+			return true;
+		}
+		catch (const std::invalid_argument &ia)
+		{
+			return false;
+		}
 	}
 
 }

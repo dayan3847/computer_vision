@@ -17,7 +17,8 @@
 					[
 						0,
 						1,
-						2
+						2,
+						3
 					]
 				}
 			],
@@ -34,7 +35,8 @@
 					[
 						0,
 						1,
-						2
+						2,
+						3
 					]
 				}
 			],
@@ -43,21 +45,28 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "chessboard_camera_calibration::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-chessboard_camera_calibration-Debug-5b521bed6748342d3883.json",
+					"jsonFile" : "target-chessboard_camera_calibration-Debug-ae65ebc42a8dfe9eab55.json",
 					"name" : "chessboard_camera_calibration",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
+					"id" : "test_fame::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_fame-Debug-76a3bb2b319f81be69d5.json",
+					"name" : "test_fame",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
 					"id" : "test_get_original_corners::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-test_get_original_corners-Debug-afc630d686b72d737883.json",
+					"jsonFile" : "target-test_get_original_corners-Debug-a36929bb7266b7001570.json",
 					"name" : "test_get_original_corners",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "test_print_matriz::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-test_print_matriz-Debug-ee4c79ad2a53cec12157.json",
+					"jsonFile" : "target-test_print_matriz-Debug-7fe5b2476fb523d160e4.json",
 					"name" : "test_print_matriz",
 					"projectIndex" : 0
 				}
