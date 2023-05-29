@@ -2,7 +2,7 @@
 
 int main()
 {
-	unsigned int frameNumber = 50;
+	unsigned int frameNumber = 1;
 	// import image
 
 	std::string winName = "Chessboard";
@@ -11,7 +11,7 @@ int main()
 	std::vector<cv::Point3f> originalCornersVP;
 	my_functions::getOriginalCorners(my_config::patternSize, my_config::squareSize, originalCornersVP, false);
 
-	cv::Mat frame = cv::imread("./../tests/data/frame_" + std::to_string(frameNumber) + ".jpg");
+	cv::Mat frame = cv::imread("./tests/data/frame_" + std::to_string(frameNumber) + ".jpg");
 
 	my_plane_tracker::analiceFrame(frame, originalCornersVP, winName, true);
 

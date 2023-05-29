@@ -183,7 +183,7 @@ namespace my_plane_tracker
 		do
 		{
 			// print frame number in blue
-			std::cout << "frame: " << "\033[34m" << frameNumber++ << "\033[0m" << std::endl;
+			std::cout << "frame: " << "\033[34m" << ++frameNumber << "\033[0m" << std::endl;
 			// current time
 			std::cout << "current time is: "
 					  << std::chrono::system_clock::to_time_t(std::chrono::system_clock::now())
@@ -203,12 +203,13 @@ namespace my_plane_tracker
 //				resize(frame, frame, cv::Size(), scaleX, scaleY, cv::INTER_AREA);
 //			}
 			// Save frame to file (test)
-			if (frameNumber == 50 || frameNumber == 347)
-			{
-				// save current frame to file
-				std::string filename = "./../tests/data/frame_" + std::to_string(frameNumber) + ".jpg";
-				cv::imwrite(filename, frame);
-			}
+//			if (frameNumber == 50 || frameNumber == 347)
+//			{
+//				// save current frame to file
+//				std::string filename = "./tests/data/frame_" + std::to_string(frameNumber) + ".jpg";
+//				cv::imwrite(filename, frame);
+////				break;
+//			}
 
 			analiceFrame(frame, originalCornersVP, winName);
 

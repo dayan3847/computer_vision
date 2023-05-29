@@ -32,7 +32,7 @@ namespace my_tools
 		return matString;
 	}
 
-	void saveMatInTxt(const cv::Mat &mat, const std::string &name, const std::string &folder = "./../tests/data/")
+	void saveMatInTxt(const cv::Mat &mat, const std::string &name, const std::string &folder = "./tests/data/")
 	{
 		std::string matString = matToString(mat, false);
 		std::ofstream originalCornersMatFile(folder + name + ".txt");

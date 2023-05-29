@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="plane_tracker_video" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="&quot;./media/Chessboard.mp4&quot;" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" WORKING_DIR="file://$PROJECT_DIR$" PASS_PARENT_ENVS_2="true" PROJECT_NAME="plane_tracker" TARGET_NAME="plane_tracker" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="plane_tracker" RUN_TARGET_NAME="plane_tracker">
+    <method v="2">
+      <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+    </method>
+  </configuration>
+</component>
