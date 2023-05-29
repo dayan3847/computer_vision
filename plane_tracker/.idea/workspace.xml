@@ -23,9 +23,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="731b1b4a-116d-4570-b3ac-dcf97878827a" name="Changes" comment="ignore debug folder">
-      <change beforePath="$PROJECT_DIR$/.idea/plane_tracker.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/plane_tracker.iml" afterDir="false" />
+    <list default="true" id="731b1b4a-116d-4570-b3ac-dcf97878827a" name="Changes" comment="unidad de medida">
+      <change afterPath="$PROJECT_DIR$/tests/5_plot_corners_fame_meter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/5_plot_corners_fame.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/4_plot_corners_fame_pixel.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +60,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/dayan3847/CLionProjects/computer_vision/plane_tracker/tests",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -68,7 +70,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Python.5_plot_corners_fame">
+  <component name="RunManager" selected="Python.4_plot_corners_fame_pixel">
     <configuration default="true" type="BIBTEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
       <texify-bibtex>
         <compiler />
@@ -143,7 +145,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="5_plot_corners_fame" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="4_plot_corners_fame_pixel" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="plane_tracker" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -155,7 +157,28 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/5_plot_corners_fame.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/4_plot_corners_fame_pixel.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="5_plot_corners_fame_meter" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="plane_tracker" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/5_plot_corners_fame_meter.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -170,11 +193,13 @@
       <item itemvalue="CMake Application.test_get_original_corners" />
       <item itemvalue="CMake Application.test_print_matriz" />
       <item itemvalue="Python.2_plot_corners_original" />
-      <item itemvalue="Python.5_plot_corners_fame" />
+      <item itemvalue="Python.4_plot_corners_fame_pixel" />
+      <item itemvalue="Python.5_plot_corners_fame_meter" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.5_plot_corners_fame" />
+        <item itemvalue="Python.4_plot_corners_fame_pixel" />
+        <item itemvalue="Python.5_plot_corners_fame_meter" />
         <item itemvalue="Python.2_plot_corners_original" />
       </list>
     </recent_temporary>
@@ -187,7 +212,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1681226005858</updated>
-      <workItem from="1685382703054" duration="951000" />
+      <workItem from="1685382703054" duration="1266000" />
     </task>
     <task id="LOCAL-00001" summary="rename project">
       <created>1685382918698</created>
@@ -210,7 +235,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685383230530</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="unidad de medida">
+      <created>1685383798192</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1685383798192</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,6 +258,7 @@
     <MESSAGE value="rename project" />
     <MESSAGE value="remove debug folder" />
     <MESSAGE value="ignore debug folder" />
-    <option name="LAST_COMMIT_MESSAGE" value="ignore debug folder" />
+    <MESSAGE value="unidad de medida" />
+    <option name="LAST_COMMIT_MESSAGE" value="unidad de medida" />
   </component>
 </project>

@@ -11,15 +11,11 @@ def plot_mat(mat: np.ndarray, label: str, *color: str):
 
 if __name__ == '__main__':
     data_original_corners_m = np.loadtxt('./data/originalCornersM.txt', delimiter=' ')
-
-    i_frame_corners_m = np.loadtxt('./data/f/iFrameCornersM.txt', delimiter=' ')
     i_frame_i_k_corners_m = np.loadtxt('./data/f/iFrame_iK_cornersM.txt', delimiter=' ')
 
     plt.figure()
 
     plot_mat(data_original_corners_m, 'original_corners_m', 'red')
-
-    # plot_mat(i_frame_corners_m, 'i_frame_corners_m', 'gray')
     plot_mat(i_frame_i_k_corners_m, 'i_frame_i_k_corners_m', 'orange')
 
     plt.legend()
