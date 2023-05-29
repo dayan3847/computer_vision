@@ -13,7 +13,7 @@
 namespace my_functions
 {
 
-	void getOriginalCorners(cv::Size &size, double squareSize, std::vector<cv::Point3f> &outCorners, bool center = true)
+	void getOriginalCorners(cv::Size &size, double squareSize, std::vector<cv::Point3d> &outCorners, bool center = true)
 	{
 		double initHeight = 0;
 		double initWidth = 0;
@@ -36,7 +36,7 @@ namespace my_functions
 
 	void getOriginalCorners(cv::Size &size, double squareSize, cv::Mat &outCorners, bool center = true)
 	{
-		std::vector<cv::Point3f> outCornersVector;
+		std::vector<cv::Point3d> outCornersVector;
 		getOriginalCorners(size, squareSize, outCornersVector, center);
 		my_tools::convertVecPointToMat(outCornersVector, outCorners);
 	}
@@ -54,7 +54,7 @@ namespace my_functions
 //
 //	void get_iK_OriginalCorners(cv::Size &size,
 //		double squareSize,
-//		std::vector<cv::Point3f> &outCorners,
+//		std::vector<cv::Point3d> &outCorners,
 //		bool center = true)
 //	{
 //		cv::Mat iK_originalCornersM;

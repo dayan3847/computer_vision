@@ -23,26 +23,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="731b1b4a-116d-4570-b3ac-dcf97878827a" name="Changes" comment="antes de ejecutar sin cambios de escala">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/plane_tracker_video.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/test_fame_i.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/test_get_original_corners.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/test_print_matriz.xml" afterDir="false" />
+    <list default="true" id="731b1b4a-116d-4570-b3ac-dcf97878827a" name="Changes" comment="usar frame 1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plane_tracker.h" beforeDir="false" afterPath="$PROJECT_DIR$/plane_tracker.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/3_find_corners_fame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/tests/3_find_corners_fame.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/data/f/G.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/data/f/G.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/data/f/H_0_initial.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/data/f/H_0_initial.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/data/f/H_1_normalized.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/data/f/H_1_normalized.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/data/f/H_2_orthogonalized.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/data/f/H_2_orthogonalized.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/data/f/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/data/f/R.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/data/f/T.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/data/f/T.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/data/f/axis2dPixelM.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/data/f/axis2dPixelM.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/data/f/corners_fount_meter.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/data/f/corners_fount_meter.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/data/f/corners_fount_pixel.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/data/f/corners_fount_pixel.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/data/frame_347.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/data/frame_50.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools.h" beforeDir="false" afterPath="$PROJECT_DIR$/tools.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +74,7 @@
       <recent name="$PROJECT_DIR$/tests" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.5_plot_corners_fame_meter">
+  <component name="RunManager" selected="CMake Application.test_fame_i">
     <configuration default="true" type="BIBTEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
       <texify-bibtex>
         <compiler />
@@ -213,7 +196,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1681226005858</updated>
-      <workItem from="1685382703054" duration="8104000" />
+      <workItem from="1685382703054" duration="8471000" />
     </task>
     <task id="LOCAL-00001" summary="rename project">
       <created>1685382918698</created>
@@ -257,7 +240,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685391224041</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="usar frame 1">
+      <created>1685391893175</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1685391893175</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -276,7 +266,8 @@
     <MESSAGE value="unidad de medida" />
     <MESSAGE value="plot corners in pixeles" />
     <MESSAGE value="antes de ejecutar sin cambios de escala" />
-    <option name="LAST_COMMIT_MESSAGE" value="antes de ejecutar sin cambios de escala" />
+    <MESSAGE value="usar frame 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="usar frame 1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
