@@ -103,14 +103,64 @@ namespace my_functions
 
 	void homogenous2Cartesian(cv::Mat &matPoint)
 	{
-		int i;
-		double val;
-		for (i = 0; i < matPoint.cols; ++i)
+		for (int i = 0; i < matPoint.cols; ++i)
 		{
-			val = matPoint.at<double>(2, i);
+			double val = matPoint.at<double>(2, i);
 			matPoint.at<double>(0, i) /= val;
 			matPoint.at<double>(1, i) /= val;
 		}
+	}
+
+	void drawAxes(cv::Mat &frame, const std::vector<cv::Point2d> &axisPixelVP)
+	{
+		cv::circle(frame, axisPixelVP[0], 10, cv::Scalar(0, 0, 0), 2);
+
+		cv::line(frame, axisPixelVP[0], axisPixelVP[1], cv::Scalar(0, 0, 255), 2);
+		cv::circle(frame, axisPixelVP[1], 10, cv::Scalar(0, 0, 255), 2);
+
+		cv::line(frame, axisPixelVP[0], axisPixelVP[2], cv::Scalar(255, 0, 0), 2);
+		cv::circle(frame, axisPixelVP[2], 10, cv::Scalar(255, 0, 0), 2);
+
+		if (axisPixelVP.size() > 3)
+		{
+			cv::circle(frame, axisPixelVP[3], 10, cv::Scalar(0, 255, 0), 2);
+			cv::line(frame, axisPixelVP[0], axisPixelVP[3], cv::Scalar(0, 255, 0), 2);
+		}
+	}
+
+	void drawAxesWithH(cv::Mat &frame, cv::Mat &H)
+	{
+		cv::Mat axisMeterM = (cv::Mat_<double>(3, 3)
+			<<
+			0., -.1, 0., // x
+			0., 0., -.1, // y
+			1., 1., 1.   // 1
+		);
+
+		cv::Mat axisPixelM = my_config::K * H * axisMeterM;
+		std::vector<cv::Point2d> axisPixelVP;
+		my_tools::convertMatToVecPoint(axisPixelM, axisPixelVP);
+
+		drawAxes(frame, axisPixelVP);
+	}
+
+	void drawAxesWithG(cv::Mat &frame, cv::Mat &G)
+	{
+		cv::Mat axisMeterM = (cv::Mat_<double>(4, 4)
+			<<
+			0., -.1, 0., 0., // x
+			0., 0., -.1, 0., // y
+			0., 0., 0., -.1, // z
+			1., 1., 1., 1.   // 1
+		);
+
+		cv::Mat K_I0 = my_config::K_I0;
+		cv::Mat K_I0_G = K_I0 * G;
+		cv::Mat axisPixelM = K_I0_G * axisMeterM;
+		std::vector<cv::Point2d> axisPixelVP;
+		my_tools::convertMatToVecPoint(axisPixelM, axisPixelVP);
+
+		drawAxes(frame, axisPixelVP);
 	}
 
 }

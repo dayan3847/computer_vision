@@ -54,34 +54,9 @@ namespace my_plane_tracker
 		std::cout << "Step 4: Calculate Homography (H matrix)" << std::endl;
 		cv::Mat H = cv::findHomography(cornersOriginalMeterVP, cornersFountMeterVP);
 
-		// Experimento
+		// Experimento H
 		{
-			std::cout << "puntoR 0,0 -> " << cornersOriginalMeterVP[0].x << " ; " << cornersOriginalMeterVP[0].y
-					  << std::endl;
-			std::cout << "puntoM 0,0 -> " << cornersFoundPixelVP[0].x << " ; " << cornersFoundPixelVP[0].y
-					  << std::endl;
-			cv::Mat zero_zero = (cv::Mat_<double>(3, 1)
-				<<
-				-.1, // x
-				0., // y
-				1.  // 1
-			);
-
-			std::cout << "norma r1: " << cv::norm(H.col(0)) << std::endl;
-			std::cout << "norma r2: " << cv::norm(H.col(1)) << std::endl;
-			std::cout << "norma T: " << cv::norm(H.col(2)) << std::endl;
-
-			cv::Mat distortedPoint = my_config::K * H * zero_zero;
-
-			cv::circle(frame, cornersFoundPixelVP[0], 10, cv::Scalar(0, 255, 0), 2);
-			cv::circle(
-				frame,
-				cv::Point2d(
-					distortedPoint.at<double>(0),
-					distortedPoint.at<double>(1)
-				),
-				50,
-				cv::Scalar(0, 0, 255), 2);
+			my_functions::drawAxesWithH(frame, H);
 		}
 
 		my_tools::printMat(H, "H");
@@ -101,7 +76,13 @@ namespace my_plane_tracker
 
 		// Step 5.5: Calculate the translation vector T
 		std::cout << "Step 5.5: Calculate the translation vector T" << std::endl;
-		cv::Mat T = H.col(2);
+
+		cv::Mat T = (cv::Mat_<double>(3, 1)
+			<<
+			H.at<double>(0, 2),
+			H.at<double>(1, 2),
+			H.at<double>(2, 2)
+		);
 		// Print T matrix
 		my_tools::printMat(T, "T");
 		if (saveData)
@@ -153,21 +134,11 @@ namespace my_plane_tracker
 			my_tools::saveMatInTxt(G, "f/G");
 		}
 
-		cv::Mat K_I0 = my_config::K_I0;
-		cv::Mat K_I0_G = K_I0 * G;
-
-		cv::Mat axis3dMeterM = my_config::axisMeter;
-		cv::Mat axis2dPixelM = K_I0_G * axis3dMeterM;
-		if (saveData)
+		// Experimento G
 		{
-			my_tools::saveMatInTxt(axis2dPixelM, "f/axis2dPixelM");
+			my_functions::drawAxesWithG(frame, G);
 		}
-		std::vector<cv::Point2d> axis2dPixelVP;
-		my_tools::convertMatToVecPoint(axis2dPixelM, axis2dPixelVP);
 
-//			cv::circle(frame, axis2dPixelVP[0], 10, cv::Scalar(0, 0, 255), 2);
-//			cv::circle(frame, cv::Point2d(100, 200), 5, cv::Scalar(0, 255, 0), 2);
-//			cv::circle(frame, cv::Point2d(200, 400), 5, cv::Scalar(0, 0, 255), 2);
 	}
 
 	int keepTrack(cv::VideoCapture &videoCapture)
