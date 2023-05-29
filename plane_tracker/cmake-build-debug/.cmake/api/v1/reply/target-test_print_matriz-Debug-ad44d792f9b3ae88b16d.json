@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "test_get_original_corners"
+			"path" : "test_print_matriz"
 		}
 	],
 	"backtrace" : 1,
@@ -25,13 +25,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 27,
+				"line" : 24,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 28,
+				"line" : 25,
 				"parent" : 0
 			}
 		]
@@ -68,7 +68,7 @@
 			]
 		}
 	],
-	"id" : "test_get_original_corners::@6890427a1f51a3e7e1df",
+	"id" : "test_print_matriz::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -354,8 +354,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "test_get_original_corners",
-	"nameOnDisk" : "test_get_original_corners",
+	"name" : "test_print_matriz",
+	"nameOnDisk" : "test_print_matriz",
 	"paths" : 
 	{
 		"build" : ".",
@@ -386,7 +386,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "tests/1_generate_original_corners.cpp",
+			"path" : "tests/0_generate_matrices.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{

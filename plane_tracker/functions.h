@@ -41,26 +41,26 @@ namespace my_functions
 		my_tools::convertVecPointToMat(outCornersVector, outCorners);
 	}
 
-	void get_iK_OriginalCorners(cv::Size &size, double squareSize, cv::Mat &outCorners, bool center = true)
-	{
-		cv::Mat originalCornersM;
-		getOriginalCorners(size, squareSize, originalCornersM, center);
-		cv::Mat iK = my_config::iK;
-		originalCornersM.pop_back();
-		outCorners = iK * originalCornersM;
-		// add row of ones
-		outCorners.push_back(cv::Mat::ones(1, outCorners.cols, CV_64F));
-	}
-
-	void get_iK_OriginalCorners(cv::Size &size,
-		double squareSize,
-		std::vector<cv::Point3f> &outCorners,
-		bool center = true)
-	{
-		cv::Mat iK_originalCornersM;
-		get_iK_OriginalCorners(size, squareSize, iK_originalCornersM, center);
-		my_tools::convertMatToVecPoint(iK_originalCornersM, outCorners);
-	}
+//	void get_iK_OriginalCorners(cv::Size &size, double squareSize, cv::Mat &outCorners, bool center = true)
+//	{
+//		cv::Mat originalCornersM;
+//		getOriginalCorners(size, squareSize, originalCornersM, center);
+//		cv::Mat iK = my_config::iK;
+//		originalCornersM.pop_back();
+//		outCorners = iK * originalCornersM;
+//		// add row of ones
+//		outCorners.push_back(cv::Mat::ones(1, outCorners.cols, CV_64F));
+//	}
+//
+//	void get_iK_OriginalCorners(cv::Size &size,
+//		double squareSize,
+//		std::vector<cv::Point3f> &outCorners,
+//		bool center = true)
+//	{
+//		cv::Mat iK_originalCornersM;
+//		get_iK_OriginalCorners(size, squareSize, iK_originalCornersM, center);
+//		my_tools::convertMatToVecPoint(iK_originalCornersM, outCorners);
+//	}
 
 	void buildTransformationMatrix(const cv::Mat &R, const cv::Mat &T, cv::Mat &G)
 	{

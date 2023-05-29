@@ -5,10 +5,10 @@
 #ifndef CHESSBOARD_CAMERA_CALIBRATION_PLANE_TRACKER_H
 #define CHESSBOARD_CAMERA_CALIBRATION_PLANE_TRACKER_H
 
-#include "config.h"
-#include "functions.h"
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include "config.h"
+#include "functions.h"
 
 namespace my_plane_tracker
 {
@@ -33,12 +33,20 @@ namespace my_plane_tracker
 			// Draw Chessboard Corners
 			drawChessboardCorners(frame, patternSize, cornersFoundVP, true);
 
+			cv::Mat cornersM;
+			my_tools::convertVecPointToMat(cornersFoundVP, cornersM);
+
 			if (saveData)
 			{
-				cv::Mat cornersM;
-				my_tools::convertVecPointToMat(cornersFoundVP, cornersM);
-
 				my_tools::saveMatInTxt(cornersM.t(), "f/iFrameCornersM");
+			}
+
+			cv::Mat iK = my_config::iK;
+			cv::Mat iK_cornersM = iK * cornersM;
+
+			if (saveData)
+			{
+				my_tools::saveMatInTxt(iK_cornersM.t(), "f/iFrame_iK_cornersM");
 			}
 
 			// Step 4: Calculate Homography (H matrix)
@@ -120,7 +128,7 @@ namespace my_plane_tracker
 		cv::namedWindow(winName, cv::WINDOW_AUTOSIZE);
 
 		std::vector<cv::Point3f> iK_originalCornersVP;
-		my_functions::get_iK_OriginalCorners(patternSize, 28.45e-3, iK_originalCornersVP);
+//		my_functions::get_iK_OriginalCorners(patternSize, 28.45e-3, iK_originalCornersVP);
 
 		cv::Mat frame;
 		unsigned int frameNumber = 0;

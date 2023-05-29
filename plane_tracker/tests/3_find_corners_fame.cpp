@@ -6,14 +6,15 @@ int main()
 	// import image
 	cv::Mat frame = cv::imread("./../tests/data/frame_" + std::to_string(frameNumber) + ".jpg");
 	cv::Size patternSize(8, 6);
+	double squareSize = 28.45e-3;
 
 	std::string winName = "Chessboard";
 	cv::namedWindow(winName, cv::WINDOW_AUTOSIZE);
 
-	std::vector<cv::Point3f> iK_OriginalCornersVP;
-	my_functions::get_iK_OriginalCorners(patternSize, 28.45e-3, iK_OriginalCornersVP, false);
+	std::vector<cv::Point3f> originalCornersVP;
+	my_functions::getOriginalCorners(patternSize, squareSize, originalCornersVP, false);
 
-	my_plane_tracker::analiceFrame(frame, iK_OriginalCornersVP, patternSize, winName, true);
+	my_plane_tracker::analiceFrame(frame, originalCornersVP, patternSize, winName, true);
 
 	do
 	{
