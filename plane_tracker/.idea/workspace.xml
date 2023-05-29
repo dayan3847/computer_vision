@@ -23,13 +23,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="731b1b4a-116d-4570-b3ac-dcf97878827a" name="Changes" comment="print ok -1 ; 0">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions.h" beforeDir="false" afterPath="$PROJECT_DIR$/functions.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plane_tracker.h" beforeDir="false" afterPath="$PROJECT_DIR$/plane_tracker.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/data/f/G.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/data/f/G.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/data/f/axis2dPixelM.txt" beforeDir="false" />
-    </list>
+    <list default="true" id="731b1b4a-116d-4570-b3ac-dcf97878827a" name="Changes" comment="draw axes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -199,7 +193,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1681226005858</updated>
-      <workItem from="1685382703054" duration="19596000" />
+      <workItem from="1685382703054" duration="19903000" />
     </task>
     <task id="LOCAL-00001" summary="rename project">
       <created>1685382918698</created>
@@ -264,7 +258,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685397758666</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="draw axes">
+      <created>1685403479421</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1685403479421</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -297,7 +298,8 @@
     <MESSAGE value="usar frame 1" />
     <MESSAGE value="use double in point" />
     <MESSAGE value="print ok -1 ; 0" />
-    <option name="LAST_COMMIT_MESSAGE" value="print ok -1 ; 0" />
+    <MESSAGE value="draw axes" />
+    <option name="LAST_COMMIT_MESSAGE" value="draw axes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
