@@ -15,6 +15,7 @@ int main()
 
 	my_plane_tracker::analiceFrame(frame, originalCornersVP, winName, true);
 
+	imshow(winName, frame);
 	do
 	{
 		if (cv::waitKey(1) == 27) break;

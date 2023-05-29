@@ -24,142 +24,150 @@ namespace my_plane_tracker
 		// Corners found in the image
 		std::vector<cv::Point2d> cornersFoundPixelVP;
 		bool patternWasFound = cv::findChessboardCorners(frame, patternSize, cornersFoundPixelVP);
-		// bool patternWasFound = cv::findChessboardCorners(frame, patternSize, cornersFoundPixelVP, cv::CALIB_CB_ADAPTIVE_THRESH);
-		if (patternWasFound)
+		if (!patternWasFound)
+			return;
+
+		// Draw Chessboard Corners
+		drawChessboardCorners(frame, patternSize, my_tools::covertVecPoint2f(cornersFoundPixelVP), true);
+
+		cv::Mat cornersFountPixelM;
+		my_tools::convertVecPointToMat(cornersFoundPixelVP, cornersFountPixelM);
+
+		if (saveData)
 		{
-			// Draw Chessboard Corners
-			drawChessboardCorners(frame, patternSize, cornersFoundPixelVP, true);
+			my_tools::saveMatInTxt(cornersFountPixelM.t(), "f/corners_fount_pixel");
+		}
 
-			cv::Mat cornersFountPixelM;
-			my_tools::convertVecPointToMat(cornersFoundPixelVP, cornersFountPixelM);
+		cv::Mat iK = my_config::iK;
+		cv::Mat cornersFountMeterM = iK * cornersFountPixelM;
 
-			if (saveData)
-			{
-				my_tools::saveMatInTxt(cornersFountPixelM.t(), "f/corners_fount_pixel");
-			}
+		if (saveData)
+		{
+			my_tools::saveMatInTxt(cornersFountMeterM.t(), "f/corners_fount_meter");
+		}
 
-			cv::Mat iK = my_config::iK;
-			cv::Mat cornersFountMeterM = iK * cornersFountPixelM;
-
-			if (saveData)
-			{
-				my_tools::saveMatInTxt(cornersFountMeterM.t(), "f/corners_fount_meter");
-			}
-
-			std::vector<cv::Point2d> cornersFountMeterVP;
-			my_tools::convertMatToVecPoint(cornersFountMeterM, cornersFountMeterVP);
+		std::vector<cv::Point2d> cornersFountMeterVP;
+		my_tools::convertMatToVecPoint(cornersFountMeterM, cornersFountMeterVP);
 
 
-			// Step 4: Calculate Homography (H matrix)
-			std::cout << "Step 4: Calculate Homography (H matrix)" << std::endl;
-			cv::Mat H = cv::findHomography(cornersOriginalMeterVP, cornersFountMeterVP);
+		// Step 4: Calculate Homography (H matrix)
+		std::cout << "Step 4: Calculate Homography (H matrix)" << std::endl;
+		cv::Mat H = cv::findHomography(cornersOriginalMeterVP, cornersFountMeterVP);
 
-			// Experimento
-			{
-				std::cout << "puntoR 0,0 -> " << cornersOriginalMeterVP[0].x << " ; " << cornersOriginalMeterVP[0].y
-						  << std::endl;
-				std::cout << "puntoM 0,0 -> " << cornersFoundPixelVP[0].x << " ; " << cornersFoundPixelVP[0].y
-						  << std::endl;
-				cv::Mat zero_zero = (cv::Mat_<double>(3, 1)
-					<<
-					0., // x
-					0., // y
-					1.  // 1
-				);
-				cv::Mat zero_zero_transformed = H * zero_zero;
-				my_tools::printMat(zero_zero_transformed, "zero_zero_transformed");
+		// Experimento
+		{
+			std::cout << "puntoR 0,0 -> " << cornersOriginalMeterVP[0].x << " ; " << cornersOriginalMeterVP[0].y
+					  << std::endl;
+			std::cout << "puntoM 0,0 -> " << cornersFoundPixelVP[0].x << " ; " << cornersFoundPixelVP[0].y
+					  << std::endl;
+			cv::Mat zero_zero = (cv::Mat_<double>(3, 1)
+				<<
+				-.1, // x
+				0., // y
+				1.  // 1
+			);
 
-				cv::circle(frame, cornersFoundPixelVP[0], 10, cv::Scalar(0, 255, 0), 2);
-				cv::circle(frame, cv::Point2d , 10, cv::Scalar(0, 255, 0), 2);
-			}
+			std::cout << "norma r1: " << cv::norm(H.col(0)) << std::endl;
+			std::cout << "norma r2: " << cv::norm(H.col(1)) << std::endl;
+			std::cout << "norma T: " << cv::norm(H.col(2)) << std::endl;
 
-			my_tools::printMat(H, "H");
-			if (saveData)
-			{
-				my_tools::saveMatInTxt(H, "f/H_0_initial");
-			}
+			cv::Mat distortedPoint = my_config::K * H * zero_zero;
 
-			// Step 5: Normalize H matrix
-			std::cout << "Step 5: Normalize H matrix" << std::endl;
-			H /= cv::norm(H.col(0));
-			my_tools::printMat(H, "H (normalized)");
-			if (saveData)
-			{
-				my_tools::saveMatInTxt(H, "f/H_1_normalized");
-			}
+			cv::circle(frame, cornersFoundPixelVP[0], 10, cv::Scalar(0, 255, 0), 2);
+			cv::circle(
+				frame,
+				cv::Point2d(
+					distortedPoint.at<double>(0),
+					distortedPoint.at<double>(1)
+				),
+				50,
+				cv::Scalar(0, 0, 255), 2);
+		}
 
-			// Step 5.5: Calculate the translation vector T
-			std::cout << "Step 5.5: Calculate the translation vector T" << std::endl;
-			cv::Mat T = H.col(2);
-			// Print T matrix
-			my_tools::printMat(T, "T");
-			if (saveData)
-			{
-				my_tools::saveMatInTxt(T, "f/T");
-			}
+		my_tools::printMat(H, "H");
+		if (saveData)
+		{
+			my_tools::saveMatInTxt(H, "f/H_0_initial");
+		}
+
+		// Step 5: Normalize H matrix
+		std::cout << "Step 5: Normalize H matrix" << std::endl;
+		H /= cv::norm(H.col(0));
+		my_tools::printMat(H, "H (normalized)");
+		if (saveData)
+		{
+			my_tools::saveMatInTxt(H, "f/H_1_normalized");
+		}
+
+		// Step 5.5: Calculate the translation vector T
+		std::cout << "Step 5.5: Calculate the translation vector T" << std::endl;
+		cv::Mat T = H.col(2);
+		// Print T matrix
+		my_tools::printMat(T, "T");
+		if (saveData)
+		{
+			my_tools::saveMatInTxt(T, "f/T");
+		}
 
 
-			// Step 6: Gram-Schmidt Orthogonalization Method
-			std::cout << "Step 6: Gram-Schmidt Orthogonalization Method" << std::endl;
-			my_functions::gramSchmidtOrthogonalizationMethod(H);
+		// Step 6: Gram-Schmidt Orthogonalization Method
+		std::cout << "Step 6: Gram-Schmidt Orthogonalization Method" << std::endl;
+		my_functions::gramSchmidtOrthogonalizationMethod(H);
 
-			// Print H matrix
-			my_tools::printMat(H, "H (normalized and orthogonalized)");
-			if (saveData)
-			{
-				my_tools::saveMatInTxt(H, "f/H_2_orthogonalized");
-			}
+		// Print H matrix
+		my_tools::printMat(H, "H (normalized and orthogonalized)");
+		if (saveData)
+		{
+			my_tools::saveMatInTxt(H, "f/H_2_orthogonalized");
+		}
 
-			// Step 6.5: Normalize r1 and r2
-			// r1
-			cv::Mat r1 = H.col(0);
-			r1 /= cv::norm(r1);
-			// r2
-			cv::Mat r2 = H.col(1);
-			r2 /= cv::norm(r2);
-			// r3
-			cv::Mat r3 = r1.cross(r2);
-			// Step 7: Calculate the rotation matrix R
-			std::cout << "Step 7: Calculate the rotation matrix R" << std::endl;
-			cv::Mat R(3, 3, CV_64F);
-			r1.copyTo(R.col(0));
-			r2.copyTo(R.col(1));
-			r3.copyTo(R.col(2));
-			// Print R matrix
-			my_tools::printMat(R, "R");
-			if (saveData)
-			{
-				my_tools::saveMatInTxt(R, "f/R");
-			}
+		// Step 6.5: Normalize r1 and r2
+		// r1
+		cv::Mat r1 = H.col(0);
+		r1 /= cv::norm(r1);
+		// r2
+		cv::Mat r2 = H.col(1);
+		r2 /= cv::norm(r2);
+		// r3
+		cv::Mat r3 = r1.cross(r2);
+		// Step 7: Calculate the rotation matrix R
+		std::cout << "Step 7: Calculate the rotation matrix R" << std::endl;
+		cv::Mat R(3, 3, CV_64F);
+		r1.copyTo(R.col(0));
+		r2.copyTo(R.col(1));
+		r3.copyTo(R.col(2));
+		// Print R matrix
+		my_tools::printMat(R, "R");
+		if (saveData)
+		{
+			my_tools::saveMatInTxt(R, "f/R");
+		}
 
-			// Step 8: Calculate G matrix
-			cv::Mat G;
-			my_functions::buildTransformationMatrix(R, T, G);
-			// Print G matrix
-			my_tools::printMat(G, "G");
-			if (saveData)
-			{
-				my_tools::saveMatInTxt(G, "f/G");
-			}
+		// Step 8: Calculate G matrix
+		cv::Mat G;
+		my_functions::buildTransformationMatrix(R, T, G);
+		// Print G matrix
+		my_tools::printMat(G, "G");
+		if (saveData)
+		{
+			my_tools::saveMatInTxt(G, "f/G");
+		}
 
-			cv::Mat K_I0 = my_config::K_I0;
-			cv::Mat K_I0_G = K_I0 * G;
+		cv::Mat K_I0 = my_config::K_I0;
+		cv::Mat K_I0_G = K_I0 * G;
 
-			cv::Mat axis3dMeterM = my_config::axisMeter;
-			cv::Mat axis2dPixelM = K_I0_G * axis3dMeterM;
-			if (saveData)
-			{
-				my_tools::saveMatInTxt(axis2dPixelM, "f/axis2dPixelM");
-			}
-			std::vector<cv::Point2d> axis2dPixelVP;
-			my_tools::convertMatToVecPoint(axis2dPixelM, axis2dPixelVP);
+		cv::Mat axis3dMeterM = my_config::axisMeter;
+		cv::Mat axis2dPixelM = K_I0_G * axis3dMeterM;
+		if (saveData)
+		{
+			my_tools::saveMatInTxt(axis2dPixelM, "f/axis2dPixelM");
+		}
+		std::vector<cv::Point2d> axis2dPixelVP;
+		my_tools::convertMatToVecPoint(axis2dPixelM, axis2dPixelVP);
 
 //			cv::circle(frame, axis2dPixelVP[0], 10, cv::Scalar(0, 0, 255), 2);
 //			cv::circle(frame, cv::Point2d(100, 200), 5, cv::Scalar(0, 255, 0), 2);
 //			cv::circle(frame, cv::Point2d(200, 400), 5, cv::Scalar(0, 0, 255), 2);
-		}
-
-		imshow(winName, frame);
 	}
 
 	int keepTrack(cv::VideoCapture &videoCapture)
@@ -215,6 +223,8 @@ namespace my_plane_tracker
 //			}
 
 			analiceFrame(frame, originalCornersVP, winName);
+
+			imshow(winName, frame);
 
 			if (cv::waitKey(1) == 27) break;
 		} while (true);

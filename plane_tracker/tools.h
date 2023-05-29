@@ -135,6 +135,14 @@ namespace my_tools
 		}
 	}
 
+	std::vector<cv::Point2f> covertVecPoint2f(const std::vector<cv::Point2d> &vecPoint)
+	{
+		std::vector<cv::Point2f> vecPoint2f;
+		for (auto &p : vecPoint)
+			vecPoint2f.emplace_back(p.x, p.y);
+		return vecPoint2f;
+	}
+
 }
 
 #endif //CHESSBOARD_CAMERA_CALIBRATION_TOOLS_H
