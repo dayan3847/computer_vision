@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(chessboard_camera_calibration)
+project(plane_tracker)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -18,8 +18,8 @@ set(
         plane_tracker.h
 )
 
-add_executable(chessboard_camera_calibration plane_tracker_main.cpp ${SOURCE_FILES})
-target_link_libraries(chessboard_camera_calibration ${OpenCV_LIBS})
+add_executable(plane_tracker plane_tracker_main.cpp ${SOURCE_FILES})
+target_link_libraries(plane_tracker ${OpenCV_LIBS})
 
 add_executable(test_print_matriz tests/0_generate_matrices.cpp ${SOURCE_FILES})
 target_link_libraries(test_print_matriz ${OpenCV_LIBS})

@@ -843,7 +843,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "chessboard_camera_calibration"
+			"value" : "plane_tracker"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1126,18 +1126,6 @@
 			"value" : "FALSE"
 		},
 		{
-			"name" : "Eigen3_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "The directory containing a CMake configuration file for Eigen3."
-				}
-			],
-			"type" : "PATH",
-			"value" : "/usr/local/share/eigen3/cmake"
-		},
-		{
 			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_OpenCV",
 			"properties" : 
 			[
@@ -1174,7 +1162,7 @@
 			"value" : "TRUE"
 		},
 		{
-			"name" : "chessboard_camera_calibration_BINARY_DIR",
+			"name" : "plane_tracker_BINARY_DIR",
 			"properties" : 
 			[
 				{
@@ -1186,7 +1174,7 @@
 			"value" : "/home/dayan3847/CLionProjects/computer_vision/plane_tracker/cmake-build-debug"
 		},
 		{
-			"name" : "chessboard_camera_calibration_IS_TOP_LEVEL",
+			"name" : "plane_tracker_IS_TOP_LEVEL",
 			"properties" : 
 			[
 				{
@@ -1198,7 +1186,7 @@
 			"value" : "ON"
 		},
 		{
-			"name" : "chessboard_camera_calibration_SOURCE_DIR",
+			"name" : "plane_tracker_SOURCE_DIR",
 			"properties" : 
 			[
 				{

@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: chessboard_camera_calibration
+# Project: plane_tracker
 # Configurations: Debug
 # =============================================================================
 
@@ -41,37 +41,37 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = /home/dayan3847/CLionProjects/computer_vision/plane_tracker/cmake-build-debug/
 # =============================================================================
-# Object build statements for EXECUTABLE target chessboard_camera_calibration
+# Object build statements for EXECUTABLE target plane_tracker
 
 
 #############################################
-# Order-only phony target for chessboard_camera_calibration
+# Order-only phony target for plane_tracker
 
-build cmake_object_order_depends_target_chessboard_camera_calibration: phony || CMakeFiles/chessboard_camera_calibration.dir
+build cmake_object_order_depends_target_plane_tracker: phony || CMakeFiles/plane_tracker.dir
 
-build CMakeFiles/chessboard_camera_calibration.dir/plane_tracker_main.cpp.o: CXX_COMPILER__chessboard_camera_calibration_Debug /home/dayan3847/CLionProjects/computer_vision/plane_tracker/plane_tracker_main.cpp || cmake_object_order_depends_target_chessboard_camera_calibration
-  DEP_FILE = CMakeFiles/chessboard_camera_calibration.dir/plane_tracker_main.cpp.o.d
+build CMakeFiles/plane_tracker.dir/plane_tracker_main.cpp.o: CXX_COMPILER__plane_tracker_Debug /home/dayan3847/CLionProjects/computer_vision/plane_tracker/plane_tracker_main.cpp || cmake_object_order_depends_target_plane_tracker
+  DEP_FILE = CMakeFiles/plane_tracker.dir/plane_tracker_main.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
   INCLUDES = -isystem /usr/include/opencv4
-  OBJECT_DIR = CMakeFiles/chessboard_camera_calibration.dir
-  OBJECT_FILE_DIR = CMakeFiles/chessboard_camera_calibration.dir
+  OBJECT_DIR = CMakeFiles/plane_tracker.dir
+  OBJECT_FILE_DIR = CMakeFiles/plane_tracker.dir
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target chessboard_camera_calibration
+# Link build statements for EXECUTABLE target plane_tracker
 
 
 #############################################
-# Link the executable chessboard_camera_calibration
+# Link the executable plane_tracker
 
-build chessboard_camera_calibration: CXX_EXECUTABLE_LINKER__chessboard_camera_calibration_Debug CMakeFiles/chessboard_camera_calibration.dir/plane_tracker_main.cpp.o | /usr/lib/x86_64-linux-gnu/libopencv_stitching.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_alphamat.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_aruco.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_barcode.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_bgsegm.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_bioinspired.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_ccalib.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_dnn_objdetect.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_dnn_superres.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_dpm.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_face.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_freetype.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_fuzzy.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_hdf.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_hfs.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_img_hash.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_intensity_transform.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_line_descriptor.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_mcc.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_quality.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_rapid.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_reg.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_rgbd.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_saliency.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_shape.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_stereo.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_structured_light.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_superres.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_surface_matching.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_tracking.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_videostab.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_viz.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_wechat_qrcode.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_xobjdetect.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_xphoto.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_highgui.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_datasets.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_plot.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_text.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_ml.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_phase_unwrapping.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_optflow.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_ximgproc.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_video.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_videoio.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_imgcodecs.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_objdetect.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_dnn.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_features2d.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_flann.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_photo.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_core.so.4.5.4d
+build plane_tracker: CXX_EXECUTABLE_LINKER__plane_tracker_Debug CMakeFiles/plane_tracker.dir/plane_tracker_main.cpp.o | /usr/lib/x86_64-linux-gnu/libopencv_stitching.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_alphamat.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_aruco.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_barcode.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_bgsegm.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_bioinspired.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_ccalib.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_dnn_objdetect.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_dnn_superres.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_dpm.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_face.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_freetype.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_fuzzy.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_hdf.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_hfs.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_img_hash.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_intensity_transform.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_line_descriptor.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_mcc.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_quality.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_rapid.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_reg.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_rgbd.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_saliency.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_shape.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_stereo.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_structured_light.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_superres.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_surface_matching.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_tracking.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_videostab.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_viz.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_wechat_qrcode.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_xobjdetect.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_xphoto.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_highgui.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_datasets.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_plot.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_text.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_ml.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_phase_unwrapping.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_optflow.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_ximgproc.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_video.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_videoio.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_imgcodecs.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_objdetect.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_dnn.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_features2d.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_flann.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_photo.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.4.5.4d /usr/lib/x86_64-linux-gnu/libopencv_core.so.4.5.4d
   FLAGS = -g
   LINK_LIBRARIES = /usr/lib/x86_64-linux-gnu/libopencv_stitching.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_alphamat.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_aruco.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_barcode.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_bgsegm.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_bioinspired.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_ccalib.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_dnn_objdetect.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_dnn_superres.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_dpm.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_face.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_freetype.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_fuzzy.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_hdf.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_hfs.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_img_hash.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_intensity_transform.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_line_descriptor.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_mcc.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_quality.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_rapid.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_reg.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_rgbd.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_saliency.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_shape.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_stereo.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_structured_light.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_superres.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_surface_matching.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_tracking.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_videostab.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_viz.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_wechat_qrcode.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_xobjdetect.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_xphoto.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_highgui.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_datasets.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_plot.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_text.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_ml.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_phase_unwrapping.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_optflow.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_ximgproc.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_video.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_videoio.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_imgcodecs.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_objdetect.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_dnn.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_features2d.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_flann.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_photo.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.4.5.4d  /usr/lib/x86_64-linux-gnu/libopencv_core.so.4.5.4d
-  OBJECT_DIR = CMakeFiles/chessboard_camera_calibration.dir
+  OBJECT_DIR = CMakeFiles/plane_tracker.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = chessboard_camera_calibration
-  TARGET_PDB = chessboard_camera_calibration.dbg
+  TARGET_FILE = plane_tracker
+  TARGET_PDB = plane_tracker.dbg
 
 # =============================================================================
 # Object build statements for EXECUTABLE target test_print_matriz
@@ -206,7 +206,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /home/dayan3847/CLionProjects/computer_vision/plane_tracker/cmake-build-debug
 
-build all: phony chessboard_camera_calibration test_print_matriz test_get_original_corners test_fame
+build all: phony plane_tracker test_print_matriz test_get_original_corners test_fame
 
 # =============================================================================
 # Built-in targets

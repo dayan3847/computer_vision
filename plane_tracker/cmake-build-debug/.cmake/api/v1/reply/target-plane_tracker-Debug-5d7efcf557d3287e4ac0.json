@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "chessboard_camera_calibration"
+			"path" : "plane_tracker"
 		}
 	],
 	"backtrace" : 1,
@@ -68,7 +68,7 @@
 			]
 		}
 	],
-	"id" : "chessboard_camera_calibration::@6890427a1f51a3e7e1df",
+	"id" : "plane_tracker::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -354,8 +354,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "chessboard_camera_calibration",
-	"nameOnDisk" : "chessboard_camera_calibration",
+	"name" : "plane_tracker",
+	"nameOnDisk" : "plane_tracker",
 	"paths" : 
 	{
 		"build" : ".",
