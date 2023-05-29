@@ -23,6 +23,9 @@ if __name__ == '__main__':
     plot_mat(i_frame_i_k_corners_m, 'i_frame_i_k_corners_m', 'orange')
 
     plt.legend()
+    plt.title('Esquinas detectadas premultiplicadas por iK')
+    plt.xlabel('meter')
+    plt.ylabel('meter')
     plt.grid()
     plt.axis('equal')
     plt.show()
