@@ -13,7 +13,8 @@ int main()
 
 	cv::Mat frame = cv::imread("./tests/data/frame_" + std::to_string(frameNumber) + ".jpg");
 
-	my_plane_tracker::analiceFrame(frame, originalCornersVP, winName, true);
+	cv::Mat G, G_prev;
+	my_plane_tracker::analiceFrame(frame, originalCornersVP, G, G_prev, true);
 
 	imshow(winName, frame);
 	do

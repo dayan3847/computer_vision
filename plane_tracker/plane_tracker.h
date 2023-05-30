@@ -12,10 +12,10 @@
 
 namespace my_plane_tracker
 {
-
 	void analiceFrame(cv::Mat &frame,
 		std::vector<cv::Point3f> &cornersOriginalMeterVP,
-		const std::string &winName,
+		cv::Mat &G,
+		cv::Mat const &G_prev,
 		const bool &saveData = false)
 	{
 		cv::Size patternSize = my_config::patternSize;
@@ -125,7 +125,6 @@ namespace my_plane_tracker
 		}
 
 		// Step 8: Calculate G matrix
-		cv::Mat G;
 		my_functions::buildTransformationMatrix(R, T, G);
 		// Print G matrix
 		my_tools::printMat(G, "G");
@@ -164,6 +163,25 @@ namespace my_plane_tracker
 			G = _g;
 		}
 
+		if (!G_prev.empty())
+		{
+			double dt = my_config::deltaT;
+			cv::Mat R_prev = G_prev(cv::Rect(0, 0, 3, 3));
+			cv::Mat T_prev = G_prev(cv::Rect(3, 0, 1, 3));
+			cv::Mat R_prime = (R - R_prev) / dt;
+			cv::Mat T_prime = (T - T_prev) / dt;
+			cv::Mat w = R_prime * R.t();
+			cv::Mat v = T_prime - w * T;
+			cv::Mat Gi = (cv::Mat_<double>(4, 4)
+				<<
+				w.at<double>(0, 0), w.at<double>(0, 1), w.at<double>(0, 2), v.at<double>(0, 0),
+				w.at<double>(1, 0), w.at<double>(1, 1), w.at<double>(1, 2), v.at<double>(1, 0),
+				w.at<double>(2, 0), w.at<double>(2, 1), w.at<double>(2, 2), v.at<double>(2, 0),
+				0, 0, 0, 0
+			);
+
+		}
+
 	}
 
 	int keepTrack(cv::VideoCapture &videoCapture)
@@ -187,6 +205,8 @@ namespace my_plane_tracker
 
 		cv::Mat frame;
 		unsigned int frameNumber = 0;
+
+		cv::Mat G_prev;
 		do
 		{
 			// print frame number in blue
@@ -217,8 +237,9 @@ namespace my_plane_tracker
 //				cv::imwrite(filename, frame);
 ////				break;
 //			}
-
-			analiceFrame(frame, originalCornersVP, winName);
+			cv::Mat G;
+			analiceFrame(frame, originalCornersVP, G, G_prev);
+			G_prev = G;
 
 			imshow(winName, frame);
 
