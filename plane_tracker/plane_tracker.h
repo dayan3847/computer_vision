@@ -14,7 +14,7 @@ namespace my_plane_tracker
 {
 
 	void analiceFrame(cv::Mat &frame,
-		std::vector<cv::Point3d> &cornersOriginalMeterVP,
+		std::vector<cv::Point3f> &cornersOriginalMeterVP,
 		const std::string &winName,
 		const bool &saveData = false)
 	{
@@ -22,7 +22,7 @@ namespace my_plane_tracker
 		// Step 3: Find Chessboard Corners
 		std::cout << "Step 3: Find Chessboard Corners" << std::endl;
 		// Corners found in the image
-		std::vector<cv::Point2d> cornersFoundPixelVP;
+		std::vector<cv::Point2f> cornersFoundPixelVP;
 		bool patternWasFound = cv::findChessboardCorners(frame, patternSize, cornersFoundPixelVP);
 		if (!patternWasFound)
 			return;
@@ -46,7 +46,7 @@ namespace my_plane_tracker
 			my_tools::saveMatInTxt(cornersFountMeterM.t(), "f/corners_fount_meter");
 		}
 
-		std::vector<cv::Point2d> cornersFountMeterVP;
+		std::vector<cv::Point2f> cornersFountMeterVP;
 		my_tools::convertMatToVecPoint(cornersFountMeterM, cornersFountMeterVP);
 
 
@@ -157,7 +157,7 @@ namespace my_plane_tracker
 		std::string winName = "Chessboard";
 		cv::namedWindow(winName, cv::WINDOW_AUTOSIZE);
 
-		std::vector<cv::Point3d> originalCornersVP;
+		std::vector<cv::Point3f> originalCornersVP;
 		my_functions::getOriginalCorners(my_config::patternSize, my_config::squareSize, originalCornersVP, false);
 
 		cv::Mat frame;

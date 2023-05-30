@@ -8,7 +8,7 @@ int main()
 	std::string winName = "Chessboard";
 	cv::namedWindow(winName, cv::WINDOW_AUTOSIZE);
 
-	std::vector<cv::Point3d> originalCornersVP;
+	std::vector<cv::Point3f> originalCornersVP;
 	my_functions::getOriginalCorners(my_config::patternSize, my_config::squareSize, originalCornersVP, false);
 
 	cv::Mat frame = cv::imread("./tests/data/frame_" + std::to_string(frameNumber) + ".jpg");

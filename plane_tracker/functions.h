@@ -13,7 +13,7 @@
 namespace my_functions
 {
 
-	void getOriginalCorners(cv::Size &size, double squareSize, std::vector<cv::Point3d> &outCorners, bool center = true)
+	void getOriginalCorners(cv::Size &size, double squareSize, std::vector<cv::Point3f> &outCorners, bool center = true)
 	{
 		double initHeight = 0;
 		double initWidth = 0;
@@ -36,7 +36,7 @@ namespace my_functions
 
 	void getOriginalCorners(cv::Size &size, double squareSize, cv::Mat &outCorners, bool center = true)
 	{
-		std::vector<cv::Point3d> outCornersVector;
+		std::vector<cv::Point3f> outCornersVector;
 		getOriginalCorners(size, squareSize, outCornersVector, center);
 		my_tools::convertVecPointToMat(outCornersVector, outCorners);
 	}
@@ -54,7 +54,7 @@ namespace my_functions
 //
 //	void get_iK_OriginalCorners(cv::Size &size,
 //		double squareSize,
-//		std::vector<cv::Point3d> &outCorners,
+//		std::vector<cv::Point3f> &outCorners,
 //		bool center = true)
 //	{
 //		cv::Mat iK_originalCornersM;
@@ -111,7 +111,7 @@ namespace my_functions
 		}
 	}
 
-	void drawAxes(cv::Mat &frame, const std::vector<cv::Point2d> &axisPixelVP)
+	void drawAxes(cv::Mat &frame, const std::vector<cv::Point2f> &axisPixelVP)
 	{
 		cv::circle(frame, axisPixelVP[0], 10, cv::Scalar(0, 0, 0), 2);
 
@@ -138,7 +138,7 @@ namespace my_functions
 		);
 
 		cv::Mat axisPixelM = my_config::K * H * axisMeterM;
-		std::vector<cv::Point2d> axisPixelVP;
+		std::vector<cv::Point2f> axisPixelVP;
 		my_tools::convertMatToVecPoint(axisPixelM, axisPixelVP);
 
 		drawAxes(frame, axisPixelVP);
@@ -157,7 +157,7 @@ namespace my_functions
 		cv::Mat K_I0 = my_config::K_I0;
 		cv::Mat K_I0_G = K_I0 * G;
 		cv::Mat axisPixelM = K_I0_G * axisMeterM;
-		std::vector<cv::Point2d> axisPixelVP;
+		std::vector<cv::Point2f> axisPixelVP;
 		my_tools::convertMatToVecPoint(axisPixelM, axisPixelVP);
 
 		drawAxes(frame, axisPixelVP);
