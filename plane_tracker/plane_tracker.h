@@ -14,7 +14,7 @@ namespace my_plane_tracker
 {
 	void analiceFrame(cv::Mat& frame,
 			std::vector<cv::Point3f>& cornersOriginalMeterVP,
-			cv::Mat& G1,
+			cv::Mat& G,
 			cv::Mat const& G0,
 			const bool& saveData = false)
 	{
@@ -124,81 +124,38 @@ namespace my_plane_tracker
 			my_tools::saveMatInTxt(R, "f/R");
 		}
 
-		// Step 8: Calculate G1 matrix
-		my_functions::buildTransformationMatrix(R, T, G1);
-		// Print G1 matrix
-		my_tools::printMat(G1, "G1");
+		// Step 8: Calculate G matrix
+		my_functions::buildTransformationMatrix(R, T, G);
+		// Print G matrix
+		my_tools::printMat(G, "G");
 		if (saveData)
 		{
-			my_tools::saveMatInTxt(G1, "f/G1");
+			my_tools::saveMatInTxt(G, "f/G");
 		}
 
-		// Experiment G1
+		// Experiment G
 		{
-			my_functions::drawAxesWithG(frame, G1);
+			my_functions::drawAxesWithG(frame, G);
 		}
 
 		// Experiment SolvePnP
 //		my_functions::experimentSolvePnP(
 //				cornersOriginalMeterVP,
 //				cornersFoundPixelVP,
-//				G1,
+//				G,
 //				frame,
 //				saveData
 //		);
 
-		if (!G0.empty())
-		{
-			cv::Mat const& R1 = R;
-			cv::Mat const& T1 = T;
-			double dt = my_config::deltaT;
-			cv::Mat R0 = G0(cv::Rect(0, 0, 3, 3));
-			cv::Mat T0 = G0(cv::Rect(3, 0, 1, 3));
-			cv::Mat R1_prime = (R1 - R0) / dt;
-			cv::Mat T1_prime = (T1 - T0) / dt;
-			cv::Mat w = R1_prime * R.t();
-			cv::Mat v = T1_prime - w * T;
-			cv::Mat Xi1;
-			cv::hconcat(w, v, Xi1);
-			cv::vconcat(
-					Xi1,
-					cv::Mat::zeros(1, 4, CV_64F),
-					Xi1
-			);
-
-			cv::Mat G01 = G1 * G0.inv();
-			cv::Mat I4x4 = cv::Mat::eye(4, 4, CV_64F);
-			cv::Mat G12 = (I4x4 + Xi1) * G01 * dt;
-
-			cv::Mat G2 = G12 * G1;
-
-			{
-				cv::Mat cornersOriginalMeterM;
-				my_tools::convertVecPointToMat(cornersOriginalMeterVP, cornersOriginalMeterM);
-
-				cv::Mat K_I0 = my_config::K_I0;
-				cv::Mat K_I0_G2 = K_I0 * G2;
-				cv::Mat cornersOriginalPixelM_2 = K_I0_G2 * cornersOriginalMeterM;
-
-				cv::Mat list_x = cornersOriginalPixelM_2.row(0);
-				cv::Mat list_y = cornersOriginalPixelM_2.row(1);
-
-				double min_x, max_x, min_y, max_y;
-
-				cv::minMaxLoc(list_x, &min_x, &max_x);
-				cv::minMaxLoc(list_y, &min_y, &max_y);
-
-				cv::rectangle(
-						frame,
-						cv::Point2d(min_x, min_y),
-						cv::Point2d(max_x, max_y),
-						cv::Scalar(0, 255, 0),
-						2
-				);
-			}
-
-		}
-
+		// predict G2
+		my_functions::predictG2(
+				G0,
+				G,
+				R,
+				T,
+				cornersOriginalMeterVP,
+				frame
+		);
 	}
 
 	int keepTrack(cv::VideoCapture& videoCapture)
@@ -254,9 +211,9 @@ namespace my_plane_tracker
 //				cv::imwrite(filename, frame);
 ////				break;
 //			}
-			cv::Mat G1;
-			analiceFrame(frame, originalCornersVP, G1, G0);
-			G0 = G1;
+			cv::Mat G;
+			analiceFrame(frame, originalCornersVP, G, G0);
+			G0 = G;
 
 			imshow(winName, frame);
 
