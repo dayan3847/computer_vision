@@ -67,7 +67,7 @@ namespace my_tools
 	void convertVecPointToMat(const std::vector<cv::Point3f> &vecPoint, cv::Mat &matPoint)
 	{
 		int count = int(vecPoint.size());
-		matPoint = cv::Mat(4, count, CV_64FC1);
+		matPoint = cv::Mat(4, count, CV_64F);
 		for (int i = 0; i < count; ++i)
 		{
 			matPoint.at<double>(0, i) = vecPoint[i].x;
@@ -81,7 +81,7 @@ namespace my_tools
 	{
 		int count = int(vecPoint.size());
 
-		matPoint = cv::Mat(3, count, CV_64FC1);
+		matPoint = cv::Mat(3, count, CV_64F);
 		for (int i = 0; i < count; ++i)
 		{
 			matPoint.at<double>(0, i) = vecPoint[i].x;
