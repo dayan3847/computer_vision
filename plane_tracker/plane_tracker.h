@@ -135,38 +135,38 @@ namespace my_plane_tracker
 
 		// Experiment G1
 		{
-//			my_functions::drawAxesWithG(frame, G1);
+			my_functions::drawAxesWithG(frame, G1);
 		}
 
 		// Experiment solvePnP
-		{
-			//distCoeffs zeros
-			cv::Mat _distCoeffs;
-
-			cv::Mat _rVec, _t;
-			// Resolver PnP
-			cv::solvePnP(cornersOriginalMeterVP, cornersFoundPixelVP, my_config::K, _distCoeffs, _rVec, _t);
-
-			// matrix de rotacion de 3x3
-			cv::Mat _r;
-			cv::Rodrigues(_rVec, _r);
-
-			cv::Mat _g;
-			my_functions::buildTransformationMatrix(_r, _t, _g);
-			if (saveData)
-			{
-				my_tools::saveMatInTxt(_t, "f/_solvePnP_t");
-				my_tools::saveMatInTxt(_r, "f/_solvePnP_r");
-				my_tools::saveMatInTxt(_g, "f/_solvePnP_g");
-			}
-			my_functions::drawAxesWithG(frame, _g);
-			G1 = _g;
-		}
+//		{
+//			//distCoeffs zeros
+//			cv::Mat _distCoeffs;
+//
+//			cv::Mat _rVec, _t;
+//			// Resolver PnP
+//			cv::solvePnP(cornersOriginalMeterVP, cornersFoundPixelVP, my_config::K, _distCoeffs, _rVec, _t);
+//
+//			// matrix de rotacion de 3x3
+//			cv::Mat _r;
+//			cv::Rodrigues(_rVec, _r);
+//
+//			cv::Mat _g;
+//			my_functions::buildTransformationMatrix(_r, _t, _g);
+//			if (saveData)
+//			{
+//				my_tools::saveMatInTxt(_t, "f/_solvePnP_t");
+//				my_tools::saveMatInTxt(_r, "f/_solvePnP_r");
+//				my_tools::saveMatInTxt(_g, "f/_solvePnP_g");
+//			}
+////			my_functions::drawAxesWithG(frame, _g);
+////			G1 = _g;
+//		}
 
 		if (!G0.empty())
 		{
-			cv::Mat R1 = R;
-			cv::Mat T1 = T;
+			cv::Mat const &R1 = R;
+			cv::Mat const &T1 = T;
 			double dt = my_config::deltaT;
 			cv::Mat R0 = G0(cv::Rect(0, 0, 3, 3));
 			cv::Mat T0 = G0(cv::Rect(3, 0, 1, 3));
@@ -234,7 +234,7 @@ namespace my_plane_tracker
 		cv::namedWindow(winName, cv::WINDOW_AUTOSIZE);
 
 		std::vector<cv::Point3f> originalCornersVP;
-		my_functions::getOriginalCorners(my_config::patternSize, my_config::squareSize, originalCornersVP, false);
+		my_functions::getOriginalCorners(my_config::patternSize, my_config::squareSize, originalCornersVP, true);
 
 		cv::Mat frame;
 		unsigned int frameNumber = 0;
