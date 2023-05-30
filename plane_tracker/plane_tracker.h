@@ -134,9 +134,34 @@ namespace my_plane_tracker
 			my_tools::saveMatInTxt(G, "f/G");
 		}
 
-		// Experimento G
+		// Experiment G
 		{
-			my_functions::drawAxesWithG(frame, G);
+//			my_functions::drawAxesWithG(frame, G);
+		}
+
+		// Experiment solvePnP
+		{
+			//distCoeffs zeros
+			cv::Mat _distCoeffs;
+
+			cv::Mat _rVec, _t;
+			// Resolver PnP
+			cv::solvePnP(cornersOriginalMeterVP, cornersFoundPixelVP, my_config::K, _distCoeffs, _rVec, _t);
+
+			// matrix de rotacion de 3x3
+			cv::Mat _r;
+			cv::Rodrigues(_rVec, _r);
+
+			cv::Mat _g;
+			my_functions::buildTransformationMatrix(_r, _t, _g);
+			if (saveData)
+			{
+				my_tools::saveMatInTxt(_t, "f/_solvePnP_t");
+				my_tools::saveMatInTxt(_r, "f/_solvePnP_r");
+				my_tools::saveMatInTxt(_g, "f/_solvePnP_g");
+			}
+			my_functions::drawAxesWithG(frame, _g);
+			G = _g;
 		}
 
 	}
