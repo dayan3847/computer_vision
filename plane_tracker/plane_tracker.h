@@ -12,11 +12,11 @@
 
 namespace my_plane_tracker
 {
-	void analiceFrame(cv::Mat &frame,
-		std::vector<cv::Point3f> &cornersOriginalMeterVP,
-		cv::Mat &G,
-		cv::Mat const &G_prev,
-		const bool &saveData = false)
+	void analiceFrame(cv::Mat& frame,
+			std::vector<cv::Point3f>& cornersOriginalMeterVP,
+			cv::Mat& G1,
+			cv::Mat const& G0,
+			const bool& saveData = false)
 	{
 		cv::Size patternSize = my_config::patternSize;
 		// Step 3: Find Chessboard Corners
@@ -78,10 +78,10 @@ namespace my_plane_tracker
 		std::cout << "Step 5.5: Calculate the translation vector T" << std::endl;
 
 		cv::Mat T = (cv::Mat_<double>(3, 1)
-			<<
-			H.at<double>(0, 2),
-			H.at<double>(1, 2),
-			H.at<double>(2, 2)
+				<<
+				H.at<double>(0, 2),
+				H.at<double>(1, 2),
+				H.at<double>(2, 2)
 		);
 		// Print T matrix
 		my_tools::printMat(T, "T");
@@ -124,18 +124,18 @@ namespace my_plane_tracker
 			my_tools::saveMatInTxt(R, "f/R");
 		}
 
-		// Step 8: Calculate G matrix
-		my_functions::buildTransformationMatrix(R, T, G);
-		// Print G matrix
-		my_tools::printMat(G, "G");
+		// Step 8: Calculate G1 matrix
+		my_functions::buildTransformationMatrix(R, T, G1);
+		// Print G1 matrix
+		my_tools::printMat(G1, "G1");
 		if (saveData)
 		{
-			my_tools::saveMatInTxt(G, "f/G");
+			my_tools::saveMatInTxt(G1, "f/G1");
 		}
 
-		// Experiment G
+		// Experiment G1
 		{
-//			my_functions::drawAxesWithG(frame, G);
+//			my_functions::drawAxesWithG(frame, G1);
 		}
 
 		// Experiment solvePnP
@@ -160,31 +160,64 @@ namespace my_plane_tracker
 				my_tools::saveMatInTxt(_g, "f/_solvePnP_g");
 			}
 			my_functions::drawAxesWithG(frame, _g);
-			G = _g;
+			G1 = _g;
 		}
 
-		if (!G_prev.empty())
+		if (!G0.empty())
 		{
+			cv::Mat R1 = R;
+			cv::Mat T1 = T;
 			double dt = my_config::deltaT;
-			cv::Mat R_prev = G_prev(cv::Rect(0, 0, 3, 3));
-			cv::Mat T_prev = G_prev(cv::Rect(3, 0, 1, 3));
-			cv::Mat R_prime = (R - R_prev) / dt;
-			cv::Mat T_prime = (T - T_prev) / dt;
-			cv::Mat w = R_prime * R.t();
-			cv::Mat v = T_prime - w * T;
-			cv::Mat Gi = (cv::Mat_<double>(4, 4)
-				<<
-				w.at<double>(0, 0), w.at<double>(0, 1), w.at<double>(0, 2), v.at<double>(0, 0),
-				w.at<double>(1, 0), w.at<double>(1, 1), w.at<double>(1, 2), v.at<double>(1, 0),
-				w.at<double>(2, 0), w.at<double>(2, 1), w.at<double>(2, 2), v.at<double>(2, 0),
-				0, 0, 0, 0
+			cv::Mat R0 = G0(cv::Rect(0, 0, 3, 3));
+			cv::Mat T0 = G0(cv::Rect(3, 0, 1, 3));
+			cv::Mat R1_prime = (R1 - R0) / dt;
+			cv::Mat T1_prime = (T1 - T0) / dt;
+			cv::Mat w = R1_prime * R.t();
+			cv::Mat v = T1_prime - w * T;
+			cv::Mat Xi1;
+			cv::hconcat(w, v, Xi1);
+			cv::vconcat(
+					Xi1,
+					cv::Mat::zeros(1, 4, CV_64F),
+					Xi1
 			);
+
+			cv::Mat G01 = G1 * G0.inv();
+			cv::Mat I4x4 = cv::Mat::eye(4, 4, CV_64F);
+			cv::Mat G12 = (I4x4 + Xi1) * G01 * dt;
+
+			cv::Mat G2 = G12 * G1;
+
+			{
+				cv::Mat cornersOriginalMeterM;
+				my_tools::convertVecPointToMat(cornersOriginalMeterVP, cornersOriginalMeterM);
+
+				cv::Mat K_I0 = my_config::K_I0;
+				cv::Mat K_I0_G2 = K_I0 * G2;
+				cv::Mat cornersOriginalPixelM_2 = K_I0_G2 * cornersOriginalMeterM;
+
+				cv::Mat list_x = cornersOriginalPixelM_2.row(0);
+				cv::Mat list_y = cornersOriginalPixelM_2.row(1);
+
+				double min_x, max_x, min_y, max_y;
+
+				cv::minMaxLoc(list_x, &min_x, &max_x);
+				cv::minMaxLoc(list_y, &min_y, &max_y);
+
+				cv::rectangle(
+						frame,
+						cv::Point2d(min_x, min_y),
+						cv::Point2d(max_x, max_y),
+						cv::Scalar(0, 255, 0),
+						2
+				);
+			}
 
 		}
 
 	}
 
-	int keepTrack(cv::VideoCapture &videoCapture)
+	int keepTrack(cv::VideoCapture& videoCapture)
 	{
 		if (!videoCapture.isOpened())
 		{
@@ -206,7 +239,7 @@ namespace my_plane_tracker
 		cv::Mat frame;
 		unsigned int frameNumber = 0;
 
-		cv::Mat G_prev;
+		cv::Mat G0;
 		do
 		{
 			// print frame number in blue
@@ -237,9 +270,9 @@ namespace my_plane_tracker
 //				cv::imwrite(filename, frame);
 ////				break;
 //			}
-			cv::Mat G;
-			analiceFrame(frame, originalCornersVP, G, G_prev);
-			G_prev = G;
+			cv::Mat G1;
+			analiceFrame(frame, originalCornersVP, G1, G0);
+			G0 = G1;
 
 			imshow(winName, frame);
 
