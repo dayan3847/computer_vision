@@ -13,7 +13,7 @@
 namespace my_functions
 {
 
-	void getOriginalCorners(cv::Size &size, double squareSize, std::vector<cv::Point3f> &outCorners, bool center = true)
+	void getOriginalCorners(cv::Size& size, double squareSize, std::vector<cv::Point3f>& outCorners, bool center = true)
 	{
 		double initHeight = 0;
 		double initWidth = 0;
@@ -34,7 +34,7 @@ namespace my_functions
 		}
 	}
 
-	void getOriginalCorners(cv::Size &size, double squareSize, cv::Mat &outCorners, bool center = true)
+	void getOriginalCorners(cv::Size& size, double squareSize, cv::Mat& outCorners, bool center = true)
 	{
 		std::vector<cv::Point3f> outCornersVector;
 		getOriginalCorners(size, squareSize, outCornersVector, center);
@@ -62,7 +62,7 @@ namespace my_functions
 //		my_tools::convertMatToVecPoint(iK_originalCornersM, outCorners);
 //	}
 
-	void buildTransformationMatrix(const cv::Mat &R, const cv::Mat &T, cv::Mat &G)
+	void buildTransformationMatrix(const cv::Mat& R, const cv::Mat& T, cv::Mat& G)
 	{
 		CV_Assert(R.rows == 3 && R.cols == 3 && T.rows == 3 && T.cols == 1);
 
@@ -76,12 +76,12 @@ namespace my_functions
 		G.at<double>(3, 3) = 1.;
 	}
 
-	void proj(cv::Mat &u, cv::Mat &v, cv::Mat &pv)
+	void proj(cv::Mat& u, cv::Mat& v, cv::Mat& pv)
 	{
 		pv = u.dot(v) * u / u.dot(u);
 	}
 
-	void gramSchmidtOrthogonalizationMethod(cv::Mat &H)
+	void gramSchmidtOrthogonalizationMethod(cv::Mat& H)
 	{
 		cv::Mat v1, v2, v3, u[3];
 
@@ -101,7 +101,7 @@ namespace my_functions
 		cv::hconcat(u, 3, H);
 	}
 
-	void homogenous2Cartesian(cv::Mat &matPoint)
+	void homogenous2Cartesian(cv::Mat& matPoint)
 	{
 		for (int i = 0; i < matPoint.cols; ++i)
 		{
@@ -111,7 +111,7 @@ namespace my_functions
 		}
 	}
 
-	void drawAxes(cv::Mat &frame, const std::vector<cv::Point2f> &axisPixelVP)
+	void drawAxes(cv::Mat& frame, const std::vector<cv::Point2f>& axisPixelVP)
 	{
 		cv::circle(frame, axisPixelVP[0], 10, cv::Scalar(0, 0, 0), 2);
 
@@ -128,13 +128,13 @@ namespace my_functions
 		}
 	}
 
-	void drawAxesWithH(cv::Mat &frame, cv::Mat &H)
+	void drawAxesWithH(cv::Mat& frame, cv::Mat& H)
 	{
 		cv::Mat axisMeterM = (cv::Mat_<double>(3, 3)
-			<<
-			0., -.1, 0., // x
-			0., 0., -.1, // y
-			1., 1., 1.   // 1
+				<<
+				0., -.1, 0., // x
+				0., 0., -.1, // y
+				1., 1., 1.   // 1
 		);
 
 		cv::Mat axisPixelM = my_config::K * H * axisMeterM;
@@ -144,14 +144,14 @@ namespace my_functions
 		drawAxes(frame, axisPixelVP);
 	}
 
-	void drawAxesWithG(cv::Mat &frame, cv::Mat &G)
+	void drawAxesWithG(cv::Mat& frame, cv::Mat& G)
 	{
 		cv::Mat axisMeterM = (cv::Mat_<double>(4, 4)
-			<<
-			0., -.1, 0., 0., // x
-			0., 0., -.1, 0., // y
-			0., 0., 0., -.1, // z
-			1., 1., 1., 1.   // 1
+				<<
+				0., -.1, 0., 0., // x
+				0., 0., -.1, 0., // y
+				0., 0., 0., -.1, // z
+				1., 1., 1., 1.   // 1
 		);
 
 		cv::Mat K_I0 = my_config::K_I0;
@@ -161,6 +161,35 @@ namespace my_functions
 		my_tools::convertMatToVecPoint(axisPixelM, axisPixelVP);
 
 		drawAxes(frame, axisPixelVP);
+	}
+
+	void experimentSolvePnP(
+			std::vector<cv::Point3f>& cornersOriginalMeterVP,
+			std::vector<cv::Point2f>& cornersFoundPixelVP,
+			cv::Mat& G,
+			cv::Mat& frame,
+			const bool& saveData = false
+	)
+	{
+		//distCoeffs zeros
+		cv::Mat _distCoeffs;
+
+		cv::Mat _rVec, _t;
+		// Resolver PnP
+		cv::solvePnP(cornersOriginalMeterVP, cornersFoundPixelVP, my_config::K, _distCoeffs, _rVec, _t);
+
+		// matrix de rotacion de 3x3
+		cv::Mat _r;
+		cv::Rodrigues(_rVec, _r);
+
+		my_functions::buildTransformationMatrix(_r, _t, G);
+		if (saveData)
+		{
+			my_tools::saveMatInTxt(_t, "f/_solvePnP_t");
+			my_tools::saveMatInTxt(_r, "f/_solvePnP_r");
+			my_tools::saveMatInTxt(G, "f/_solvePnP_g");
+		}
+		my_functions::drawAxesWithG(frame, G);
 	}
 
 }
