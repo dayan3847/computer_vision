@@ -156,7 +156,12 @@ namespace my_functions
 
 		cv::Mat K_I0 = my_config::K_I0;
 		cv::Mat K_I0_G = K_I0 * G;
+
 		cv::Mat axisPixelM = K_I0_G * axisMeterM;
+	//	cv::Mat G_A = G * axisMeterM;
+	//	cv::Mat I0_G_A = my_config::I0 * G_A;
+	//	cv::Mat axisPixelM = my_config::K * I0_G_A;
+
 		std::vector<cv::Point2f> axisPixelVP;
 		my_tools::convertMatToVecPoint(axisPixelM, axisPixelVP);
 

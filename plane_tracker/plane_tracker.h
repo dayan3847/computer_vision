@@ -52,7 +52,7 @@ namespace my_plane_tracker {
 
 		// Experimento H
 		{
-			my_functions::drawAxesWithH(frame, H);
+//			my_functions::drawAxesWithH(frame, H);
 		}
 
 		my_tools::printMat(H, "H");
