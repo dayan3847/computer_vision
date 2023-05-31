@@ -158,9 +158,9 @@ namespace my_functions
 		cv::Mat K_I0_G = K_I0 * G;
 
 		cv::Mat axisPixelM = K_I0_G * axisMeterM;
-	//	cv::Mat G_A = G * axisMeterM;
-	//	cv::Mat I0_G_A = my_config::I0 * G_A;
-	//	cv::Mat axisPixelM = my_config::K * I0_G_A;
+		//	cv::Mat G_A = G * axisMeterM;
+		//	cv::Mat I0_G_A = my_config::I0 * G_A;
+		//	cv::Mat axisPixelM = my_config::K * I0_G_A;
 
 		std::vector<cv::Point2f> axisPixelVP;
 		my_tools::convertMatToVecPoint(axisPixelM, axisPixelVP);
@@ -185,7 +185,7 @@ namespace my_functions
 			cv::Mat R1_prime = (R1 - R0) / dt;
 			cv::Mat T1_prime = (T1 - T0) / dt;
 			cv::Mat w = R1_prime * R1.t();
-			cv::Mat v = T1_prime - w * T1;
+			cv::Mat v = T1_prime - (w * T1);
 			cv::Mat Xi1;
 			cv::hconcat(w, v, Xi1);
 			cv::vconcat(
@@ -255,6 +255,29 @@ namespace my_functions
 			my_tools::saveMatInTxt(G, "f/_solvePnP_g");
 		}
 		my_functions::drawAxesWithG(frame, G);
+	}
+
+
+	void experimentG0G1G01(
+			const std::vector<cv::Point3f>& cornersOriginalMeterVP,
+			const cv::Mat& G0,
+			const cv::Mat& G1
+	)
+	{
+		if (!G0.empty())
+		{
+			cv::Mat cornersOriginalMeterM;
+			my_tools::convertVecPointToMat(cornersOriginalMeterVP, cornersOriginalMeterM);
+			std::cout << "cornersOriginalMeterM" << std::endl;
+			my_tools::printMat(cornersOriginalMeterM.col(0), "cornersOriginalMeterM");
+			cv::Mat X0 = G0 * cornersOriginalMeterM;
+			my_tools::printMat(X0.col(0), "X0");
+			cv::Mat X1 = G1 * cornersOriginalMeterM;
+			my_tools::printMat(X1.col(0), "X1");
+			cv::Mat G01 = G1 * G0.inv();
+			cv::Mat X1_ = G01 * X0;
+			my_tools::printMat(X1_.col(0), "X1_");
+		}
 	}
 
 }

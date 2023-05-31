@@ -10,12 +10,14 @@
 #include "config.h"
 #include "functions.h"
 
-namespace my_plane_tracker {
-	void analiceFrame(cv::Mat &frame,
-					  std::vector<cv::Point3f> &cornersOriginalMeterVP,
-					  cv::Mat &G,
-					  cv::Mat const &G0,
-					  const bool &saveData = false) {
+namespace my_plane_tracker
+{
+	void analiceFrame(cv::Mat& frame,
+			std::vector<cv::Point3f>& cornersOriginalMeterVP,
+			cv::Mat& G,
+			cv::Mat const& G0,
+			const bool& saveData = false)
+	{
 		cv::Size patternSize = my_config::patternSize;
 		// Step 3: Find Chessboard Corners
 		std::cout << "Step 3: Find Chessboard Corners" << std::endl;
@@ -31,14 +33,16 @@ namespace my_plane_tracker {
 		cv::Mat cornersFoundPixelM;
 		my_tools::convertVecPointToMat(cornersFoundPixelVP, cornersFoundPixelM);
 
-		if (saveData) {
+		if (saveData)
+		{
 			my_tools::saveMatInTxt(cornersFoundPixelM.t(), "f/corners_found_pixel");
 		}
 
 		cv::Mat iK = my_config::iK;
 		cv::Mat cornersFoundMeterM = iK * cornersFoundPixelM;
 
-		if (saveData) {
+		if (saveData)
+		{
 			my_tools::saveMatInTxt(cornersFoundMeterM.t(), "f/corners_found_meter");
 		}
 
@@ -56,7 +60,8 @@ namespace my_plane_tracker {
 		}
 
 		my_tools::printMat(H, "H");
-		if (saveData) {
+		if (saveData)
+		{
 			my_tools::saveMatInTxt(H, "f/H_0_initial");
 		}
 
@@ -64,7 +69,8 @@ namespace my_plane_tracker {
 		std::cout << "Step 5: Normalize H matrix" << std::endl;
 		H /= cv::norm(H.col(0));
 		my_tools::printMat(H, "H (normalized)");
-		if (saveData) {
+		if (saveData)
+		{
 			my_tools::saveMatInTxt(H, "f/H_1_normalized");
 		}
 
@@ -79,7 +85,8 @@ namespace my_plane_tracker {
 		);
 		// Print T matrix
 		my_tools::printMat(T, "T");
-		if (saveData) {
+		if (saveData)
+		{
 			my_tools::saveMatInTxt(T, "f/T");
 		}
 
@@ -101,7 +108,8 @@ namespace my_plane_tracker {
 
 		// Print H matrix
 		my_tools::printMat(H, "H (normalized and orthogonalized)");
-		if (saveData) {
+		if (saveData)
+		{
 			my_tools::saveMatInTxt(H, "f/H_2_orthogonalized");
 		}
 
@@ -115,7 +123,8 @@ namespace my_plane_tracker {
 		r3.copyTo(R.col(2));
 		// Print R matrix
 		my_tools::printMat(R, "R");
-		if (saveData) {
+		if (saveData)
+		{
 			my_tools::saveMatInTxt(R, "f/R");
 		}
 
@@ -123,7 +132,8 @@ namespace my_plane_tracker {
 		my_functions::buildTransformationMatrix(R, T, G);
 		// Print G matrix
 		my_tools::printMat(G, "G");
-		if (saveData) {
+		if (saveData)
+		{
 			my_tools::saveMatInTxt(G, "f/G");
 		}
 
@@ -140,7 +150,6 @@ namespace my_plane_tracker {
 //				frame,
 //				saveData
 //		);
-
 		// predict G2
 		my_functions::predictG2(
 				G0,
@@ -150,10 +159,15 @@ namespace my_plane_tracker {
 				cornersOriginalMeterVP,
 				frame
 		);
+		// Experiment G0 G1 G01
+//		my_functions::experimentG0G1G01(cornersOriginalMeterVP, G0, G);
+
 	}
 
-	int keepTrack(cv::VideoCapture &videoCapture) {
-		if (!videoCapture.isOpened()) {
+	int keepTrack(cv::VideoCapture& videoCapture)
+	{
+		if (!videoCapture.isOpened())
+		{
 			std::cerr << "Failed to open camera or video" << std::endl;
 			return -1;
 		}
@@ -173,7 +187,8 @@ namespace my_plane_tracker {
 		unsigned int frameNumber = 0;
 
 		cv::Mat G0;
-		do {
+		do
+		{
 			// print frame number in blue
 			std::cout << "frame: " << "\033[34m" << ++frameNumber << "\033[0m" << std::endl;
 			// current time
@@ -184,7 +199,8 @@ namespace my_plane_tracker {
 			// Step 1: Capture frame
 			std::cout << "Step 1: Capture frame" << std::endl;
 			videoCapture >> frame;
-			if (frame.empty()) {
+			if (frame.empty())
+			{
 				std::cerr << "Error capturing the frame" << std::endl;
 				break;
 			}
