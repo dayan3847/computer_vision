@@ -16,8 +16,10 @@ namespace my_plane_tracker
 			std::vector<cv::Point3f>& cornersOriginalMeterVP,
 			cv::Mat& G,
 			cv::Mat const& G0,
+			unsigned int const& frameNumber,
 			const bool& saveData = false)
 	{
+		std::string frameNumberS = std::to_string(frameNumber);
 		cv::Size patternSize = my_config::patternSize;
 		// Step 3: Find Chessboard Corners
 		std::cout << "Step 3: Find Chessboard Corners" << std::endl;
@@ -35,7 +37,7 @@ namespace my_plane_tracker
 
 		if (saveData)
 		{
-			my_tools::saveMatInTxt(cornersFoundPixelM.t(), "f/corners_found_pixel");
+			my_tools::saveMatInTxt(cornersFoundPixelM.t(), "f" + frameNumberS + "/corners_found_pixel");
 		}
 
 		cv::Mat iK = my_config::iK;
@@ -43,7 +45,7 @@ namespace my_plane_tracker
 
 		if (saveData)
 		{
-			my_tools::saveMatInTxt(cornersFoundMeterM.t(), "f/corners_found_meter");
+			my_tools::saveMatInTxt(cornersFoundMeterM.t(), "f" + frameNumberS + "/corners_found_meter");
 		}
 
 		std::vector<cv::Point2f> cornersFoundMeterVP;
@@ -77,7 +79,7 @@ namespace my_plane_tracker
 		my_tools::printMat(H, "H");
 		if (saveData)
 		{
-			my_tools::saveMatInTxt(H, "f/H_0_initial");
+			my_tools::saveMatInTxt(H, "f" + frameNumberS + "/H_0_initial");
 		}
 
 		// Step 5: Normalize H matrix
@@ -86,7 +88,7 @@ namespace my_plane_tracker
 		my_tools::printMat(H, "H (normalized)");
 		if (saveData)
 		{
-			my_tools::saveMatInTxt(H, "f/H_1_normalized");
+			my_tools::saveMatInTxt(H, "f" + frameNumberS + "/H_1_normalized");
 		}
 
 		// Step 5.5: Calculate the translation vector T
@@ -126,7 +128,7 @@ namespace my_plane_tracker
 		my_tools::printMat(H, "H (normalized and orthogonalized)");
 		if (saveData)
 		{
-			my_tools::saveMatInTxt(H, "f/H_2_orthogonalized");
+			my_tools::saveMatInTxt(H, "f" + frameNumberS + "/H_2_orthogonalized");
 		}
 
 		// r3
@@ -236,7 +238,7 @@ namespace my_plane_tracker
 //				break;
 			}
 			cv::Mat G;
-			analiceFrame(frame, originalCornersVP, G, G0);
+			analiceFrame(frame, originalCornersVP, G, G0, frameNumber);
 			G0 = G;
 
 			imshow(winName, frame);

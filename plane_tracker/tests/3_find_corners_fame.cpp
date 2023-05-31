@@ -2,7 +2,7 @@
 
 int main()
 {
-	unsigned int frameNumber = 5;
+	unsigned int frameNumber = 240;
 //	unsigned int frameNumber = 240;
 	// import image
 
@@ -15,7 +15,7 @@ int main()
 	cv::Mat frame = cv::imread("./tests/data/frame_" + std::to_string(frameNumber) + ".jpg");
 
 	cv::Mat G, G0;
-	my_plane_tracker::analiceFrame(frame, originalCornersVP, G, G0, true);
+	my_plane_tracker::analiceFrame(frame, originalCornersVP, G, G0, frameNumber, true);
 	imshow(winName, frame);
 	do
 	{
