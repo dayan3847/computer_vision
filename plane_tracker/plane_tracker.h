@@ -92,7 +92,10 @@ namespace my_plane_tracker {
 		// r2
 		cv::Mat r2 = H.col(1);
 
-		r2 = r2 - r2.dot(r1) * r1;
+//		r2 = r2 - r2.dot(r1) * r1;
+		r1 = r1 - r1.dot(r2) * r2;
+
+		r1 /= cv::norm(r1);
 		// Step 6.5: Normalize r2
 		r2 /= cv::norm(r2);
 
