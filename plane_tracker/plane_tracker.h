@@ -49,10 +49,25 @@ namespace my_plane_tracker
 		std::vector<cv::Point2f> cornersFoundMeterVP;
 		my_tools::convertMatToVecPoint(cornersFoundMeterM, cornersFoundMeterVP);
 
-
 		// Step 4: Calculate Homography (H matrix)
 		std::cout << "Step 4: Calculate Homography (H matrix)" << std::endl;
 		cv::Mat H = cv::findHomography(cornersOriginalMeterVP, cornersFoundMeterVP);
+//		cv::Mat cornersOriginalMeterM;
+//		my_tools::convertVecPointToMat(cornersOriginalMeterVP, cornersOriginalMeterM);
+//		// remove last row
+//		cornersOriginalMeterM = cornersOriginalMeterM.rowRange(0, 3);
+//		my_tools::printMat(cornersOriginalMeterM, "cornersOriginalMeterM");
+//		cv::Mat cornersOriginalPixelM = my_config::K * cornersOriginalMeterM;
+//		my_tools::printMat(cornersOriginalPixelM, "cornersOriginalPixelM");
+//		cornersOriginalPixelM.row(2) = 1;
+//		my_tools::printMat(cornersOriginalPixelM, "cornersOriginalPixelM");
+//		std::vector<cv::Point2f> cornersOriginalPixelVP;
+//		if (saveData)
+//		{
+//			my_tools::saveMatInTxt(cornersOriginalPixelM.t(), "cornersOriginalPixelM");
+//		}
+//		my_tools::convertMatToVecPoint(cornersOriginalPixelM, cornersOriginalPixelVP);
+//		cv::Mat H = cv::findHomography(cornersOriginalPixelVP, cornersFoundPixelVP);
 
 		// Experimento H
 		{
@@ -99,8 +114,9 @@ namespace my_plane_tracker
 		// r2
 		cv::Mat r2 = H.col(1);
 
-//		r2 = r2 - r2.dot(r1) * r1;
-		r1 = r1 - r1.dot(r2) * r2;
+		r2 = r2 - r2.dot(r1) * r1;
+//		r1 = r1 - r1.dot(r2) * r2;
+
 
 		r1 /= cv::norm(r1);
 		// Step 6.5: Normalize r2
@@ -121,6 +137,8 @@ namespace my_plane_tracker
 		r1.copyTo(R.col(0));
 		r2.copyTo(R.col(1));
 		r3.copyTo(R.col(2));
+
+//		my_functions::gramSchmidtOrthogonalizationMethod(R);
 		// Print R matrix
 		my_tools::printMat(R, "R");
 		if (saveData)
@@ -210,12 +228,12 @@ namespace my_plane_tracker
 //				resize(frame, frame, cv::Size(), scaleX, scaleY, cv::INTER_AREA);
 //			}
 			// Save frame to file (test)
-//			if (frameNumber == 50 || frameNumber == 347)
+//			if (frameNumber == 240)
 //			{
 //				// save current frame to file
 //				std::string filename = "./tests/data/frame_" + std::to_string(frameNumber) + ".jpg";
 //				cv::imwrite(filename, frame);
-////				break;
+//				break;
 //			}
 			cv::Mat G;
 			analiceFrame(frame, originalCornersVP, G, G0);

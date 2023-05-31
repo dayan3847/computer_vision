@@ -11,12 +11,12 @@ def plot_mat(mat: np.ndarray, label: str, *color: str):
 
 if __name__ == '__main__':
     data_original_corners_m = np.loadtxt('./data/originalCornersM.txt', delimiter=' ')
-    corners_fount_meter = np.loadtxt('./data/f/corners_fount_meter.txt', delimiter=' ')
+    corners_found_meter = np.loadtxt('./data/f/corners_found_meter.txt', delimiter=' ')
 
     plt.figure()
 
     plot_mat(data_original_corners_m, 'original_corners_m', 'red')
-    plot_mat(corners_fount_meter, 'corners_fount_meter', 'orange')
+    plot_mat(corners_found_meter, 'corners_found_meter', 'orange')
 
     plt.legend()
     plt.title('Esquinas detectadas premultiplicadas por iK')
