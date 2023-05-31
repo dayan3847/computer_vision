@@ -28,27 +28,27 @@ namespace my_plane_tracker {
 		// Draw Chessboard Corners
 		drawChessboardCorners(frame, patternSize, my_tools::covertVecPoint2f(cornersFoundPixelVP), true);
 
-		cv::Mat cornersFountPixelM;
-		my_tools::convertVecPointToMat(cornersFoundPixelVP, cornersFountPixelM);
+		cv::Mat cornersFoundPixelM;
+		my_tools::convertVecPointToMat(cornersFoundPixelVP, cornersFoundPixelM);
 
 		if (saveData) {
-			my_tools::saveMatInTxt(cornersFountPixelM.t(), "f/corners_fount_pixel");
+			my_tools::saveMatInTxt(cornersFoundPixelM.t(), "f/corners_found_pixel");
 		}
 
 		cv::Mat iK = my_config::iK;
-		cv::Mat cornersFountMeterM = iK * cornersFountPixelM;
+		cv::Mat cornersFoundMeterM = iK * cornersFoundPixelM;
 
 		if (saveData) {
-			my_tools::saveMatInTxt(cornersFountMeterM.t(), "f/corners_fount_meter");
+			my_tools::saveMatInTxt(cornersFoundMeterM.t(), "f/corners_found_meter");
 		}
 
-		std::vector<cv::Point2f> cornersFountMeterVP;
-		my_tools::convertMatToVecPoint(cornersFountMeterM, cornersFountMeterVP);
+		std::vector<cv::Point2f> cornersFoundMeterVP;
+		my_tools::convertMatToVecPoint(cornersFoundMeterM, cornersFoundMeterVP);
 
 
 		// Step 4: Calculate Homography (H matrix)
 		std::cout << "Step 4: Calculate Homography (H matrix)" << std::endl;
-		cv::Mat H = cv::findHomography(cornersOriginalMeterVP, cornersFountMeterVP);
+		cv::Mat H = cv::findHomography(cornersOriginalMeterVP, cornersFoundMeterVP);
 
 		// Experimento H
 		{
