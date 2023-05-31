@@ -2,7 +2,7 @@
 
 int main()
 {
-	unsigned int frameNumber = 1;
+	unsigned int frameNumber = 5;
 //	unsigned int frameNumber = 240;
 	// import image
 

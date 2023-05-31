@@ -11,7 +11,7 @@ def plot_mat(mat: np.ndarray, label: str, *color: str):
 
 if __name__ == '__main__':
     data_original_corners_m = np.loadtxt('./data/originalCornersM.txt', delimiter=' ')
-    corners_found_meter = np.loadtxt('./data/f/corners_found_meter.txt', delimiter=' ')
+    corners_found_meter = np.loadtxt('data/f3/corners_found_meter.txt', delimiter=' ')
 
     plt.figure()
 

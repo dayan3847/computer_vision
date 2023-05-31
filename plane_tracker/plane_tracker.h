@@ -228,13 +228,13 @@ namespace my_plane_tracker
 //				resize(frame, frame, cv::Size(), scaleX, scaleY, cv::INTER_AREA);
 //			}
 			// Save frame to file (test)
-//			if (frameNumber == 240)
-//			{
-//				// save current frame to file
-//				std::string filename = "./tests/data/frame_" + std::to_string(frameNumber) + ".jpg";
-//				cv::imwrite(filename, frame);
+			if (frameNumber <= 5)
+			{
+				// save current frame to file
+				std::string filename = "./tests/data/frame_" + std::to_string(frameNumber) + ".jpg";
+				cv::imwrite(filename, frame);
 //				break;
-//			}
+			}
 			cv::Mat G;
 			analiceFrame(frame, originalCornersVP, G, G0);
 			G0 = G;
